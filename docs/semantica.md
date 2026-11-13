@@ -1,0 +1,181 @@
+# Semântica do PT-BR estruturado — v1 (rascunho para o gate G0)
+
+> Este documento define **o que cada construção significa** e **como cada gerador a escreve**.
+> É o contrato que permite prometer: *"todo programa que o interpretador de referência executa
+> até o fim produz saída idêntica em Python, Java, C, C++ e PHP"*.
+>
+> Status: rascunho. Cada regra marcada com **[validar no spike]** precisa ser confirmada rodando o
+> código gerado nos runtimes reais na Fase 0 (sprint.md §4, tarefa 0.5).
+
+---
+
+## 1. Princípio: o interpretador é mais estrito que todas as linguagens
+
+Quando as linguagens-alvo discordam, há três saídas possíveis. Usamos sempre a primeira que couber:
+
+1. **Gerar código que concorda** em todas (ex.: inicializar toda variável).
+2. **Restringir o subconjunto** para que o caso não exista (ex.: o passo do `para` é sempre literal).
+3. **Interromper no interpretador** com um erro de execução educativo — a "pegadinha" — que explica
+   como cada linguagem se comportaria (ex.: overflow, divisão inteira de negativos).
+
+Consequência: o código gerado continua **idiomático** (sem checagens artificiais) e a equivalência
+vale para todo programa que roda até o fim no interpretador.
+
+---
+
+## 2. Tipos
+
+| PT-BR | Python | Java | C | C++ | PHP | Regra |
+|---|---|---|---|---|---|---|
+| `inteiro` | `int` | `int` | `int` | `int` | `int` | Faixa **−2³¹ … 2³¹−1**. Resultado fora da faixa → pegadinha "overflow" (Python não estoura, Java dá a volta, C/C++ é comportamento indefinido, PHP vira float). |
+| `real` | `float` | `double` | `double` | `double` | `float` | IEEE 754 de 64 bits em todas. |
+| `caractere` | `str` | `String` | `char[256]` | `std::string` | `string` | Máx. **255** caracteres; ultrapassar → pegadinha (C precisa de tamanho fixo). Só ASCII imprimível no v1 **[validar no spike: acentos em C/PHP com UTF-8]**. |
+| `logico` | `bool` | `boolean` | `bool` (`<stdbool.h>`) | `bool` | `bool` | Impresso como `verdadeiro` / `falso` em todas. |
+
+**Inicialização:** toda variável declarada é inicializada explicitamente com `0`, `0.0`, `""` ou
+`falso` em todas as linguagens (resolve o lixo de memória em C e a regra de atribuição definida
+do Java).
+
+**Conversões:** `inteiro → real` implícita; `real → inteiro` só com `int(x)` (trunca), gerado como
+`int(x)` / `(int) x` / `(int) x` / `static_cast<int>(x)` / `(int) $x`.
+
+---
+
+## 3. Operadores
+
+| PT-BR | Semântica | Python | Java / C / C++ | PHP |
+|---|---|---|---|---|
+| `a / b` | divisão **real** sempre | `a / b` | `(double) a / b` se ambos inteiros | `a / b` |
+| `a div b` | divisão inteira | `a // b` | `a / b` | `intdiv(a, b)` |
+| `a mod b` | resto | `a % b` | `a % b` | `a % b` |
+| `+` em `caractere` | concatenação | `a + b` | Java `a + b`; C `snprintf`; C++ `a + b` | `a . b` |
+| `=` / `<>` em `caractere` | igualdade | `==` / `!=` | Java `a.equals(b)`; C `strcmp(a,b) == 0`; C++ `==` | `===` / `!==` |
+| `e` / `ou` / `nao` | lógicos com curto-circuito | `and` / `or` / `not` | `&&` / `\|\|` / `!` | `&&` / `\|\|` / `!` |
+
+Pegadinhas interrompidas pelo interpretador:
+- `div` ou `mod` com **operando negativo** (Python arredonda para baixo; as demais truncam).
+- Divisão por zero (inteira ou real). Em real, C/Java/PHP dariam `INF` e Python lança exceção.
+- Resultado inteiro fora da faixa de 32 bits.
+
+---
+
+## 4. Saída (`escreva`, `escreval`)
+
+- `escreva(a, b, …)` concatena os valores sem separador; `escreval` acrescenta `\n`.
+- `inteiro` → decimal sem formatação. `logico` → `verdadeiro`/`falso`.
+- `real` **sem formato** → 2 casas decimais, ponto como separador. Com formato `x:0:n` → `n` casas.
+
+| | Python | Java | C | C++ | PHP |
+|---|---|---|---|---|---|
+| real, 2 casas | `f"{x:.2f}"` | `String.format(Locale.ROOT, "%.2f", x)` | `printf("%.2f", x)` | `std::fixed << std::setprecision(2) << x` | `printf("%.2F", $x)` |
+
+Observações:
+- **Java:** sem `Locale.ROOT`, uma JVM com locale pt-BR imprime `3,50`. O `import java.util.Locale`
+  é um nó sintético com explicação.
+- **PHP:** `%F` (maiúsculo) não depende de locale; `%f` depende.
+- **Empates exatos de arredondamento** (ex.: `0.125` com 2 casas): a biblioteca C e o Python
+  arredondam o valor binário de um jeito, e o `Formatter` do Java usa HALF_UP → podem divergir.
+  O interpretador detecta empate exato e mostra a pegadinha. **[validar no spike]**
+- Literais de texto passam por **escape por linguagem** (`"`, `\`, e `%` → `%%` em formatos de
+  `printf`). Nunca interpolar texto do aluno como string de formato.
+
+---
+
+## 5. Entrada (`leia`)
+
+Regra única: **cada `leia(x)` consome uma linha inteira** da entrada; espaços nas pontas são
+ignorados.
+
+| Tipo | Python | Java (`Scanner sc`) | C | C++ | PHP |
+|---|---|---|---|---|---|
+| inteiro | `int(input())` | `Integer.parseInt(sc.nextLine().trim())` | `fgets` + `sscanf(linha, "%d", &x)` | `getline` + `std::stoi` | `(int) trim(fgets(STDIN))` |
+| real | `float(input())` | `Double.parseDouble(…)` | `fgets` + `sscanf(…, "%lf", &x)` | `getline` + `std::stod` | `(float) trim(fgets(STDIN))` |
+| caractere | `input()` | `sc.nextLine()` | `fgets` + remover `\n` | `std::getline(std::cin, x)` | `rtrim(fgets(STDIN), "\n")` |
+
+- Sempre `nextLine()` no Java: evita a armadilha clássica `nextInt()` + `nextLine()`.
+- Número real com **vírgula** (`7,5`) → o interpretador rejeita com mensagem educativa
+  ("as linguagens de programação usam ponto"). `leia` de `logico` não existe no v1.
+- No navegador, o console do interpretador é **interativo** (o programa pede e espera).
+- No CI, a entrada vem de arquivo (`stdin`), uma linha por `leia`.
+
+---
+
+## 6. Controle de fluxo
+
+- `se/senao`, `enquanto`: mapeamento direto.
+- `para i de a ate b [passo k] faca`:
+  - `k` é **literal inteiro não nulo** (padrão 1); `ate` é **inclusivo**.
+  - Python: `for i in range(a, b + 1)` (ou `range(a, b - 1, k)` com passo negativo).
+  - Java/C/C++/PHP: `for (i = a; i <= b; i += k)` (ou `>=` com passo negativo).
+  - **Proibido** atribuir à variável de controle dentro do laço (erro semântico: o `range` do
+    Python ignoraria a atribuição).
+  - **Ler a variável de controle depois do laço** é pegadinha no interpretador (Python termina com
+    `b`, as demais com `b + k`).
+
+---
+
+## 7. Funções, procedimentos e escopo
+
+- Parâmetros escalares **por valor**; vetores **por referência**.
+  - PHP copia arrays por padrão → o gerador sempre usa `array &$v`.
+  - C/C++ recebem `int v[N]` com o tamanho constante declarado.
+- Funções não retornam vetor no v1.
+- **Variáveis globais** (declaradas no `var` do algoritmo) podem ser usadas em funções:
+  - Python: `global x` quando a função atribui; PHP: `global $x;` sempre que usa;
+    Java: campos `static`; C/C++: variáveis globais.
+- Recursão permitida; profundidade > **500** → pegadinha (o limite padrão do Python é 1000).
+- C: o gerador emite **protótipos** antes do `main` (mapeados como 2º range do nó `funcao`).
+- Java: tudo dentro de `public class Main` com métodos `static` (nó sintético).
+
+---
+
+## 8. Vetores
+
+- Declaração `v: vetor[0..N-1] de tipo`, com `N` constante.
+- Python `[0] * N`; Java `new int[N]`; C/C++ `int v[N] = {0}`; PHP `array_fill(0, N, 0)`.
+- Índice fora de `0..N-1` → pegadinha (C não verifica e corrompe memória; as demais lançam erro).
+- Limite inferior diferente de 0 → erro educativo (decisão pendente com professores; ver
+  context.md §10).
+
+---
+
+## 9. Identificadores
+
+- Letras, dígitos e `_`; acentos permitidos em PT-BR e **transliterados** nas linguagens-alvo
+  (`média` → `media`), com erro se a transliteração colidir com outro nome.
+- Nomes reservados em **qualquer** linguagem-alvo (atual ou da v1.1) são rejeitados com sugestão:
+  `print`, `int`, `class`, `max`, `len`, `list`, `str`, `new`, `echo`, `function`, `var`, `func`,
+  `string`, `main`… (lista completa gerada a partir das palavras reservadas oficiais de cada
+  linguagem + nomes de biblioteca usados pelos geradores).
+- PHP: variáveis ganham `$`; funções não.
+
+---
+
+## 10. Comentários
+
+`// texto` vira nó `comentario` e é replicado: `#` em Python, `//` nas demais.
+
+---
+
+## 11. Garantias testadas no CI
+
+1. **Diferencial:** para cada programa do corpus e do fuzzer, com cada arquivo de entrada:
+   saída do interpretador == saída de `python3` == `java` == `gcc` == `g++` == `php`
+   (byte a byte, após normalizar `\r\n` → `\n`).
+2. **Compilação limpa:** `gcc -Wall -Wextra -Werror`, `g++` idem, `javac -Xlint`, `php -l`,
+   `python -m py_compile` — sem avisos.
+3. **Pegadinhas:** para cada regra das §2–8 existe um programa que a dispara, e o teste confirma
+   que o interpretador interrompe com a mensagem certa.
+4. **Cobertura do mapa:** todo caractere não-branco do código gerado pertence a algum nó (real ou
+   sintético), e todo nó sintético tem cartão no catálogo.
+5. **Versões fixadas** dos runtimes na imagem Docker (registradas em `docs/execucao-ci.md`).
+
+---
+
+## 12. Notas para a v1.1 (8 linguagens)
+
+- **JavaScript:** `div` → `Math.trunc(a / b)` (exato na faixa de 32 bits); leitura de linha exige
+  Node (`readline`) — no navegador usa o console do interpretador.
+- **C#:** `Console.ReadLine()`, `int.Parse`, `ToString("F2", CultureInfo.InvariantCulture)`.
+- **Go:** variável ou import sem uso é **erro de compilação** → a semântica passa a avisar
+  variável não usada e o gerador só importa o necessário; `while` vira `for cond {}`.
