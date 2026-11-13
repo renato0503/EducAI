@@ -1,0 +1,5 @@
+Estou criando um projeto com meu colega Vitorio, o projeto visa criarmos uma IDE a qual servirá como ambiente educacional para alunos de cursos de tecnologia, a ideia é esta (ai dentro da area da educação mas que gere codigos para produção o aluno não precisar reescrever o codigo em uma outra linguagem a saida do copiloto já seria em outra linguagem.)
+
+Dai o aluno vai escrever em uma lingugaem, e o proprio ambiente ja traduziria automaticamente para outra lingugagem em outra aba, a ideia é que o aluno aprenda uma linguagem e por tabela ja aprenda outras, ele falou mais isso (criar um VisualG com IA para copilar de forma binaria o codigo em ptbr para outras linguagens como C,  C++, Java, Python e PHP?)
+
+dai eu preciso que cada elemento do codigo seja explicado para o aluno, por exemplo, é para o aluno usar ia para gerar o codigo, mas sempre contextualizando todos os elementos do codigo, em todas essas linguagens ao mesmo tempo, uma lingugagem em cada tela, assim o aluno aprende como funcionam todas elas ao mesmo tempo.
