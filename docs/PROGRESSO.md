@@ -3,7 +3,7 @@
 > **Leia isto primeiro ao retomar o trabalho.** Este documento registra o estado exato do projeto,
 > o que foi feito, como reproduzir, o que falta e em que ordem, com critérios de aceite.
 >
-> Última atualização: **16/11/2026**, sessão 2 da Fase 0 (PRs abertos, CI verde, D1 fechada, fixtures prontas).
+> Última atualização: **16/11/2026**, sessão 2 da Fase 0 (PRs abertos, CI verde, D1 fechada, fixtures e protótipo prontos).
 > Autor: Renato (com Claude). Branch de trabalho: `feat/fase0-setup`.
 
 ---
@@ -40,7 +40,7 @@ Tarefas da Fase 0:
 
 | # | Tarefa | Estado |
 |---|---|---|
-| 0.1 | Protótipo estático com 5 abas | ❌ não iniciado |
+| 0.1 | Protótipo com 5 abas | 🟡 construído e testado; falta **revisão do catálogo pelo Renato** e publicar (D3) |
 | 0.2 | Fixtures dos 5 programas | ✅ concluído (falta só o `ast.json` completo, adiado para o parser da S1) |
 | 0.3 | Think-aloud com 6–10 alunos | ❌ não iniciado (roteiro em `docs/fase0-roteiros.md`) |
 | 0.4 | Entrevistas com 3–5 professores + turma do piloto | ❌ não iniciado (roteiro em `docs/fase0-roteiros.md`) |
@@ -185,7 +185,13 @@ docker run --rm educai-runtimes                    # spike completo, modo estrit
    não funciona; usar `allowBuilds:` no `pnpm-workspace.yaml` (ou `pnpm approve-builds <pkg>`).
 2. **Fim de linha:** o `.gitattributes` força LF. Os arquivos de entrada e saída do spike
    **precisam** de LF; com CRLF, `input()` do Python manteria o `\r` no texto.
-3. **Gerar arquivos esperados no Windows:** usar `printf` no Git Bash ou Python com
+3. **Heredocs no Git Bash:** alguns comandos longos com heredoc e aspas falham com
+   `unexpected EOF`. Para arquivos com muito conteúdo, usar a ferramenta de escrita de arquivos
+   ou um script Python com strings `r'''...'''`.
+4. **Screenshots sem navegador interativo:** subir `npx vite preview --port 4173` em
+   `apps/web` e usar
+   `"/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe" --headless=new --window-size=1366,900 --screenshot=arquivo.png "http://localhost:4173/?..."`.
+5. **Gerar arquivos esperados no Windows:** usar `printf` no Git Bash ou Python com
    `newline='\n'`. Não usar `echo` do PowerShell (grava UTF-16/BOM e CRLF).
 
 ---
@@ -339,7 +345,49 @@ Aceite:
 - [ ] Os 5 programas rodam no spike (copiar para `spike/programas/` ou apontar o executor para
       `fixtures/`) com saída idêntica.
 
-### 6.4 — Protótipo (0.1) — ~10 h com o Claude
+### 6.4 — Protótipo (0.1) — 🟡 CONSTRUÍDO em 16/11
+
+**Como rodar:** `pnpm dev` → http://localhost:5173. Build estático: `pnpm build` (sai em
+`apps/web/dist/`, 223 kB de JS, sem servidor).
+
+**O que tem:**
+- Seletor dos 5 programas das fixtures.
+- PT-BR à esquerda; à direita, **Todas as linguagens** (grade com 5 painéis) ou **Foco** (até 2).
+- **Highlight cruzado multi-range:** clique/hover em qualquer trecho de qualquer painel acende o
+  mesmo elemento em todos. Painéis onde o elemento não existe mostram "sem equivalente aqui" ou
+  "só existe em X".
+- **Painel de explicação:** cartão do catálogo (`catalogo/`), "Dentro de" (sobe para o comando
+  pai), uma linha por linguagem com o trecho real e o "como", notas específicas do programa
+  e, com **Aprofundar**, o texto extra e as pegadinhas.
+- **Construir passo a passo:** revela o programa comando a comando (→ no teclado); a estrutura
+  (`main`, `#include`, `return 0`) aparece desde o início; o comando novo pisca em todos os
+  painéis, é selecionado e entra no **fio de elementos**.
+- **Atividade** (`#atividade`): tarefa de transferência do think-aloud em Java ou C, sem a
+  ferramenta; o aluno escreve a saída e clica na linha equivalente; o facilitador vê um resumo
+  (com contagem de cliques por painel na sessão) e o gabarito.
+- **Estado pela URL**, para o facilitador abrir a tela no ponto certo:
+  `?programa=tabuada&sel=main/2&modo=foco&foco=python,java&aprofundar=1&passos=3`.
+- Tema claro/escuro automático; ligaduras de fonte desligadas (o aluno vê `<-` e `>=`).
+
+**Testes:** 25 no `apps/web` — segmentação, modo construção, ancestrais e **cobertura do
+catálogo** (todo elemento de toda fixture tem cartão; toda linguagem tem "como" ou explicação de
+ausência; o painel renderiza para todos os nós).
+
+**Verificação visual:** screenshots com o Edge headless em 1366×900 (§4, armadilha 4): grade,
+foco, construção, nó sintético, função e atividade conferidos.
+
+**Pendências:**
+- [ ] **Renato: revisar o conteúdo de `catalogo/tipos.json`, `catalogo/sinteticos.json` e
+      `fixtures/*/notas.json`** com o checklist de `catalogo/README.md`. É o texto que os alunos vão
+      ler.
+- [ ] Decidir onde publicar para as sessões (D3): GitHub Pages (repo público, CI já existe),
+      Vercel ou Cloudflare Pages — ou rodar local no notebook do facilitador (`pnpm build` +
+      `npx vite preview`), que dispensa publicar.
+- [ ] Ensaiar o roteiro do think-aloud (`docs/fase0-roteiros.md`) com 1 pessoa antes de 25/11.
+- [ ] Em 1366 px no modo "Todas as linguagens", linhas longas do Java ficam com rolagem
+      horizontal. Aceitável no protótipo; observar nas sessões se atrapalha.
+
+Plano original, mantido como referência:
 
 Recomendação: construir **dentro de `apps/web`**, consumindo as fixtures, em vez de um HTML
 descartável. Assim ele vira a base da Sprint 1 (o plano previa isso para S1.5–1.7).
@@ -467,7 +515,7 @@ Em ordem:
 5. [ ] Agendar professores e alunos (§6.1) — se ainda não foi feito.
 6. [x] Spike `p6-arredondamento` e D1 fechada.
 7. [x] Fixtures + script de marcadores (§6.3).
-8. [ ] Protótipo em `apps/web` (§6.4), prazo 24/11.
+8. [x] Protótipo em `apps/web` (§6.4) — construído. **Pendente:** revisar `catalogo/*.json` e decidir onde publicar.
 9. [ ] Spike `p7`–`p13` (§6.2.2).
 10. [ ] Replanejar `sprint.md` (§6.6).
 
