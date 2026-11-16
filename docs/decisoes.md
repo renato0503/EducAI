@@ -12,7 +12,7 @@
 | 003 | 12/11/2026 | MVP com 5 linguagens (Python, Java, C, C++, PHP); v1.1 com 8 (+ JS, C#, Go) | Premissa do produto mantida de forma factível | context.md §10 |
 | 004 | 12/11/2026 | Interpretador de referência estrito como oráculo da semântica | Garantir saída idêntica sem código artificial | docs/semantica.md §1 |
 | 005 | 12/11/2026 | IA opcional, desligável por turma, nunca escreve na linguagem-alvo | Produto funciona sem IA; resposta ao risco de cola | context.md §7 |
-| 006 | 16/11/2026 | **Vitório sai da divisão de tarefas: tudo é feito por Renato (com Claude)** | Decisão do Renato | docs/PROGRESSO.md §2 — sprint.md ainda precisa ser replanejado |
+| 006 | 16/11/2026 | **Vitório sai da divisão de tarefas: tudo é feito por Renato (com Claude)** | Decisão do Renato | docs/PROGRESSO.md §2; plano refeito na decisão 014 |
 | 007 | 16/11/2026 | pnpm 11 com `allowBuilds: { esbuild: true }` no `pnpm-workspace.yaml` | pnpm 11 bloqueia scripts de build por padrão; `onlyBuiltDependencies` não funciona mais | pnpm-workspace.yaml |
 | 008 | 16/11/2026 | Imagem Docker `debian:bookworm-slim` com Python 3.11, OpenJDK 17, gcc/g++ 12, PHP 8.2 e Node para o spike e o CI | Runtimes reais com versões conhecidas | spike/Dockerfile |
 | 009 | 16/11/2026 | Concatenação de `caractere` em C com `strcpy` + `strcat` | Compila sem aviso com `-Werror`; evita `-Wformat-truncation` do `snprintf` | docs/semantica.md §3 |
@@ -20,6 +20,7 @@
 | 014 | 16/11/2026 | **D5 fechada:** plano v2.1 — Renato + Claude, gates com as mesmas datas, orçamento em horas do Renato (~230 h de ~290 h) | O código deixa de ser o gargalo; o que pesa é pesquisa, revisão e piloto. **Premissa a confirmar: 14 h/semana** | sprint.md §0 |
 | 012 | 16/11/2026 | `caractere` só aceita ASCII imprimível no v1 (literais e entrada); acento vira pegadinha | Spike `p10`: Java 17 sem locale UTF-8 imprime `Jos??`; C, C++, PHP (e o Java) contam `José` com 5 | docs/semantica.md §2 |
 | 013 | 16/11/2026 | Confirmadas no spike as pegadinhas de divisão por zero, recursão > 500, variável do `para` após o laço e vírgula na entrada; lógicos, curto-circuito e globais iguais nas 5 | Spike `p7`–`p14` | docs/semantica.md §3, §5–§7 |
+| 015 | 16/11/2026 | Erros do compilador com código estável (`L` léxico, `S` sintático; depois `T` semântico, `E` execução) e catálogo em `docs/erros.md` | Mensagens em português revisáveis num lugar só; o código não muda quando o texto melhora | docs/erros.md |
 | 011 | 16/11/2026 | **D1 fechada:** real formatado em Java com `new BigDecimal(x).setScale(n, RoundingMode.HALF_EVEN).toPlainString()`; zero negativo vira pegadinha | Spike `p6-arredondamento`: igual às outras 4 linguagens em 11 casos; só o zero negativo diverge | docs/semantica.md §4 |
 
 ## Pendentes

@@ -3,7 +3,8 @@
 > **Leia isto primeiro ao retomar o trabalho.** Este documento registra o estado exato do projeto,
 > o que foi feito, como reproduzir, o que falta e em que ordem, com critérios de aceite.
 >
-> Última atualização: **16/11/2026**, sessão 2 da Fase 0 (PRs abertos, CI verde, D1 fechada, fixtures e protótipo prontos).
+> Última atualização: **16/11/2026**, sessão 3 da Fase 0 (spike completo `p1`–`p14`, plano v2.1,
+> fixtures, protótipo e lexer/parser da S1 prontos; CI verde).
 > Autor: Renato (com Claude). Branch de trabalho: `feat/fase0-setup`.
 
 ---
@@ -28,12 +29,14 @@
 | Item | Estado |
 |---|---|
 | Fase atual | **Fase 0 — Validação** (16/11 – 06/12/2026), gate **G0** em 06/12 |
-| Plano | v2 em `context.md`, `sprint.md`, `docs/semantica.md` — **PR #1 aberto, aguardando merge do Renato** |
-| Código | Monorepo TypeScript verde localmente **e no CI do GitHub** — PR #2 |
-| Spike de equivalência | **Concluído**: 14 programas do spike + 5 fixtures × 5 linguagens (40 combinações), nenhuma divergência inesperada; pegadinhas documentadas (`spike/README.md`) |
+| Plano | **v2.1** (`sprint.md` §0): Renato + Claude, gates com as mesmas datas, ~230 h do Renato de ~290 h. Base v2 no **PR #1, aguardando merge do Renato** |
+| Código | Monorepo TypeScript verde localmente **e no CI do GitHub** — PR #2. **72 testes** (47 no compilador, 25 no web) |
+| Spike de equivalência | **Concluído**: 14 programas (`p1`–`p14`) + 5 fixtures × 5 linguagens, nenhuma divergência inesperada; todas as pegadinhas da spec confirmadas (`spike/README.md`) |
 | Fixtures (0.2) | **Concluídas**: 5 programas didáticos com mapa nó → ranges nas 5 linguagens, gerador e verificação no CI (`fixtures/README.md`) |
-| Achado principal | Java arredondava real diferente das outras 4 → **resolvido com `BigDecimal` + `HALF_EVEN` (D1, decisão 011)** |
-| Equipe | **Mudou hoje:** Vitório saiu da divisão; tudo fica com Renato (com Claude). `sprint.md` ainda não foi replanejado |
+| Protótipo (0.1) | **Construído** em `apps/web` (highlight cruzado, explicações, passo a passo, atividade de transferência). Falta a revisão do catálogo pelo Renato |
+| Compilador (S1) | **Adiantado**: lexer, parser com recuperação de erros e mapa PT-BR. O parser reproduz exatamente os mapas marcados à mão nas 5 fixtures |
+| Achados principais | Java arredondava diferente → `BigDecimal` + `HALF_EVEN` (D1). Acentos quebram Java/C/C++/PHP → `caractere` só ASCII no v1 (decisão 012). Vírgula na entrada é lida como `7.00` em silêncio em C/C++/PHP → o interpretador rejeita |
+| Equipe | Só Renato (com Claude) — decisão 006; plano refeito (decisão 014) |
 | Bloqueio para o G0 | Tarefas 0.3 e 0.4 (alunos e professores) dependem só do Renato e ainda não começaram |
 
 Tarefas da Fase 0:
@@ -41,12 +44,14 @@ Tarefas da Fase 0:
 | # | Tarefa | Estado |
 |---|---|---|
 | 0.1 | Protótipo com 5 abas | 🟡 construído e testado; falta **revisão do catálogo pelo Renato** e publicar (D3) |
-| 0.2 | Fixtures dos 5 programas | ✅ concluído (falta só o `ast.json` completo, adiado para o parser da S1) |
+| 0.2 | Fixtures dos 5 programas | ✅ concluído (a AST tipada agora sai do parser) |
 | 0.3 | Think-aloud com 6–10 alunos | ❌ não iniciado (roteiro em `docs/fase0-roteiros.md`) |
 | 0.4 | Entrevistas com 3–5 professores + turma do piloto | ❌ não iniciado (roteiro em `docs/fase0-roteiros.md`) |
-| 0.5 | Spike de equivalência | ✅ concluído |
-| 0.6 | Fechar `docs/semantica.md` v1 | ✅ todas as regras testadas no spike (`p1`–`p14`); falta só D2 (índice de vetor, com professores) |
+| 0.5 | Spike de equivalência | ✅ concluído (`p1`–`p14`) |
+| 0.6 | Fechar `docs/semantica.md` v1 | ✅ todas as regras testadas no spike; falta só D2 (índice de vetor, com professores) |
 | 0.7 | Monorepo, lint, testes, CI | ✅ CI verde no GitHub (PR #2); falta só proteger a `main` |
+| D5 | Replanejar `sprint.md` sem o Vitório | ✅ `sprint.md` §0 (v2.1) |
+| S1 | Lexer + parser (adiantado) | 🟡 lexer, parser, mapa PT-BR e catálogo de erros feitos; faltam comentários como nós e a página de debug da AST |
 
 ---
 
@@ -55,25 +60,24 @@ Tarefas da Fase 0:
 **Decisão 006 (16/11/2026):** o Vitório não faz mais parte da divisão de tarefas. Todo o trabalho
 fica com o Renato, com o Claude escrevendo código e documentação sob a direção dele.
 
-Impacto no `sprint.md` (ainda **não** atualizado; é a tarefa D5):
+**Decisão 014 (16/11/2026) — D5 fechada, plano v2.1** (detalhes em `sprint.md` §0):
 
-- O orçamento atual assume 2 pessoas × 14 h/semana = **~725 h de capacidade** e ~570 h
-  planejadas. Com uma pessoa só, a capacidade humana cai para **~360 h**.
-- A parte de digitação de código fica muito mais barata com o Claude, mas continuam sendo do
-  Renato, sem atalho: decisões, revisão de todo o código, pesquisa com alunos e professores,
-  curadoria do catálogo de explicações, piloto e ensaio.
-- **Proposta para o replanejamento** (validar antes de aplicar):
-  1. Manter as datas dos gates (G0 06/12, G1 07/02, G2 21/03, G3 04/04, G4 02/05) e trocar a coluna
-     "Dono" por um único dono.
-  2. Recontar as horas por tarefa separando **horas do Renato** (decidir, revisar, testar,
-     pesquisar, curar) de **trabalho delegado ao Claude** (escrever código e testes).
-  3. Se a soma das horas do Renato passar de ~290 h (80% de 360 h), aplicar a ordem de corte do
-     `sprint.md` §13 já no planejamento, começando pela IA (S9).
-  4. Remover do `sprint.md` e do `README.md` as menções ao Vitório como responsável.
-- O convite de colaborador do GitHub para `garageunicorn` foi enviado em 16/11. Decidir se
-  continua (acesso de escrita) ou se deve ser cancelado:
-  `gh api -X DELETE repos/renato0503/EducAI/invitations/<id>` (o id aparece em
-  `gh api repos/renato0503/EducAI/invitations`).
+- **Datas dos gates mantidas:** G0 06/12, G1 07/02, G2 21/03, G3 04/04, G4 02/05; piloto em
+  maio/2027.
+- **Orçamento contado em horas do Renato** (decidir, revisar, testar, pesquisar, curar o catálogo,
+  piloto). O código é escrito pelo Claude e deixou de ser o gargalo.
+- Soma prevista: **~230 h de ~290 h** disponíveis (80% de 14 h/semana × ~26 semanas).
+- **Premissa a confirmar pelo Renato: 14 h/semana.** Se for menos, aplicar a ordem de corte do
+  `sprint.md` §13 começando pela IA (S9).
+- Se sobrar folga, nesta ordem: qualidade (testes, revisão) → IA opcional → antecipar as 8
+  linguagens da v1.1 para antes do piloto.
+- O que continua sendo **só do Renato**, sem atalho: decisões, revisão do código, pesquisa com
+  alunos e professores, curadoria do catálogo, piloto e ensaio.
+
+Pendência relacionada: o convite de colaborador do GitHub para `garageunicorn` foi enviado em
+16/11. Decidir se continua (acesso de escrita) ou se deve ser cancelado:
+`gh api -X DELETE repos/renato0503/EducAI/invitations/<id>` (o id aparece em
+`gh api repos/renato0503/EducAI/invitations`).
 
 ---
 
@@ -99,34 +103,39 @@ ficar só com o trabalho da Fase 0).
 
 ```
 ProjetoEducAI/
-├── README.md, context.md, sprint.md, dor.md        documentação do produto (plano v2)
+├── README.md, context.md, sprint.md, dor.md        documentação do produto (plano v2; sprint.md §0 = v2.1)
 ├── prompt-avaliacao.md                             prompt da avaliação crítica (fora do git, de propósito)
 ├── docs/
 │   ├── PROGRESSO.md        ← este documento
-│   ├── decisoes.md         registro de decisões tomadas e pendentes (D1–D7)
-│   ├── semantica.md        contrato de semântica PT-BR → 5 linguagens (atualizado com o spike)
+│   ├── decisoes.md         decisões tomadas (001–014) e pendentes (D2–D4, D6, D7, D9, D10)
+│   ├── semantica.md        contrato de semântica PT-BR → 5 linguagens (todas as regras testadas no spike)
+│   ├── erros.md            catálogo de erros do lexer e do parser (L001–L002, S001–S014)
 │   └── fase0-roteiros.md   roteiros das tarefas 0.3 (alunos) e 0.4 (professores)
-├── package.json            raiz do monorepo (scripts: lint, typecheck, test, build, dev, spike)
+├── package.json            raiz (scripts: build, test, typecheck, lint, format, dev, spike, fixtures)
 ├── pnpm-workspace.yaml     workspaces packages/* e apps/*; allowBuilds esbuild
-├── pnpm-lock.yaml
 ├── tsconfig.base.json      TS estrito (noUncheckedIndexedAccess, exactOptionalPropertyTypes…)
-├── eslint.config.js        ESLint 9 flat + typescript-eslint
-├── .prettierrc.json, .prettierignore, .editorconfig, .gitattributes (LF), .nvmrc (24)
+├── eslint.config.js, .prettierrc.json, .prettierignore, .editorconfig, .gitattributes (LF), .nvmrc (24)
 ├── .github/
-│   ├── workflows/ci.yml          jobs "qualidade" e "equivalencia"
+│   ├── workflows/ci.yml          jobs "qualidade" (lint, typecheck, test, fixtures --verificar, build) e "equivalencia" (Docker)
 │   └── pull_request_template.md
 ├── packages/compiler/      @educai/compiler
+│   ├── scripts/gerar-fixtures.ts   fixtures/<p>/* com marcadores → fixture.json + indice.json + spike/programas/fx-*
 │   └── src/
-│       ├── ast.ts              esquema da AST/IR (context.md §6.3) + tipos de saída dos geradores
-│       ├── linguagens.ts       listas do MVP (5) e da v1.1 (3) + nomes de exibição
-│       ├── linguagens.test.ts  2 testes
-│       └── index.ts
-├── apps/web/               @educai/web — Vite 6 + React 18, casca que lista as linguagens
-│   ├── index.html, vite.config.ts, tsconfig.json
-│   └── src/main.tsx, src/App.tsx
+│       ├── ast.ts                  AST/IR (context.md §6.3), com `estrutura` de programa e função
+│       ├── lexer.ts                tokens, comentários, erros L001–L002
+│       ├── parser.ts               descida recursiva, recuperação por comando, erros S001–S014
+│       ├── mapa-ptbr.ts            AST → mapa id → ranges e id → tipo (formato das fixtures)
+│       ├── linguagens.ts           MVP (5) e v1.1 (3) + nomes de exibição
+│       ├── fixtures/marcadores.ts  ⟦id⟧…⟦/⟧ → código limpo + mapa
+│       └── *.test.ts               47 testes
+├── fixtures/               5 programas didáticos (programa.por + 5 linguagens com marcadores, notas.json, fixture.json)
+├── catalogo/               tipos.json (20 cartões), sinteticos.json (11), README.md (formato e checklist de revisão)
+├── apps/web/               @educai/web — protótipo (Vite 6 + React 18)
+│   └── src/  App.tsx, dados.ts, segmentos.ts, tipos.ts, estilos.css,
+│             componentes/ (PainelCodigo, PainelExplicacao, TextoRico, Transferencia), 25 testes
 └── spike/                  tarefa 0.5 (ver spike/README.md)
     ├── Dockerfile, run.mjs, README.md, resultado-docker.md
-    └── programas/p1-texto … p5-fatorial
+    └── programas/p1-texto … p14-entrada-virgula, fx-* (gerados das fixtures)
 ```
 
 ### Versões fixadas
@@ -198,7 +207,7 @@ docker run --rm educai-runtimes                    # spike completo, modo estrit
 
 ## 5. O que foi feito, por tarefa
 
-### 0.7 — Monorepo, lint, testes, CI (🟡)
+### 0.7 — Monorepo, lint, testes, CI (✅, falta proteger a `main`)
 
 Feito:
 - Monorepo pnpm com `packages/compiler` e `apps/web`, TypeScript estrito compartilhado.
@@ -214,8 +223,8 @@ Feito:
     relatório em Markdown no resumo da execução.
 - Template de PR.
 
-Verificado localmente: `pnpm lint`, `pnpm typecheck`, `pnpm test` (2 testes) e `pnpm build`
-passam.
+Verificado localmente e no CI: `pnpm lint`, `pnpm typecheck`, `pnpm test` (hoje 72 testes),
+`pnpm fixtures --verificar` e `pnpm build` passam.
 
 Falta:
 - [x] CI rodou no GitHub (PR #2): `qualidade` 27 s, `equivalencia` 1 min 16 s, ambos verdes.
@@ -225,24 +234,33 @@ Falta:
 
 ### 0.5 — Spike de equivalência (✅)
 
-5 programas escritos à mão em PT-BR e nas 5 linguagens, seguindo `docs/semantica.md`, com 11
-entradas no total. Executor `spike/run.mjs` com modos local, estrito e Markdown. Resultado
-completo em `spike/resultado-docker.md` e resumo em `spike/README.md`.
+14 programas escritos à mão em PT-BR e nas 5 linguagens, seguindo `docs/semantica.md`, mais as 5
+fixtures (`fx-*`). Executor `spike/run.mjs` com modos local, estrito, Markdown, `--so` e
+`--linguagens`; `meta.json` aceita `divergenciasEsperadas` e `"modo": "documentar"` (só registra o
+comportamento de cada linguagem, para as pegadinhas). Resultado completo em
+`spike/resultado-docker.md` e resumo em `spike/README.md`.
 
-**Resultado:** todas as saídas iguais ao esperado, fora as linhas de divergência prevista; todas as
+**Resultado:** todas as saídas iguais ao esperado, fora as divergências previstas; todas as
 divergências previstas se confirmaram; compilação sem avisos com `-Werror` em C, C++ e Java.
 Detalhes em §7.
 
-### 0.6 — `docs/semantica.md` v1 (🟡)
+### 0.6 — `docs/semantica.md` v1 (✅, falta D2)
 
-Atualizado com o spike: tabela de arredondamento, decisão pendente D1, regra de `leia` para
-`caractere` (só remove o fim de linha), concatenação em C com `strcpy` + `strcat`.
+Atualizado com o spike: arredondamento (D1), `caractere` só ASCII, divisão por zero, vírgula na
+entrada, variável do `para` depois do laço, globais, recursão, `strcpy`/`strcat` em C, regras do
+`leia`, e a nota do §9 sobre maiúsculas e acentos em palavras-chave (D9).
 
-Falta: decidir D1 e cobrir os casos extras do §6.2.
+### 0.1, 0.2 (🟡 / ✅)
 
-### 0.1, 0.2, 0.3, 0.4 (❌)
+Ver §6.3 e §6.4.
 
-Não iniciadas. Instruções detalhadas em §6.
+### 0.3, 0.4 (❌)
+
+Não iniciadas. Dependem só do Renato. Ver §6.1 e §6.5.
+
+### S1 — Lexer e parser (🟡, adiantado)
+
+Ver §6.8.
 
 ---
 
@@ -465,8 +483,28 @@ Feito:
 Decisões que o parser tomou e precisam de confirmação: D9 (maiúsculas em nomes) e D10
 (precedência do `nao`) em `docs/decisoes.md`.
 
-Falta da S1: comentários como nós (`comentario`) replicados nas linguagens; harness/página de
-debug da AST; catálogo de erros documentado em `docs/`.
+Catálogo de erros: ✅ documentado em `docs/erros.md` (cada código, quando aparece, mensagem e
+exemplo). Regra: todo código novo entra lá no mesmo commit.
+
+Números de referência (16/11): `lexer.ts` ~190 linhas, `parser.ts` ~600, `mapa-ptbr.ts` ~95;
+47 testes no compilador (5 do lexer, 5 das fixtures, 19 do spike, 4 de estrutura, 6 de erros,
+6 de marcadores, 2 de linguagens).
+
+Falta da S1, em ordem:
+1. **Comentários como nós** (`comentario`): hoje o lexer guarda os comentários à parte. Ligar
+   cada um ao comando seguinte (ou ao bloco) para os geradores replicarem (`#` em Python, `//` nas
+   outras). Aceite: um comentário em `programa.por` aparece no mapa e acende nos 5 painéis.
+2. **Página de debug da AST** em `apps/web` (`?debug=ast`): editor PT-BR simples, árvore da AST,
+   erros com linha/coluna e o mapa PT-BR. Serve para o Renato revisar o parser sem ler código.
+3. **`ast.json` das fixtures**: gerar com o parser no `gerar-fixtures.ts` e conferir no
+   `--verificar` (substitui o snapshot planejado abaixo).
+
+Depois da S1 (S2/S3): análise semântica — tabela de símbolos, escopos, tipos, erros em português
+(variável não declarada, tipo incompatível, `retorne` fora de função, chamada com aridade errada),
+as pegadinhas detectáveis estaticamente (texto com acento, divisão por literal zero) e a decisão
+D9 (aviso de mesmo nome com grafias diferentes). Em seguida, o interpretador de referência (S4),
+que habilita o botão "Executar" com `leia` interativo, e o emissor/geradores (S5–S7), que tornam o
+PT-BR editável com as 5 linguagens ao vivo.
 
 Plano original, mantido como referência:
 1. `packages/compiler/src/lexer.ts` + testes (palavras-chave do subconjunto, posições 1-indexadas).
@@ -512,12 +550,17 @@ Plano original, mantido como referência:
 
 ## 8. Decisões
 
-Todas em [`docs/decisoes.md`](./decisoes.md). Pendentes que bloqueiam o G0:
+Todas em [`docs/decisoes.md`](./decisoes.md). Pendentes:
 
-| # | Decisão | Recomendação |
-|---|---|---|
-| D2 | Índice de vetor | 0, confirmar com professores |
-| D3 | Repo público + MIT | Decidir antes de publicar o protótipo |
+| # | Decisão | Recomendação | Prazo |
+|---|---|---|---|
+| D2 | Índice de vetor | 0, confirmar com professores | G0 |
+| D3 | Repo público + MIT | Decidir antes de publicar o protótipo | G0 |
+| D10 | Precedência do `nao` | Abaixo das comparações (`nao a > b` = `nao (a > b)`, já implementado); confirmar com professores | G0 |
+| D4 | Nome/branding | "EducAI" é provisório | pós-G0 |
+| D9 | Nomes diferenciam maiúsculas? | Diferenciar (implementado) e avisar grafias diferentes na semântica | S3 |
+| D6 | Fundir inicialização padrão com a 1ª atribuição | Fundir | S5 |
+| D7 | `std::` explícito em C++ | `std::` | S7 |
 
 ---
 
@@ -526,8 +569,10 @@ Todas em [`docs/decisoes.md`](./decisoes.md). Pendentes que bloqueiam o G0:
 | Risco | Situação | Ação |
 |---|---|---|
 | Pesquisa com alunos/professores não acontecer a tempo | **Alto**, nada agendado | Agendar até 22/11 (§6.1) |
-| Uma pessoa só para tudo | Alto | Replanejar (§2); Claude no código, Renato na revisão e pesquisa |
-| Acentos em `caractere` | Médio, não testado | `p10` do §6.2 |
+| 14 h/semana do Renato não se confirmarem | Médio | Confirmar; se não, cortar pela IA (S9) — `sprint.md` §0 |
+| Revisão do código acumular (Claude escreve mais rápido do que o Renato revisa) | Médio | Revisar por PR pequeno depois do G0; a página de debug da AST (§6.8) facilita |
+| Catálogo de explicações com erro conceitual chegar aos alunos | Médio | Revisão do Renato antes de 25/11 (§6.4) |
+| Acentos em `caractere` | ✅ Resolvido: só ASCII no v1 (decisão 012) | Semântica avisa (S2/S3) |
 | Repositório público expõe plano e protótipo | Baixo/médio | D3 |
 | Convite de colaborador pendente para quem saiu da equipe | Baixo | Decidir manter ou cancelar (§2) |
 
@@ -537,17 +582,19 @@ Todas em [`docs/decisoes.md`](./decisoes.md). Pendentes que bloqueiam o G0:
 
 Em ordem:
 
-1. [ ] `git fetch && git checkout feat/fase0-setup && pnpm install`
+1. [ ] `git fetch && git checkout feat/fase0-setup && pnpm install && pnpm test`
 2. [ ] Abrir o Docker Desktop (§4) e conferir `docker run --rm educai-runtimes` (reconstruir a
        imagem se tiver sido apagada).
 3. [ ] **Renato:** fazer merge do PR #1 (merge commit) e depois do PR #2.
-4. [x] PR #2 aberto e CI verde.
-5. [ ] Agendar professores e alunos (§6.1) — se ainda não foi feito.
-6. [x] Spike `p6-arredondamento` e D1 fechada.
-7. [x] Fixtures + script de marcadores (§6.3).
-8. [x] Protótipo em `apps/web` (§6.4) — construído. **Pendente:** revisar `catalogo/*.json` e decidir onde publicar.
-9. [x] Spike `p7`–`p14` (§6.2.2).
-10. [x] Replanejar `sprint.md` (§6.6) — feito como §0 do `sprint.md` (v2.1). **Confirmar se 14 h/semana é realista.**
+4. [ ] **Renato:** agendar professores e alunos (§6.1) — até 22/11.
+5. [ ] **Renato:** revisar `catalogo/*.json` e `fixtures/*/notas.json` (§6.4) — antes de 25/11.
+6. [ ] **Renato:** confirmar 14 h/semana (§2) e decidir onde publicar o protótipo (D3).
+7. [ ] **Claude:** terminar a S1 (§6.8): comentários como nós → página de debug da AST →
+       `ast.json` das fixtures.
+8. [ ] **Claude:** começar a S2/S3 (análise semântica), depois o interpretador (S4).
+
+Já feito: PR #2 com CI verde; spike `p6`–`p14` e D1; fixtures; protótipo; replanejamento v2.1;
+lexer, parser, mapa PT-BR e catálogo de erros.
 
 Para retomar com o Claude, basta pedir: *"leia docs/PROGRESSO.md e continue do item N do
 checklist"*.

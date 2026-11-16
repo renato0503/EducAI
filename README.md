@@ -135,17 +135,20 @@ contas com e-mail, gamificação, LMS, matrizes/`escolha`/`repita`/arquivos/OO.
 
 ## Status
 
-Fase 0 (validação). Monorepo TypeScript criado e o spike de equivalência nas 5 linguagens
-concluído. Detalhes e próximos passos em [`docs/PROGRESSO.md`](./docs/PROGRESSO.md).
+Fase 0 (validação). Prontos: monorepo TypeScript com CI, spike de equivalência nas 5 linguagens
+(14 programas), 5 programas didáticos com mapa elemento → trecho, protótipo da IDE em `apps/web` e,
+adiantados da Sprint 1, o lexer e o parser do português estruturado. Detalhes e próximos passos em
+[`docs/PROGRESSO.md`](./docs/PROGRESSO.md).
 
 ```bash
 pnpm install && pnpm test        # monorepo
+pnpm dev                         # protótipo em http://localhost:5173
 pnpm spike                       # spike com os runtimes instalados
 ```
 
 ## Contribuindo
 
-Desenvolvido por **Renato Rosa** e **Vitório**. Abra uma issue antes de enviar um pull request.
+Desenvolvido por **Renato Rosa** (com Claude). Abra uma issue antes de enviar um pull request.
 
 ## Licença
 
