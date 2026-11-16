@@ -1,0 +1,5 @@
+{
+  "titulo": "Média de 4 notas",
+  "descricao": "Lê 4 notas, calcula a média e diz se o aluno foi aprovado. Variáveis, leia, conta e se/senão.",
+  "ordem": 1
+}

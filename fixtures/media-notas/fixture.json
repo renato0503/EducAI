@@ -1,0 +1,1471 @@
+{
+  "id": "media-notas",
+  "titulo": "Média de 4 notas",
+  "descricao": "Lê 4 notas, calcula a média e diz se o aluno foi aprovado. Variáveis, leia, conta e se/senão.",
+  "ordem": 1,
+  "ptbr": {
+    "codigo": "algoritmo \"media\"\nvar\n   n1, n2, n3, n4, media: real\ninicio\n   escreval(\"Digite as 4 notas:\")\n   leia(n1)\n   leia(n2)\n   leia(n3)\n   leia(n4)\n   media <- (n1 + n2 + n3 + n4) / 4\n   escreval(\"Media: \", media)\n   se media >= 7 entao\n      escreval(\"Aprovado\")\n   senao\n      escreval(\"Reprovado\")\n   fimse\nfimalgoritmo\n",
+    "mapa": {
+      "prog:cabecalho": [
+        [
+          1,
+          1,
+          1,
+          18
+        ]
+      ],
+      "prog:var": [
+        [
+          2,
+          1,
+          2,
+          4
+        ]
+      ],
+      "var/0": [
+        [
+          3,
+          4,
+          3,
+          31
+        ]
+      ],
+      "prog:inicio": [
+        [
+          4,
+          1,
+          4,
+          7
+        ],
+        [
+          17,
+          1,
+          17,
+          13
+        ]
+      ],
+      "main/0/0": [
+        [
+          5,
+          13,
+          5,
+          33
+        ]
+      ],
+      "main/0": [
+        [
+          5,
+          4,
+          5,
+          34
+        ]
+      ],
+      "main/1/alvo": [
+        [
+          6,
+          9,
+          6,
+          11
+        ]
+      ],
+      "main/1": [
+        [
+          6,
+          4,
+          6,
+          12
+        ]
+      ],
+      "main/2/alvo": [
+        [
+          7,
+          9,
+          7,
+          11
+        ]
+      ],
+      "main/2": [
+        [
+          7,
+          4,
+          7,
+          12
+        ]
+      ],
+      "main/3/alvo": [
+        [
+          8,
+          9,
+          8,
+          11
+        ]
+      ],
+      "main/3": [
+        [
+          8,
+          4,
+          8,
+          12
+        ]
+      ],
+      "main/4/alvo": [
+        [
+          9,
+          9,
+          9,
+          11
+        ]
+      ],
+      "main/4": [
+        [
+          9,
+          4,
+          9,
+          12
+        ]
+      ],
+      "main/5/alvo": [
+        [
+          10,
+          4,
+          10,
+          9
+        ]
+      ],
+      "main/5/valor/esq": [
+        [
+          10,
+          14,
+          10,
+          31
+        ]
+      ],
+      "main/5/valor": [
+        [
+          10,
+          13,
+          10,
+          36
+        ]
+      ],
+      "main/5": [
+        [
+          10,
+          4,
+          10,
+          36
+        ]
+      ],
+      "main/6/0": [
+        [
+          11,
+          13,
+          11,
+          22
+        ]
+      ],
+      "main/6/1": [
+        [
+          11,
+          24,
+          11,
+          29
+        ]
+      ],
+      "main/6": [
+        [
+          11,
+          4,
+          11,
+          30
+        ]
+      ],
+      "main/7/cond": [
+        [
+          12,
+          7,
+          12,
+          17
+        ]
+      ],
+      "main/7/entao/0": [
+        [
+          13,
+          7,
+          13,
+          27
+        ]
+      ],
+      "main/7/senao/0": [
+        [
+          15,
+          7,
+          15,
+          28
+        ]
+      ],
+      "main/7": [
+        [
+          12,
+          4,
+          16,
+          9
+        ]
+      ]
+    }
+  },
+  "linguagens": {
+    "python": {
+      "codigo": "n1 = 0.0\nn2 = 0.0\nn3 = 0.0\nn4 = 0.0\nmedia = 0.0\n\nprint(\"Digite as 4 notas:\")\nn1 = float(input())\nn2 = float(input())\nn3 = float(input())\nn4 = float(input())\nmedia = (n1 + n2 + n3 + n4) / 4\nprint(f\"Media: {media:.2f}\")\nif media >= 7:\n    print(\"Aprovado\")\nelse:\n    print(\"Reprovado\")\n",
+      "mapa": {
+        "var/0": [
+          [
+            1,
+            1,
+            5,
+            12
+          ]
+        ],
+        "main/0/0": [
+          [
+            7,
+            7,
+            7,
+            27
+          ]
+        ],
+        "main/0": [
+          [
+            7,
+            1,
+            7,
+            28
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            8,
+            1,
+            8,
+            3
+          ]
+        ],
+        "syn:python.conversao_input": [
+          [
+            8,
+            6,
+            8,
+            20
+          ],
+          [
+            9,
+            6,
+            9,
+            20
+          ],
+          [
+            10,
+            6,
+            10,
+            20
+          ],
+          [
+            11,
+            6,
+            11,
+            20
+          ]
+        ],
+        "main/1": [
+          [
+            8,
+            1,
+            8,
+            20
+          ]
+        ],
+        "main/2/alvo": [
+          [
+            9,
+            1,
+            9,
+            3
+          ]
+        ],
+        "main/2": [
+          [
+            9,
+            1,
+            9,
+            20
+          ]
+        ],
+        "main/3/alvo": [
+          [
+            10,
+            1,
+            10,
+            3
+          ]
+        ],
+        "main/3": [
+          [
+            10,
+            1,
+            10,
+            20
+          ]
+        ],
+        "main/4/alvo": [
+          [
+            11,
+            1,
+            11,
+            3
+          ]
+        ],
+        "main/4": [
+          [
+            11,
+            1,
+            11,
+            20
+          ]
+        ],
+        "main/5/alvo": [
+          [
+            12,
+            1,
+            12,
+            6
+          ]
+        ],
+        "main/5/valor/esq": [
+          [
+            12,
+            10,
+            12,
+            27
+          ]
+        ],
+        "main/5/valor": [
+          [
+            12,
+            9,
+            12,
+            32
+          ]
+        ],
+        "main/5": [
+          [
+            12,
+            1,
+            12,
+            32
+          ]
+        ],
+        "main/6/0": [
+          [
+            13,
+            9,
+            13,
+            16
+          ]
+        ],
+        "main/6/1": [
+          [
+            13,
+            17,
+            13,
+            26
+          ]
+        ],
+        "main/6": [
+          [
+            13,
+            1,
+            13,
+            29
+          ]
+        ],
+        "main/7/cond": [
+          [
+            14,
+            4,
+            14,
+            14
+          ]
+        ],
+        "main/7/entao/0": [
+          [
+            15,
+            5,
+            15,
+            22
+          ]
+        ],
+        "main/7/senao/0": [
+          [
+            17,
+            5,
+            17,
+            23
+          ]
+        ],
+        "main/7": [
+          [
+            14,
+            1,
+            17,
+            23
+          ]
+        ]
+      }
+    },
+    "java": {
+      "codigo": "import java.math.BigDecimal;\nimport java.math.RoundingMode;\nimport java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        double n1 = 0.0;\n        double n2 = 0.0;\n        double n3 = 0.0;\n        double n4 = 0.0;\n        double media = 0.0;\n\n        System.out.println(\"Digite as 4 notas:\");\n        n1 = Double.parseDouble(sc.nextLine().trim());\n        n2 = Double.parseDouble(sc.nextLine().trim());\n        n3 = Double.parseDouble(sc.nextLine().trim());\n        n4 = Double.parseDouble(sc.nextLine().trim());\n        media = (n1 + n2 + n3 + n4) / 4;\n        System.out.println(\"Media: \" + new BigDecimal(media).setScale(2, RoundingMode.HALF_EVEN).toPlainString());\n        if (media >= 7) {\n            System.out.println(\"Aprovado\");\n        } else {\n            System.out.println(\"Reprovado\");\n        }\n    }\n}\n",
+      "mapa": {
+        "syn:java.imports": [
+          [
+            1,
+            1,
+            3,
+            26
+          ]
+        ],
+        "syn:java.class_main": [
+          [
+            5,
+            1,
+            5,
+            20
+          ],
+          [
+            27,
+            1,
+            27,
+            2
+          ]
+        ],
+        "prog:inicio": [
+          [
+            6,
+            5,
+            6,
+            45
+          ],
+          [
+            26,
+            5,
+            26,
+            6
+          ]
+        ],
+        "syn:java.scanner": [
+          [
+            7,
+            9,
+            7,
+            45
+          ]
+        ],
+        "var/0": [
+          [
+            8,
+            9,
+            12,
+            28
+          ]
+        ],
+        "main/0/0": [
+          [
+            14,
+            28,
+            14,
+            48
+          ]
+        ],
+        "main/0": [
+          [
+            14,
+            9,
+            14,
+            50
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            15,
+            9,
+            15,
+            11
+          ]
+        ],
+        "main/1": [
+          [
+            15,
+            9,
+            15,
+            55
+          ]
+        ],
+        "main/2/alvo": [
+          [
+            16,
+            9,
+            16,
+            11
+          ]
+        ],
+        "main/2": [
+          [
+            16,
+            9,
+            16,
+            55
+          ]
+        ],
+        "main/3/alvo": [
+          [
+            17,
+            9,
+            17,
+            11
+          ]
+        ],
+        "main/3": [
+          [
+            17,
+            9,
+            17,
+            55
+          ]
+        ],
+        "main/4/alvo": [
+          [
+            18,
+            9,
+            18,
+            11
+          ]
+        ],
+        "main/4": [
+          [
+            18,
+            9,
+            18,
+            55
+          ]
+        ],
+        "main/5/alvo": [
+          [
+            19,
+            9,
+            19,
+            14
+          ]
+        ],
+        "main/5/valor/esq": [
+          [
+            19,
+            18,
+            19,
+            35
+          ]
+        ],
+        "main/5/valor": [
+          [
+            19,
+            17,
+            19,
+            40
+          ]
+        ],
+        "main/5": [
+          [
+            19,
+            9,
+            19,
+            41
+          ]
+        ],
+        "main/6/0": [
+          [
+            20,
+            28,
+            20,
+            37
+          ]
+        ],
+        "main/6/1": [
+          [
+            20,
+            40,
+            20,
+            113
+          ]
+        ],
+        "main/6": [
+          [
+            20,
+            9,
+            20,
+            115
+          ]
+        ],
+        "main/7/cond": [
+          [
+            21,
+            13,
+            21,
+            23
+          ]
+        ],
+        "main/7/entao/0": [
+          [
+            22,
+            13,
+            22,
+            44
+          ]
+        ],
+        "main/7/senao/0": [
+          [
+            24,
+            13,
+            24,
+            45
+          ]
+        ],
+        "main/7": [
+          [
+            21,
+            9,
+            25,
+            10
+          ]
+        ]
+      }
+    },
+    "c": {
+      "codigo": "#include <stdio.h>\n\nint main(void) {\n    char linha[256];\n    double n1 = 0.0;\n    double n2 = 0.0;\n    double n3 = 0.0;\n    double n4 = 0.0;\n    double media = 0.0;\n\n    printf(\"Digite as 4 notas:\\n\");\n    if (fgets(linha, sizeof linha, stdin) != NULL) {\n        sscanf(linha, \"%lf\", &n1);\n    }\n    if (fgets(linha, sizeof linha, stdin) != NULL) {\n        sscanf(linha, \"%lf\", &n2);\n    }\n    if (fgets(linha, sizeof linha, stdin) != NULL) {\n        sscanf(linha, \"%lf\", &n3);\n    }\n    if (fgets(linha, sizeof linha, stdin) != NULL) {\n        sscanf(linha, \"%lf\", &n4);\n    }\n    media = (n1 + n2 + n3 + n4) / 4;\n    printf(\"Media: %.2f\\n\", media);\n    if (media >= 7) {\n        printf(\"Aprovado\\n\");\n    } else {\n        printf(\"Reprovado\\n\");\n    }\n    return 0;\n}\n",
+      "mapa": {
+        "syn:c.include_stdio": [
+          [
+            1,
+            1,
+            1,
+            19
+          ]
+        ],
+        "prog:inicio": [
+          [
+            3,
+            1,
+            3,
+            17
+          ],
+          [
+            32,
+            1,
+            32,
+            2
+          ]
+        ],
+        "syn:c.buffer_linha": [
+          [
+            4,
+            5,
+            4,
+            21
+          ]
+        ],
+        "var/0": [
+          [
+            5,
+            5,
+            9,
+            24
+          ]
+        ],
+        "main/0/0": [
+          [
+            11,
+            12,
+            11,
+            34
+          ]
+        ],
+        "main/0": [
+          [
+            11,
+            5,
+            11,
+            36
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            13,
+            31,
+            13,
+            33
+          ]
+        ],
+        "main/1": [
+          [
+            12,
+            5,
+            14,
+            6
+          ]
+        ],
+        "main/2/alvo": [
+          [
+            16,
+            31,
+            16,
+            33
+          ]
+        ],
+        "main/2": [
+          [
+            15,
+            5,
+            17,
+            6
+          ]
+        ],
+        "main/3/alvo": [
+          [
+            19,
+            31,
+            19,
+            33
+          ]
+        ],
+        "main/3": [
+          [
+            18,
+            5,
+            20,
+            6
+          ]
+        ],
+        "main/4/alvo": [
+          [
+            22,
+            31,
+            22,
+            33
+          ]
+        ],
+        "main/4": [
+          [
+            21,
+            5,
+            23,
+            6
+          ]
+        ],
+        "main/5/alvo": [
+          [
+            24,
+            5,
+            24,
+            10
+          ]
+        ],
+        "main/5/valor/esq": [
+          [
+            24,
+            14,
+            24,
+            31
+          ]
+        ],
+        "main/5/valor": [
+          [
+            24,
+            13,
+            24,
+            36
+          ]
+        ],
+        "main/5": [
+          [
+            24,
+            5,
+            24,
+            37
+          ]
+        ],
+        "main/6/0": [
+          [
+            25,
+            13,
+            25,
+            20
+          ]
+        ],
+        "main/6/1": [
+          [
+            25,
+            20,
+            25,
+            24
+          ],
+          [
+            25,
+            29,
+            25,
+            34
+          ]
+        ],
+        "main/6": [
+          [
+            25,
+            5,
+            25,
+            36
+          ]
+        ],
+        "main/7/cond": [
+          [
+            26,
+            9,
+            26,
+            19
+          ]
+        ],
+        "main/7/entao/0": [
+          [
+            27,
+            9,
+            27,
+            30
+          ]
+        ],
+        "main/7/senao/0": [
+          [
+            29,
+            9,
+            29,
+            31
+          ]
+        ],
+        "main/7": [
+          [
+            26,
+            5,
+            30,
+            6
+          ]
+        ],
+        "syn:c.return0": [
+          [
+            31,
+            5,
+            31,
+            14
+          ]
+        ]
+      }
+    },
+    "cpp": {
+      "codigo": "#include <iomanip>\n#include <iostream>\n#include <string>\n\nint main() {\n    std::string linha;\n    double n1 = 0.0;\n    double n2 = 0.0;\n    double n3 = 0.0;\n    double n4 = 0.0;\n    double media = 0.0;\n\n    std::cout << \"Digite as 4 notas:\\n\";\n    std::getline(std::cin, linha);\n    n1 = std::stod(linha);\n    std::getline(std::cin, linha);\n    n2 = std::stod(linha);\n    std::getline(std::cin, linha);\n    n3 = std::stod(linha);\n    std::getline(std::cin, linha);\n    n4 = std::stod(linha);\n    media = (n1 + n2 + n3 + n4) / 4;\n    std::cout << \"Media: \" << std::fixed << std::setprecision(2) << media << \"\\n\";\n    if (media >= 7) {\n        std::cout << \"Aprovado\\n\";\n    } else {\n        std::cout << \"Reprovado\\n\";\n    }\n    return 0;\n}\n",
+      "mapa": {
+        "syn:cpp.includes": [
+          [
+            1,
+            1,
+            3,
+            18
+          ]
+        ],
+        "prog:inicio": [
+          [
+            5,
+            1,
+            5,
+            13
+          ],
+          [
+            30,
+            1,
+            30,
+            2
+          ]
+        ],
+        "syn:cpp.buffer_linha": [
+          [
+            6,
+            5,
+            6,
+            23
+          ]
+        ],
+        "var/0": [
+          [
+            7,
+            5,
+            11,
+            24
+          ]
+        ],
+        "main/0/0": [
+          [
+            13,
+            18,
+            13,
+            40
+          ]
+        ],
+        "main/0": [
+          [
+            13,
+            5,
+            13,
+            41
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            15,
+            5,
+            15,
+            7
+          ]
+        ],
+        "main/1": [
+          [
+            14,
+            5,
+            15,
+            27
+          ]
+        ],
+        "main/2/alvo": [
+          [
+            17,
+            5,
+            17,
+            7
+          ]
+        ],
+        "main/2": [
+          [
+            16,
+            5,
+            17,
+            27
+          ]
+        ],
+        "main/3/alvo": [
+          [
+            19,
+            5,
+            19,
+            7
+          ]
+        ],
+        "main/3": [
+          [
+            18,
+            5,
+            19,
+            27
+          ]
+        ],
+        "main/4/alvo": [
+          [
+            21,
+            5,
+            21,
+            7
+          ]
+        ],
+        "main/4": [
+          [
+            20,
+            5,
+            21,
+            27
+          ]
+        ],
+        "main/5/alvo": [
+          [
+            22,
+            5,
+            22,
+            10
+          ]
+        ],
+        "main/5/valor/esq": [
+          [
+            22,
+            14,
+            22,
+            31
+          ]
+        ],
+        "main/5/valor": [
+          [
+            22,
+            13,
+            22,
+            36
+          ]
+        ],
+        "main/5": [
+          [
+            22,
+            5,
+            22,
+            37
+          ]
+        ],
+        "main/6/0": [
+          [
+            23,
+            18,
+            23,
+            27
+          ]
+        ],
+        "main/6/1": [
+          [
+            23,
+            31,
+            23,
+            74
+          ]
+        ],
+        "main/6": [
+          [
+            23,
+            5,
+            23,
+            83
+          ]
+        ],
+        "main/7/cond": [
+          [
+            24,
+            9,
+            24,
+            19
+          ]
+        ],
+        "main/7/entao/0": [
+          [
+            25,
+            9,
+            25,
+            35
+          ]
+        ],
+        "main/7/senao/0": [
+          [
+            27,
+            9,
+            27,
+            36
+          ]
+        ],
+        "main/7": [
+          [
+            24,
+            5,
+            28,
+            6
+          ]
+        ],
+        "syn:cpp.return0": [
+          [
+            29,
+            5,
+            29,
+            14
+          ]
+        ]
+      }
+    },
+    "php": {
+      "codigo": "<?php\n\n$n1 = 0.0;\n$n2 = 0.0;\n$n3 = 0.0;\n$n4 = 0.0;\n$media = 0.0;\n\necho \"Digite as 4 notas:\\n\";\n$n1 = (float) trim(fgets(STDIN));\n$n2 = (float) trim(fgets(STDIN));\n$n3 = (float) trim(fgets(STDIN));\n$n4 = (float) trim(fgets(STDIN));\n$media = ($n1 + $n2 + $n3 + $n4) / 4;\nprintf(\"Media: %.2F\\n\", $media);\nif ($media >= 7) {\n    echo \"Aprovado\\n\";\n} else {\n    echo \"Reprovado\\n\";\n}\n",
+      "mapa": {
+        "syn:php.open_tag": [
+          [
+            1,
+            1,
+            1,
+            6
+          ]
+        ],
+        "var/0": [
+          [
+            3,
+            1,
+            7,
+            14
+          ]
+        ],
+        "main/0/0": [
+          [
+            9,
+            6,
+            9,
+            28
+          ]
+        ],
+        "main/0": [
+          [
+            9,
+            1,
+            9,
+            29
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            10,
+            1,
+            10,
+            4
+          ]
+        ],
+        "main/1": [
+          [
+            10,
+            1,
+            10,
+            34
+          ]
+        ],
+        "main/2/alvo": [
+          [
+            11,
+            1,
+            11,
+            4
+          ]
+        ],
+        "main/2": [
+          [
+            11,
+            1,
+            11,
+            34
+          ]
+        ],
+        "main/3/alvo": [
+          [
+            12,
+            1,
+            12,
+            4
+          ]
+        ],
+        "main/3": [
+          [
+            12,
+            1,
+            12,
+            34
+          ]
+        ],
+        "main/4/alvo": [
+          [
+            13,
+            1,
+            13,
+            4
+          ]
+        ],
+        "main/4": [
+          [
+            13,
+            1,
+            13,
+            34
+          ]
+        ],
+        "main/5/alvo": [
+          [
+            14,
+            1,
+            14,
+            7
+          ]
+        ],
+        "main/5/valor/esq": [
+          [
+            14,
+            11,
+            14,
+            32
+          ]
+        ],
+        "main/5/valor": [
+          [
+            14,
+            10,
+            14,
+            37
+          ]
+        ],
+        "main/5": [
+          [
+            14,
+            1,
+            14,
+            38
+          ]
+        ],
+        "main/6/0": [
+          [
+            15,
+            9,
+            15,
+            16
+          ]
+        ],
+        "main/6/1": [
+          [
+            15,
+            16,
+            15,
+            20
+          ],
+          [
+            15,
+            25,
+            15,
+            31
+          ]
+        ],
+        "main/6": [
+          [
+            15,
+            1,
+            15,
+            33
+          ]
+        ],
+        "main/7/cond": [
+          [
+            16,
+            5,
+            16,
+            16
+          ]
+        ],
+        "main/7/entao/0": [
+          [
+            17,
+            5,
+            17,
+            23
+          ]
+        ],
+        "main/7/senao/0": [
+          [
+            19,
+            5,
+            19,
+            24
+          ]
+        ],
+        "main/7": [
+          [
+            16,
+            1,
+            20,
+            2
+          ]
+        ]
+      }
+    }
+  },
+  "nos": {
+    "prog:cabecalho": {
+      "tipo": "cabecalho",
+      "rotulo": "algoritmo \"media\""
+    },
+    "prog:var": {
+      "tipo": "secao_var",
+      "rotulo": "var"
+    },
+    "var/0": {
+      "tipo": "declaracao",
+      "rotulo": "n1, n2, n3, n4, media: real"
+    },
+    "prog:inicio": {
+      "tipo": "bloco_principal",
+      "rotulo": "inicio"
+    },
+    "main/0/0": {
+      "tipo": "literal",
+      "rotulo": "\"Digite as 4 notas:\""
+    },
+    "main/0": {
+      "tipo": "escreva",
+      "rotulo": "escreval(\"Digite as 4 notas:\")"
+    },
+    "main/1/alvo": {
+      "tipo": "variavel",
+      "rotulo": "n1"
+    },
+    "main/1": {
+      "tipo": "leia",
+      "rotulo": "leia(n1)"
+    },
+    "main/2/alvo": {
+      "tipo": "variavel",
+      "rotulo": "n2"
+    },
+    "main/2": {
+      "tipo": "leia",
+      "rotulo": "leia(n2)"
+    },
+    "main/3/alvo": {
+      "tipo": "variavel",
+      "rotulo": "n3"
+    },
+    "main/3": {
+      "tipo": "leia",
+      "rotulo": "leia(n3)"
+    },
+    "main/4/alvo": {
+      "tipo": "variavel",
+      "rotulo": "n4"
+    },
+    "main/4": {
+      "tipo": "leia",
+      "rotulo": "leia(n4)"
+    },
+    "main/5/alvo": {
+      "tipo": "variavel",
+      "rotulo": "media"
+    },
+    "main/5/valor/esq": {
+      "tipo": "operacao",
+      "rotulo": "n1 + n2 + n3 + n4"
+    },
+    "main/5/valor": {
+      "tipo": "operacao",
+      "rotulo": "(n1 + n2 + n3 + n4) / 4"
+    },
+    "main/5": {
+      "tipo": "atribuicao",
+      "rotulo": "media <- (n1 + n2 + n3 + n4) / 4"
+    },
+    "main/6/0": {
+      "tipo": "literal",
+      "rotulo": "\"Media: \""
+    },
+    "main/6/1": {
+      "tipo": "variavel",
+      "rotulo": "media"
+    },
+    "main/6": {
+      "tipo": "escreva",
+      "rotulo": "escreval(\"Media: \", media)"
+    },
+    "main/7/cond": {
+      "tipo": "operacao",
+      "rotulo": "media >= 7"
+    },
+    "main/7/entao/0": {
+      "tipo": "escreva",
+      "rotulo": "escreval(\"Aprovado\")"
+    },
+    "main/7/senao/0": {
+      "tipo": "escreva",
+      "rotulo": "escreval(\"Reprovado\")"
+    },
+    "main/7": {
+      "tipo": "se",
+      "rotulo": "se media >= 7 entao"
+    },
+    "syn:python.conversao_input": {
+      "tipo": "sintetico",
+      "linguagem": "python",
+      "rotulo": "float(input())"
+    },
+    "syn:java.imports": {
+      "tipo": "sintetico",
+      "linguagem": "java",
+      "rotulo": "import java.math.BigDecimal;"
+    },
+    "syn:java.class_main": {
+      "tipo": "sintetico",
+      "linguagem": "java",
+      "rotulo": "public class Main {"
+    },
+    "syn:java.scanner": {
+      "tipo": "sintetico",
+      "linguagem": "java",
+      "rotulo": "Scanner sc = new Scanner(System.in);"
+    },
+    "syn:c.include_stdio": {
+      "tipo": "sintetico",
+      "linguagem": "c",
+      "rotulo": "#include <stdio.h>"
+    },
+    "syn:c.buffer_linha": {
+      "tipo": "sintetico",
+      "linguagem": "c",
+      "rotulo": "char linha[256];"
+    },
+    "syn:c.return0": {
+      "tipo": "sintetico",
+      "linguagem": "c",
+      "rotulo": "return 0;"
+    },
+    "syn:cpp.includes": {
+      "tipo": "sintetico",
+      "linguagem": "cpp",
+      "rotulo": "#include <iomanip>"
+    },
+    "syn:cpp.buffer_linha": {
+      "tipo": "sintetico",
+      "linguagem": "cpp",
+      "rotulo": "std::string linha;"
+    },
+    "syn:cpp.return0": {
+      "tipo": "sintetico",
+      "linguagem": "cpp",
+      "rotulo": "return 0;"
+    },
+    "syn:php.open_tag": {
+      "tipo": "sintetico",
+      "linguagem": "php",
+      "rotulo": "<?php"
+    }
+  },
+  "semEquivalente": {
+    "python": [
+      "prog:cabecalho",
+      "prog:var",
+      "prog:inicio"
+    ],
+    "java": [
+      "prog:cabecalho",
+      "prog:var"
+    ],
+    "c": [
+      "prog:cabecalho",
+      "prog:var"
+    ],
+    "cpp": [
+      "prog:cabecalho",
+      "prog:var"
+    ],
+    "php": [
+      "prog:cabecalho",
+      "prog:var",
+      "prog:inicio"
+    ]
+  }
+}

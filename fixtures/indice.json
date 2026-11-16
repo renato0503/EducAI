@@ -1,0 +1,27 @@
+[
+  {
+    "id": "media-notas",
+    "titulo": "Média de 4 notas",
+    "ordem": 1
+  },
+  {
+    "id": "tabuada",
+    "titulo": "Tabuada",
+    "ordem": 2
+  },
+  {
+    "id": "contagem-regressiva",
+    "titulo": "Contagem regressiva",
+    "ordem": 3
+  },
+  {
+    "id": "maior-do-vetor",
+    "titulo": "Maior número do vetor",
+    "ordem": 4
+  },
+  {
+    "id": "fatorial-funcao",
+    "titulo": "Fatorial com função",
+    "ordem": 5
+  }
+]

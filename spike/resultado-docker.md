@@ -12,6 +12,17 @@
 
 | Programa/entrada | Python | Java | C | C++ | PHP |
 |---|---|---|---|---|---|
+| fx-contagem-regressiva/cinco.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fx-contagem-regressiva/zero.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fx-fatorial-funcao/cinco.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fx-fatorial-funcao/dez.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fx-fatorial-funcao/um.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fx-maior-do-vetor/negativos.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fx-maior-do-vetor/positivos.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fx-media-notas/aprovado.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fx-media-notas/reprovado.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fx-tabuada/doze.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fx-tabuada/sete.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
 | p1-texto/fim.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
 | p1-texto/nome-composto.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
 | p2-notas/quatro-notas.txt | ✅ | ✅ | ✅ | ✅ | ✅ |

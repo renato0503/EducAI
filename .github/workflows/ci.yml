@@ -20,6 +20,8 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
+      - name: Fixtures atualizadas e com mapa completo
+        run: pnpm fixtures --verificar
       - run: pnpm build
 
   equivalencia:

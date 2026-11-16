@@ -3,7 +3,7 @@
 > **Leia isto primeiro ao retomar o trabalho.** Este documento registra o estado exato do projeto,
 > o que foi feito, como reproduzir, o que falta e em que ordem, com critérios de aceite.
 >
-> Última atualização: **16/11/2026**, sessão 2 da Fase 0 (PRs abertos, CI verde, D1 fechada).
+> Última atualização: **16/11/2026**, sessão 2 da Fase 0 (PRs abertos, CI verde, D1 fechada, fixtures prontas).
 > Autor: Renato (com Claude). Branch de trabalho: `feat/fase0-setup`.
 
 ---
@@ -30,7 +30,8 @@
 | Fase atual | **Fase 0 — Validação** (16/11 – 06/12/2026), gate **G0** em 06/12 |
 | Plano | v2 em `context.md`, `sprint.md`, `docs/semantica.md` — **PR #1 aberto, aguardando merge do Renato** |
 | Código | Monorepo TypeScript verde localmente **e no CI do GitHub** — PR #2 |
-| Spike de equivalência | **Concluído**: 6 programas × 5 linguagens (12 combinações), nenhuma divergência inesperada |
+| Spike de equivalência | **Concluído**: 6 programas do spike + 5 fixtures × 5 linguagens (23 combinações), nenhuma divergência inesperada |
+| Fixtures (0.2) | **Concluídas**: 5 programas didáticos com mapa nó → ranges nas 5 linguagens, gerador e verificação no CI (`fixtures/README.md`) |
 | Achado principal | Java arredondava real diferente das outras 4 → **resolvido com `BigDecimal` + `HALF_EVEN` (D1, decisão 011)** |
 | Equipe | **Mudou hoje:** Vitório saiu da divisão; tudo fica com Renato (com Claude). `sprint.md` ainda não foi replanejado |
 | Bloqueio para o G0 | Tarefas 0.3 e 0.4 (alunos e professores) dependem só do Renato e ainda não começaram |
@@ -40,7 +41,7 @@ Tarefas da Fase 0:
 | # | Tarefa | Estado |
 |---|---|---|
 | 0.1 | Protótipo estático com 5 abas | ❌ não iniciado |
-| 0.2 | Fixtures dos 5 programas | ❌ não iniciado (tipos da AST prontos) |
+| 0.2 | Fixtures dos 5 programas | ✅ concluído (falta só o `ast.json` completo, adiado para o parser da S1) |
 | 0.3 | Think-aloud com 6–10 alunos | ❌ não iniciado (roteiro em `docs/fase0-roteiros.md`) |
 | 0.4 | Entrevistas com 3–5 professores + turma do piloto | ❌ não iniciado (roteiro em `docs/fase0-roteiros.md`) |
 | 0.5 | Spike de equivalência | ✅ concluído |
@@ -283,7 +284,18 @@ Sem isso não há G0. Roteiros prontos em `docs/fase0-roteiros.md`.
 3. Rodar `docker run --rm educai-runtimes node run.mjs --estrito --markdown > spike/resultado-docker.md`.
 4. Atualizar `docs/semantica.md`, `spike/README.md` e `docs/decisoes.md`.
 
-### 6.3 — Fixtures dos 5 programas didáticos (0.2) — ~6 h
+### 6.3 — Fixtures dos 5 programas didáticos (0.2) — ✅ FEITO em 16/11
+
+Resultado: ver `fixtures/README.md`. Diferenças em relação ao plano abaixo:
+- Os ids e os tipos dos nós vêm dos marcadores do PT-BR (`⟦id|tipo⟧`); não há `ast.json`
+  completo. A AST tipada sai do parser na Sprint 1, usando os `programa.por` como corpus.
+- O gerador é `packages/compiler/scripts/gerar-fixtures.ts` (`pnpm fixtures`), e a biblioteca
+  de marcadores tem 6 testes. O CI roda `pnpm fixtures --verificar`.
+- As versões limpas vão para `spike/programas/fx-*`, então o job de equivalência do CI também
+  testa as fixtures nas 5 linguagens.
+- Cartões de explicação ficaram para o protótipo (§6.4).
+
+Plano original, mantido como referência:
 
 São os programas que os alunos vão ver no protótipo, **diferentes** dos do spike (estes são
 "difíceis"; aqueles são didáticos).
@@ -454,7 +466,7 @@ Em ordem:
 4. [x] PR #2 aberto e CI verde.
 5. [ ] Agendar professores e alunos (§6.1) — se ainda não foi feito.
 6. [x] Spike `p6-arredondamento` e D1 fechada.
-7. [ ] Fixtures + script de marcadores (§6.3).
+7. [x] Fixtures + script de marcadores (§6.3).
 8. [ ] Protótipo em `apps/web` (§6.4), prazo 24/11.
 9. [ ] Spike `p7`–`p13` (§6.2.2).
 10. [ ] Replanejar `sprint.md` (§6.6).

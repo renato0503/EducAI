@@ -30,6 +30,7 @@ spike/
 | `p4-vetor-funcao` | vetor por referência (PHP `&`), protótipos em C, `passo -1`, `escreva` sem quebra |
 | `p5-fatorial` | recursão e overflow de 32 bits |
 | `p6-arredondamento` | decisão D1: Java com `BigDecimal` + `HALF_EVEN` contra as outras 4 linguagens |
+| `fx-*` | as 5 fixtures didáticas (geradas por `pnpm fixtures`, não editar aqui; ver `fixtures/README.md`) |
 
 ## Como rodar
 
