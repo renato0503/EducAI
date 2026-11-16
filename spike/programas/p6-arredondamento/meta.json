@@ -1,0 +1,7 @@
+{
+  "titulo": "Arredondamento de real: testa a opção A da decisão D1 (BigDecimal em Java)",
+  "objetivo": "Verificar se Java com new BigDecimal(x).setScale(n, RoundingMode.HALF_EVEN) reproduz C, C++, Python e PHP (valor binário exato, empate para o par) em empates, valores comuns, negativos, zero negativo e 0 casas.",
+  "divergenciasEsperadas": [
+    { "linhaComeca": "-0.001 ->", "motivo": "Zero negativo: C/Python imprimem -0.00; BigDecimal não tem zero negativo (provável 0.00)" }
+  ]
+}

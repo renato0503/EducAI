@@ -3,7 +3,7 @@
 > **Leia isto primeiro ao retomar o trabalho.** Este documento registra o estado exato do projeto,
 > o que foi feito, como reproduzir, o que falta e em que ordem, com critérios de aceite.
 >
-> Última atualização: **16/11/2026**, fim da sessão 1 da Fase 0.
+> Última atualização: **16/11/2026**, sessão 2 da Fase 0 (PRs abertos, CI verde, D1 fechada).
 > Autor: Renato (com Claude). Branch de trabalho: `feat/fase0-setup`.
 
 ---
@@ -28,10 +28,10 @@
 | Item | Estado |
 |---|---|
 | Fase atual | **Fase 0 — Validação** (16/11 – 06/12/2026), gate **G0** em 06/12 |
-| Plano | v2 em `context.md`, `sprint.md`, `docs/semantica.md` (branch `docs/plano-v2`, PR ainda não aberto) |
-| Código | Monorepo TypeScript criado e verde (lint, tipos, testes, build) |
-| Spike de equivalência | **Concluído**: 5 programas × 5 linguagens, nenhuma divergência inesperada |
-| Achado principal | `String.format` do Java arredonda real diferente das outras 4 linguagens (decisão D1) |
+| Plano | v2 em `context.md`, `sprint.md`, `docs/semantica.md` — **PR #1 aberto, aguardando merge do Renato** |
+| Código | Monorepo TypeScript verde localmente **e no CI do GitHub** — PR #2 |
+| Spike de equivalência | **Concluído**: 6 programas × 5 linguagens (12 combinações), nenhuma divergência inesperada |
+| Achado principal | Java arredondava real diferente das outras 4 → **resolvido com `BigDecimal` + `HALF_EVEN` (D1, decisão 011)** |
 | Equipe | **Mudou hoje:** Vitório saiu da divisão; tudo fica com Renato (com Claude). `sprint.md` ainda não foi replanejado |
 | Bloqueio para o G0 | Tarefas 0.3 e 0.4 (alunos e professores) dependem só do Renato e ainda não começaram |
 
@@ -44,8 +44,8 @@ Tarefas da Fase 0:
 | 0.3 | Think-aloud com 6–10 alunos | ❌ não iniciado (roteiro em `docs/fase0-roteiros.md`) |
 | 0.4 | Entrevistas com 3–5 professores + turma do piloto | ❌ não iniciado (roteiro em `docs/fase0-roteiros.md`) |
 | 0.5 | Spike de equivalência | ✅ concluído |
-| 0.6 | Fechar `docs/semantica.md` v1 | 🟡 atualizado com o spike; falta D1 e os casos extras |
-| 0.7 | Monorepo, lint, testes, CI | 🟡 local verde; CI no GitHub nunca rodou |
+| 0.6 | Fechar `docs/semantica.md` v1 | 🟡 D1 fechada; faltam os casos `p7`–`p13` |
+| 0.7 | Monorepo, lint, testes, CI | ✅ CI verde no GitHub (PR #2); falta só proteger a `main` |
 
 ---
 
@@ -85,11 +85,14 @@ Remoto: `https://github.com/renato0503/EducAI` (**público**, licença MIT; ver 
 | Branch | Base | Conteúdo | Estado |
 |---|---|---|---|
 | `main` | — | Documentação v1 (3 commits) | Desatualizada |
-| `docs/plano-v2` | `main` | Plano v2: `context.md`, `sprint.md`, `README.md`, `docs/semantica.md` | No GitHub; **PR não aberto** |
-| `feat/fase0-setup` | `docs/plano-v2` | Monorepo + spike + este documento | Commit desta sessão; ver §10 |
+| `docs/plano-v2` | `main` | Plano v2: `context.md`, `sprint.md`, `README.md`, `docs/semantica.md` | **PR #1** aberto; merge pendente (o Claude não tem permissão para fazer merge na `main`) |
+| `feat/fase0-setup` | `docs/plano-v2` | Monorepo + spike + docs de continuidade | **PR #2** aberto, CI verde; fazer merge depois do #1 |
 
-Ordem de merge recomendada: abrir PR de `docs/plano-v2` → `main`, fazer merge; depois abrir PR de
-`feat/fase0-setup` → `main` (o diff já fica só com o trabalho da Fase 0).
+Ordem de merge: **#1 primeiro, depois #2** (use "Create a merge commit" no #1 para o diff do #2
+ficar só com o trabalho da Fase 0).
+
+- PR #1: https://github.com/renato0503/EducAI/pull/1
+- PR #2: https://github.com/renato0503/EducAI/pull/2
 
 ### Mapa de arquivos
 
@@ -208,9 +211,8 @@ Verificado localmente: `pnpm lint`, `pnpm typecheck`, `pnpm test` (2 testes) e `
 passam.
 
 Falta:
-- [ ] **Ver o CI rodar no GitHub pela primeira vez** (nunca rodou). Pontos de atenção:
-  `pnpm/action-setup@v4` lê a versão do `packageManager` (11.15.1); se reclamar de `allowBuilds`
-  ou do lockfile, conferir a versão do pnpm no runner.
+- [x] CI rodou no GitHub (PR #2): `qualidade` 27 s, `equivalencia` 1 min 16 s, ambos verdes.
+  O GitGuardian (app instalado no repositório) também passou.
 - [ ] Proteção da `main` (exigir PR + CI verde) em Settings → Branches.
 - [ ] Fixar a imagem base do Docker por digest (TODO no `spike/Dockerfile`).
 
@@ -254,7 +256,7 @@ Sem isso não há G0. Roteiros prontos em `docs/fase0-roteiros.md`.
 
 ### 6.2 — Completar o spike (0.5/0.6) — ~3 h
 
-1. **Testar a opção A da D1.** Criar `spike/programas/p6-arredondamento/`:
+1. ✅ **Feito em 16/11 — D1 fechada (decisão 011).** Registro original: Criar `spike/programas/p6-arredondamento/`:
    - Valores: `0.125`, `0.375`, `2.675`, `1.005`, `1234.5678`, `-2.675`, `0.0`, `-0.001`
      (com 2 casas; `-0.001` testa o `-0.00`), e `2.5`/`3.5` com `x:0:0`.
    - Java com `new BigDecimal(x).setScale(n, RoundingMode.HALF_EVEN).toPlainString()`.
@@ -392,8 +394,9 @@ Ver `sprint.md` §5. Primeiros passos concretos:
 |---|---|---|
 | `div`/`mod` com operando negativo | Python (arredonda para baixo) | Pegadinha no interpretador (já na spec) |
 | Overflow de 32 bits | Python e PHP não estouram; Java dá a volta; C/C++ é comportamento indefinido (no teste, deu o mesmo valor do Java) | Pegadinha no interpretador (já na spec) |
-| Real formatado: empate exato (`0.125`) | Java (HALF_UP) | D1 |
-| Real formatado: valor comum (`2.675`) | Java (arredonda a partir do decimal curto) | D1 — **achado novo e mais grave** |
+| Real formatado: empate exato (`0.125`) | Java com `String.format` (HALF_UP) | Resolvido: `BigDecimal` + `HALF_EVEN` (D1) |
+| Real formatado: valor comum (`2.675`) | Java com `String.format` (arredonda a partir do decimal curto) | Resolvido: `BigDecimal` + `HALF_EVEN` (D1) |
+| Zero negativo (`-0.001` com 2 casas) | Java com `BigDecimal` dá `0.00`; as outras dão `-0.00` | Pegadinha no interpretador |
 
 ### 7.2 Confirmações (funcionou como a spec previa)
 
@@ -422,7 +425,6 @@ Todas em [`docs/decisoes.md`](./decisoes.md). Pendentes que bloqueiam o G0:
 
 | # | Decisão | Recomendação |
 |---|---|---|
-| D1 | Formatação de real em Java | `BigDecimal(x).setScale(n, HALF_EVEN)`, depois de testar no `p6` |
 | D2 | Índice de vetor | 0, confirmar com professores |
 | D3 | Repo público + MIT | Decidir antes de publicar o protótipo |
 | D5 | Replanejar sem o Vitório | Ver §2 |
@@ -435,7 +437,6 @@ Todas em [`docs/decisoes.md`](./decisoes.md). Pendentes que bloqueiam o G0:
 |---|---|---|
 | Pesquisa com alunos/professores não acontecer a tempo | **Alto**, nada agendado | Agendar até 22/11 (§6.1) |
 | Uma pessoa só para tudo | Alto | Replanejar (§2); Claude no código, Renato na revisão e pesquisa |
-| CI nunca rodou no GitHub | Médio | Abrir o PR e observar (§10) |
 | Acentos em `caractere` | Médio, não testado | `p10` do §6.2 |
 | Repositório público expõe plano e protótipo | Baixo/médio | D3 |
 | Convite de colaborador pendente para quem saiu da equipe | Baixo | Decidir manter ou cancelar (§2) |
@@ -449,11 +450,10 @@ Em ordem:
 1. [ ] `git fetch && git checkout feat/fase0-setup && pnpm install`
 2. [ ] Abrir o Docker Desktop (§4) e conferir `docker run --rm educai-runtimes` (reconstruir a
        imagem se tiver sido apagada).
-3. [ ] Abrir PR `docs/plano-v2` → `main`, fazer merge.
-4. [ ] Abrir PR `feat/fase0-setup` → `main` e **acompanhar o CI** (jobs `qualidade` e
-       `equivalencia`). Corrigir o que falhar.
+3. [ ] **Renato:** fazer merge do PR #1 (merge commit) e depois do PR #2.
+4. [x] PR #2 aberto e CI verde.
 5. [ ] Agendar professores e alunos (§6.1) — se ainda não foi feito.
-6. [ ] Spike `p6-arredondamento` e fechar D1 (§6.2.1).
+6. [x] Spike `p6-arredondamento` e D1 fechada.
 7. [ ] Fixtures + script de marcadores (§6.3).
 8. [ ] Protótipo em `apps/web` (§6.4), prazo 24/11.
 9. [ ] Spike `p7`–`p13` (§6.2.2).

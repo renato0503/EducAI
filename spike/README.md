@@ -29,6 +29,7 @@ spike/
 | `p3-divisoes` | `/`, `div`, `mod` com negativos, `logico` impresso, arredondamento de real |
 | `p4-vetor-funcao` | vetor por referência (PHP `&`), protótipos em C, `passo -1`, `escreva` sem quebra |
 | `p5-fatorial` | recursão e overflow de 32 bits |
+| `p6-arredondamento` | decisão D1: Java com `BigDecimal` + `HALF_EVEN` contra as outras 4 linguagens |
 
 ## Como rodar
 
@@ -70,8 +71,17 @@ Outros achados:
 - `nextLine()` + `parseInt` no Java e `fgets` + `sscanf` no C funcionam para leitura mista.
 - PHP 8.2 formata real igual a C e Python (não era o esperado).
 
+### `p6-arredondamento` (16/11/2026) — fecha a decisão D1
+
+Java com `new BigDecimal(x).setScale(n, RoundingMode.HALF_EVEN).toPlainString()`: **igual às
+outras 4 linguagens** em `0.125`, `0.375`, `2.675`, `1.005`, `1234.5678`, `-2.675`, `0.0`, `2.5` e
+`3.5` com 0 casas, e `0.1 + 0.2` com 3 casas. Única diferença: `-0.001` com 2 casas dá `-0.00` em
+C, C++, Python e PHP e `0.00` em Java (zero negativo) → pegadinha no interpretador.
+
+CI no GitHub: os jobs `qualidade` e `equivalencia` passaram na primeira execução (PR #2).
+
 ## Próximos casos a adicionar (ver docs/PROGRESSO.md §6.2)
 
-`p6-arredondamento` (testar a opção A da D1), `p7-logico-e-se`, `p8-globais` (`global` em Python e
+`p7-logico-e-se`, `p8-globais` (`global` em Python e
 PHP), `p9-para-variavel-apos-laco`, `p10-texto-acentos` (UTF-8), `p11-divisao-por-zero`,
 `p12-recursao-profunda`, `p13-entrada-com-virgula`.

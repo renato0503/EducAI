@@ -60,6 +60,7 @@ interpretador garante que o resultado cabe em 255 caracteres.
 Pegadinhas interrompidas pelo interpretador (todas confirmadas no spike):
 - `div` ou `mod` com **operando negativo** (Python arredonda para baixo; as demais truncam).
 - Divisão por zero (inteira ou real). Em real, C/Java/PHP dariam `INF` e Python lança exceção.
+- Real negativo que arredonda para zero na impressão (`-0.00` × `0.00`, ver §4).
 - Resultado inteiro fora da faixa de 32 bits.
 
 ---
@@ -72,7 +73,7 @@ Pegadinhas interrompidas pelo interpretador (todas confirmadas no spike):
 
 | | Python | Java | C | C++ | PHP |
 |---|---|---|---|---|---|
-| real, 2 casas | `f"{x:.2f}"` | ver abaixo (decisão pendente D1) | `printf("%.2f", x)` | `std::fixed << std::setprecision(2) << x` | `printf("%.2F", $x)` |
+| real, 2 casas | `f"{x:.2f}"` | `new BigDecimal(x).setScale(2, RoundingMode.HALF_EVEN).toPlainString()` | `printf("%.2f", x)` | `std::fixed << std::setprecision(2) << x` | `printf("%.2F", $x)` |
 
 Observações:
 - **Java:** sem `Locale.ROOT`, uma JVM com locale pt-BR imprime `3,50`. O `import java.util.Locale`
@@ -91,16 +92,22 @@ Quatro linguagens arredondam o **valor binário exato** com empate para o par. O
 arredonda a partir da **representação decimal curta** com HALF_UP, então diverge também fora dos
 empates, em valores comuns como preços (`2.675`, `1.005`…). Isso é mais grave do que o previsto.
 
-**Decisão pendente D1 — como gerar real formatado em Java:**
-- **Opção A (recomendada):** `new BigDecimal(x).setScale(2, RoundingMode.HALF_EVEN).toPlainString()`.
-  `new BigDecimal(double)` usa o valor binário exato, e HALF_EVEN reproduz as outras 4 linguagens.
-  Custo: menos idiomático; vira nó sintético com cartão ("por que o Java precisa disso").
-  **Ainda não testado: adicionar ao spike antes de decidir.**
-- **Opção B:** manter `String.format` e o interpretador interromper com pegadinha sempre que a
-  regra do Java der resultado diferente. Contra: dispararia com frequência em programas comuns.
+**Decisão D1 (fechada em 16/11/2026, decisão 011):** Java gera
+`new BigDecimal(x).setScale(n, RoundingMode.HALF_EVEN).toPlainString()` (imports
+`java.math.BigDecimal` e `java.math.RoundingMode`, nós sintéticos com cartão "por que o Java
+precisa disso"). `new BigDecimal(double)` usa o valor binário exato, e HALF_EVEN reproduz as outras
+4 linguagens. Como o `BigDecimal` não depende de locale, o `Locale.ROOT` deixa de ser necessário
+para formatar real.
 
-O interpretador de referência deve usar a regra das 4 linguagens: valor binário exato, empate
-para o par.
+Validado no spike `p6-arredondamento` nas 5 linguagens: `0.125`, `0.375`, `2.675`, `1.005`,
+`1234.5678`, `-2.675`, `0.0`, `2.5` e `3.5` com 0 casas, `0.1 + 0.2` com 3 casas — **todos iguais**.
+
+**Exceção — zero negativo:** um real negativo que arredonda para zero (ex.: `-0.001` com 2 casas)
+imprime `-0.00` em C, C++, Python e PHP e `0.00` em Java (o `BigDecimal` não tem zero negativo).
+→ **Pegadinha no interpretador**: "este valor negativo vira zero ao arredondar; algumas linguagens
+mostram `-0.00`, o Java mostra `0.00`".
+
+O interpretador de referência usa a regra das 4 linguagens: valor binário exato, empate para o par.
 - Literais de texto passam por **escape por linguagem** (`"`, `\`, e `%` → `%%` em formatos de
   `printf`). Nunca interpolar texto do aluno como string de formato.
 

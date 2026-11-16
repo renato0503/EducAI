@@ -23,6 +23,7 @@
 | p4-vetor-funcao/positivos.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
 | p5-fatorial/ate-12.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
 | p5-fatorial/ate-13.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
+| p6-arredondamento/literais.txt | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 ### Divergências esperadas (ignoradas na comparação)
 
@@ -98,5 +99,13 @@
   - C: `13! = 1932053504`
   - C++: `13! = 1932053504`
   - PHP: `13! = 6227020800`
+- **p6-arredondamento/literais.txt** — `-0.001 ->` → DIVERGIU (confirmada)
+  - motivo: Zero negativo: C/Python imprimem -0.00; BigDecimal não tem zero negativo (provável 0.00)
+  - spec/esperado: `-0.001 -> -0.00`
+  - Python: `-0.001 -> -0.00`
+  - Java: `-0.001 -> 0.00`
+  - C: `-0.001 -> -0.00`
+  - C++: `-0.001 -> -0.00`
+  - PHP: `-0.001 -> -0.00`
 
 RESULTADO: OK — nenhuma divergência inesperada.
