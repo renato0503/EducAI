@@ -1,0 +1,10 @@
+{
+  "titulo": "Divisão real, div, mod, lógico impresso e arredondamento de real",
+  "objetivo": "Mapear as divergências conhecidas: div/mod com negativo (Python arredonda para baixo) e empates de arredondamento ao formatar real (Java usa HALF_UP). O interpretador de referência deve interromper esses casos com a pegadinha.",
+  "divergenciasEsperadas": [
+    { "linhaComeca": "-17 div 5", "motivo": "Python: -17 // 5 = -4; C/C++/Java/PHP truncam: -3" },
+    { "linhaComeca": "-17 mod 5", "motivo": "Python: -17 % 5 = 3; C/C++/Java/PHP: -2" },
+    { "linhaComeca": "0.125 com 2 casas", "motivo": "Empate exato: C/C++/Python arredondam para o par (0.12); suspeita de 0.13 em Java (HALF_UP) e possivelmente PHP" },
+    { "linhaComeca": "2.675 com 2 casas", "motivo": "2.675 é 2.67499999... em binário; suspeita de que Java/PHP partam da representação decimal curta e deem 2.68" }
+  ]
+}

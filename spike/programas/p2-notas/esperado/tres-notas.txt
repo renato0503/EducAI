@@ -1,0 +1,7 @@
+Quantas notas?
+Nota 1:
+Nota 2:
+Nota 3:
+Media: 5.17
+Media com 1 casa: 5.2
+Reprovado

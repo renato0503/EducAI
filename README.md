@@ -112,6 +112,10 @@ contas com e-mail, gamificação, LMS, matrizes/`escolha`/`repita`/arquivos/OO.
 | [`context.md`](./context.md) | Visão, público, MVP, arquitetura, papel da IA, riscos, decisões |
 | [`sprint.md`](./sprint.md) | Plano: orçamento de horas, sprints, gates, cortes, cronograma |
 | [`docs/semantica.md`](./docs/semantica.md) | Semântica do PT-BR e como cada linguagem a implementa |
+| [`docs/PROGRESSO.md`](./docs/PROGRESSO.md) | **Estado atual, o que foi feito e o que falta (leia ao retomar)** |
+| [`docs/decisoes.md`](./docs/decisoes.md) | Decisões tomadas e pendentes |
+| [`docs/fase0-roteiros.md`](./docs/fase0-roteiros.md) | Roteiros de entrevista com professores e think-aloud com alunos |
+| [`spike/README.md`](./spike/README.md) | Spike de equivalência nas 5 linguagens e resultados |
 
 ---
 
@@ -131,8 +135,13 @@ contas com e-mail, gamificação, LMS, matrizes/`escolha`/`repita`/arquivos/OO.
 
 ## Status
 
-Fase 0 (validação). O repositório contém a documentação; o código começa no monorepo criado na
-Fase 0.
+Fase 0 (validação). Monorepo TypeScript criado e o spike de equivalência nas 5 linguagens
+concluído. Detalhes e próximos passos em [`docs/PROGRESSO.md`](./docs/PROGRESSO.md).
+
+```bash
+pnpm install && pnpm test        # monorepo
+pnpm spike                       # spike com os runtimes instalados
+```
 
 ## Contribuindo
 

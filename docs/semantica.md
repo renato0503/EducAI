@@ -48,11 +48,16 @@ do Java).
 | `a / b` | divisão **real** sempre | `a / b` | `(double) a / b` se ambos inteiros | `a / b` |
 | `a div b` | divisão inteira | `a // b` | `a / b` | `intdiv(a, b)` |
 | `a mod b` | resto | `a % b` | `a % b` | `a % b` |
-| `+` em `caractere` | concatenação | `a + b` | Java `a + b`; C `snprintf`; C++ `a + b` | `a . b` |
+| `+` em `caractere` | concatenação | `a + b` | Java `a + b`; C `strcpy` + `strcat` (ver nota); C++ `a + b` | `a . b` |
 | `=` / `<>` em `caractere` | igualdade | `==` / `!=` | Java `a.equals(b)`; C `strcmp(a,b) == 0`; C++ `==` | `===` / `!==` |
 | `e` / `ou` / `nao` | lógicos com curto-circuito | `and` / `or` / `not` | `&&` / `\|\|` / `!` | `&&` / `\|\|` / `!` |
 
-Pegadinhas interrompidas pelo interpretador:
+Nota sobre concatenação em C: o spike usa `strcpy(dest, a); strcat(dest, b);`, que compila sem
+aviso com `-Wall -Wextra -Werror` (gcc 12). `snprintf` foi evitado porque o gcc tende a emitir
+`-Wformat-truncation` quando o tamanho máximo do `%s` é conhecido (hipótese não testada). O
+interpretador garante que o resultado cabe em 255 caracteres.
+
+Pegadinhas interrompidas pelo interpretador (todas confirmadas no spike):
 - `div` ou `mod` com **operando negativo** (Python arredonda para baixo; as demais truncam).
 - Divisão por zero (inteira ou real). Em real, C/Java/PHP dariam `INF` e Python lança exceção.
 - Resultado inteiro fora da faixa de 32 bits.
@@ -67,15 +72,35 @@ Pegadinhas interrompidas pelo interpretador:
 
 | | Python | Java | C | C++ | PHP |
 |---|---|---|---|---|---|
-| real, 2 casas | `f"{x:.2f}"` | `String.format(Locale.ROOT, "%.2f", x)` | `printf("%.2f", x)` | `std::fixed << std::setprecision(2) << x` | `printf("%.2F", $x)` |
+| real, 2 casas | `f"{x:.2f}"` | ver abaixo (decisão pendente D1) | `printf("%.2f", x)` | `std::fixed << std::setprecision(2) << x` | `printf("%.2F", $x)` |
 
 Observações:
 - **Java:** sem `Locale.ROOT`, uma JVM com locale pt-BR imprime `3,50`. O `import java.util.Locale`
-  é um nó sintético com explicação.
+  é um nó sintético com explicação. Confirmado no spike: com `Locale.ROOT`, a JVM rodando em
+  pt-BR imprime ponto.
 - **PHP:** `%F` (maiúsculo) não depende de locale; `%f` depende.
-- **Empates exatos de arredondamento** (ex.: `0.125` com 2 casas): a biblioteca C e o Python
-  arredondam o valor binário de um jeito, e o `Formatter` do Java usa HALF_UP → podem divergir.
-  O interpretador detecta empate exato e mostra a pegadinha. **[validar no spike]**
+
+**Resultado do spike (16/11/2026) — arredondamento de real:**
+
+| Valor | Python 3.11 | Java 17 `String.format` | C (gcc 12) | C++ (g++ 12) | PHP 8.2 |
+|---|---|---|---|---|---|
+| `0.125` com 2 casas (empate exato em binário) | 0.12 | **0.13** | 0.12 | 0.12 | 0.12 |
+| `2.675` com 2 casas (binário = 2.67499999…) | 2.67 | **2.68** | 2.67 | 2.67 | 2.67 |
+
+Quatro linguagens arredondam o **valor binário exato** com empate para o par. O `Formatter` do Java
+arredonda a partir da **representação decimal curta** com HALF_UP, então diverge também fora dos
+empates, em valores comuns como preços (`2.675`, `1.005`…). Isso é mais grave do que o previsto.
+
+**Decisão pendente D1 — como gerar real formatado em Java:**
+- **Opção A (recomendada):** `new BigDecimal(x).setScale(2, RoundingMode.HALF_EVEN).toPlainString()`.
+  `new BigDecimal(double)` usa o valor binário exato, e HALF_EVEN reproduz as outras 4 linguagens.
+  Custo: menos idiomático; vira nó sintético com cartão ("por que o Java precisa disso").
+  **Ainda não testado: adicionar ao spike antes de decidir.**
+- **Opção B:** manter `String.format` e o interpretador interromper com pegadinha sempre que a
+  regra do Java der resultado diferente. Contra: dispararia com frequência em programas comuns.
+
+O interpretador de referência deve usar a regra das 4 linguagens: valor binário exato, empate
+para o par.
 - Literais de texto passam por **escape por linguagem** (`"`, `\`, e `%` → `%%` em formatos de
   `printf`). Nunca interpolar texto do aluno como string de formato.
 
@@ -83,8 +108,9 @@ Observações:
 
 ## 5. Entrada (`leia`)
 
-Regra única: **cada `leia(x)` consome uma linha inteira** da entrada; espaços nas pontas são
-ignorados.
+Regra única: **cada `leia(x)` consome uma linha inteira** da entrada. Para `inteiro` e `real`,
+espaços nas pontas são ignorados (confirmado no spike com a entrada `" 4 "`). Para `caractere`,
+só o fim de linha é removido; os espaços fazem parte do texto.
 
 | Tipo | Python | Java (`Scanner sc`) | C | C++ | PHP |
 |---|---|---|---|---|---|

@@ -1,0 +1,5 @@
+{
+  "titulo": "Leitura mista de inteiro e real + média com 2 e 1 casas",
+  "objetivo": "Testar leia de uma linha por valor (com espaços nas pontas), laço para, divisão real e formatação de real independente de locale (Java roda com locale pt-BR).",
+  "divergenciasEsperadas": []
+}
