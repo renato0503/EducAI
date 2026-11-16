@@ -17,6 +17,8 @@
 | 008 | 16/11/2026 | Imagem Docker `debian:bookworm-slim` com Python 3.11, OpenJDK 17, gcc/g++ 12, PHP 8.2 e Node para o spike e o CI | Runtimes reais com versões conhecidas | spike/Dockerfile |
 | 009 | 16/11/2026 | Concatenação de `caractere` em C com `strcpy` + `strcat` | Compila sem aviso com `-Werror`; evita `-Wformat-truncation` do `snprintf` | docs/semantica.md §3 |
 | 010 | 16/11/2026 | `leia` de `caractere` remove só o fim de linha; números ignoram espaços nas pontas | Comportamento confirmado nas 5 linguagens | docs/semantica.md §5 |
+| 012 | 16/11/2026 | `caractere` só aceita ASCII imprimível no v1 (literais e entrada); acento vira pegadinha | Spike `p10`: Java 17 sem locale UTF-8 imprime `Jos??`; C, C++, PHP (e o Java) contam `José` com 5 | docs/semantica.md §2 |
+| 013 | 16/11/2026 | Confirmadas no spike as pegadinhas de divisão por zero, recursão > 500, variável do `para` após o laço e vírgula na entrada; lógicos, curto-circuito e globais iguais nas 5 | Spike `p7`–`p14` | docs/semantica.md §3, §5–§7 |
 | 011 | 16/11/2026 | **D1 fechada:** real formatado em Java com `new BigDecimal(x).setScale(n, RoundingMode.HALF_EVEN).toPlainString()`; zero negativo vira pegadinha | Spike `p6-arredondamento`: igual às outras 4 linguagens em 11 casos; só o zero negativo diverge | docs/semantica.md §4 |
 
 ## Pendentes

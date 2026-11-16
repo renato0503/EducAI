@@ -30,7 +30,7 @@
 | Fase atual | **Fase 0 — Validação** (16/11 – 06/12/2026), gate **G0** em 06/12 |
 | Plano | v2 em `context.md`, `sprint.md`, `docs/semantica.md` — **PR #1 aberto, aguardando merge do Renato** |
 | Código | Monorepo TypeScript verde localmente **e no CI do GitHub** — PR #2 |
-| Spike de equivalência | **Concluído**: 6 programas do spike + 5 fixtures × 5 linguagens (23 combinações), nenhuma divergência inesperada |
+| Spike de equivalência | **Concluído**: 14 programas do spike + 5 fixtures × 5 linguagens (40 combinações), nenhuma divergência inesperada; pegadinhas documentadas (`spike/README.md`) |
 | Fixtures (0.2) | **Concluídas**: 5 programas didáticos com mapa nó → ranges nas 5 linguagens, gerador e verificação no CI (`fixtures/README.md`) |
 | Achado principal | Java arredondava real diferente das outras 4 → **resolvido com `BigDecimal` + `HALF_EVEN` (D1, decisão 011)** |
 | Equipe | **Mudou hoje:** Vitório saiu da divisão; tudo fica com Renato (com Claude). `sprint.md` ainda não foi replanejado |
@@ -45,7 +45,7 @@ Tarefas da Fase 0:
 | 0.3 | Think-aloud com 6–10 alunos | ❌ não iniciado (roteiro em `docs/fase0-roteiros.md`) |
 | 0.4 | Entrevistas com 3–5 professores + turma do piloto | ❌ não iniciado (roteiro em `docs/fase0-roteiros.md`) |
 | 0.5 | Spike de equivalência | ✅ concluído |
-| 0.6 | Fechar `docs/semantica.md` v1 | 🟡 D1 fechada; faltam os casos `p7`–`p13` |
+| 0.6 | Fechar `docs/semantica.md` v1 | ✅ todas as regras testadas no spike (`p1`–`p14`); falta só D2 (índice de vetor, com professores) |
 | 0.7 | Monorepo, lint, testes, CI | ✅ CI verde no GitHub (PR #2); falta só proteger a `main` |
 
 ---
@@ -261,7 +261,14 @@ Sem isso não há G0. Roteiros prontos em `docs/fase0-roteiros.md`.
 - [ ] Na entrevista, **fechar turma e data do piloto (maio/2027)** por escrito.
 - Aceite: ≥ 3 entrevistas marcadas e ≥ 6 sessões com alunos marcadas até 22/11.
 
-### 6.2 — Completar o spike (0.5/0.6) — ~3 h
+### 6.2 — Completar o spike (0.5/0.6) — ✅ FEITO em 16/11
+
+Resultados em `spike/README.md` e incorporados ao `docs/semantica.md` (decisões 011–013). Os
+nomes finais ficaram `p7`–`p14` (a divisão por zero virou dois programas: inteira e real). O
+executor ganhou o modo `documentar` para as pegadinhas, em vez do `falhaEsperada` proposto
+abaixo.
+
+Plano original, mantido como referência:
 
 1. ✅ **Feito em 16/11 — D1 fechada (decisão 011).** Registro original: Criar `spike/programas/p6-arredondamento/`:
    - Valores: `0.125`, `0.375`, `2.675`, `1.005`, `1234.5678`, `-2.675`, `0.0`, `-0.001`
@@ -516,7 +523,7 @@ Em ordem:
 6. [x] Spike `p6-arredondamento` e D1 fechada.
 7. [x] Fixtures + script de marcadores (§6.3).
 8. [x] Protótipo em `apps/web` (§6.4) — construído. **Pendente:** revisar `catalogo/*.json` e decidir onde publicar.
-9. [ ] Spike `p7`–`p13` (§6.2.2).
+9. [x] Spike `p7`–`p14` (§6.2.2).
 10. [ ] Replanejar `sprint.md` (§6.6).
 
 Para retomar com o Claude, basta pedir: *"leia docs/PROGRESSO.md e continue do item N do

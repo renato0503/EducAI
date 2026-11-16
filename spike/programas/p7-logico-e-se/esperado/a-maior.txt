@@ -1,0 +1,4 @@
+ambos positivos? verdadeiro
+y? verdadeiro
+a maior
+a e mais que o dobro de b

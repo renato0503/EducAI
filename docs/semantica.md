@@ -29,7 +29,7 @@ vale para todo programa que roda até o fim no interpretador.
 |---|---|---|---|---|---|---|
 | `inteiro` | `int` | `int` | `int` | `int` | `int` | Faixa **−2³¹ … 2³¹−1**. Resultado fora da faixa → pegadinha "overflow" (Python não estoura, Java dá a volta, C/C++ é comportamento indefinido, PHP vira float). |
 | `real` | `float` | `double` | `double` | `double` | `float` | IEEE 754 de 64 bits em todas. |
-| `caractere` | `str` | `String` | `char[256]` | `std::string` | `string` | Máx. **255** caracteres; ultrapassar → pegadinha (C precisa de tamanho fixo). Só ASCII imprimível no v1 **[validar no spike: acentos em C/PHP com UTF-8]**. |
+| `caractere` | `str` | `String` | `char[256]` | `std::string` | `string` | Máx. **255** caracteres; ultrapassar → pegadinha (C precisa de tamanho fixo). **Só ASCII imprimível no v1** (confirmado no spike `p10`, decisão 012): com `José`, o Java 17 sem locale UTF-8 imprime `Jos??`, e C, C++ e PHP contam 5 caracteres (bytes). Texto com acento em literal ou na entrada → pegadinha. |
 | `logico` | `bool` | `boolean` | `bool` (`<stdbool.h>`) | `bool` | `bool` | Impresso como `verdadeiro` / `falso` em todas. |
 
 **Inicialização:** toda variável declarada é inicializada explicitamente com `0`, `0.0`, `""` ou
@@ -59,7 +59,9 @@ interpretador garante que o resultado cabe em 255 caracteres.
 
 Pegadinhas interrompidas pelo interpretador (todas confirmadas no spike):
 - `div` ou `mod` com **operando negativo** (Python arredonda para baixo; as demais truncam).
-- Divisão por zero (inteira ou real). Em real, C/Java/PHP dariam `INF` e Python lança exceção.
+- Divisão por zero. Confirmado no spike (`p11`, `p12`): **inteira** — Python, Java e PHP lançam
+  erro, C/C++ morrem com o sinal SIGFPE; **real** — Python e PHP 8 lançam erro, C/C++ imprimem
+  `inf`, Java dá `Infinity` e o `BigDecimal` lança `NumberFormatException` ao formatar.
 - Real negativo que arredonda para zero na impressão (`-0.00` × `0.00`, ver §4).
 - Resultado inteiro fora da faixa de 32 bits.
 
@@ -127,7 +129,9 @@ só o fim de linha é removido; os espaços fazem parte do texto.
 
 - Sempre `nextLine()` no Java: evita a armadilha clássica `nextInt()` + `nextLine()`.
 - Número real com **vírgula** (`7,5`) → o interpretador rejeita com mensagem educativa
-  ("as linguagens de programação usam ponto"). `leia` de `logico` não existe no v1.
+  ("as linguagens de programação usam ponto"). Confirmado no spike (`p14`): Python e Java lançam
+  erro, e **C, C++ e PHP leem `7.00` sem avisar** — o caso mais perigoso para o aluno.
+  `leia` de `logico` não existe no v1.
 - No navegador, o console do interpretador é **interativo** (o programa pede e espera).
 - No CI, a entrada vem de arquivo (`stdin`), uma linha por `leia`.
 
@@ -143,7 +147,8 @@ só o fim de linha é removido; os espaços fazem parte do texto.
   - **Proibido** atribuir à variável de controle dentro do laço (erro semântico: o `range` do
     Python ignoraria a atribuição).
   - **Ler a variável de controle depois do laço** é pegadinha no interpretador (Python termina com
-    `b`, as demais com `b + k`).
+    `b`, as demais com `b + k`). Confirmado no spike (`p9`): `para i de 1 ate 3` deixa `i = 3`
+    em Python e `i = 4` nas outras.
 
 ---
 
@@ -155,8 +160,10 @@ só o fim de linha é removido; os espaços fazem parte do texto.
 - Funções não retornam vetor no v1.
 - **Variáveis globais** (declaradas no `var` do algoritmo) podem ser usadas em funções:
   - Python: `global x` quando a função atribui; PHP: `global $x;` sempre que usa;
-    Java: campos `static`; C/C++: variáveis globais.
-- Recursão permitida; profundidade > **500** → pegadinha (o limite padrão do Python é 1000).
+    Java: campos `static`; C/C++: variáveis globais. Confirmado no spike (`p8`): iguais nas 5.
+- Recursão permitida; profundidade > **500** → pegadinha. Confirmado no spike (`p13`): com
+  profundidade 1000 o Python já quebra (`RecursionError`); com 50000 o Java também
+  (`StackOverflowError`); C, C++ e PHP aguentam. Com 400, as 5 dão o mesmo resultado.
 - C: o gerador emite **protótipos** antes do `main` (mapeados como 2º range do nó `funcao`).
 - Java: tudo dentro de `public class Main` com métodos `static` (nó sintético).
 

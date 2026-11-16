@@ -1,0 +1,5 @@
+{
+  "titulo": "Operadores lógicos, curto-circuito, lógico impresso e se aninhado",
+  "objetivo": "Testar e/ou/nao, a impressão de logico como verdadeiro/falso e o curto-circuito: com b = 0, `a div b` não pode ser avaliado.",
+  "divergenciasEsperadas": []
+}

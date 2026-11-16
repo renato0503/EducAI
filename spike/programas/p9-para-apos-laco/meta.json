@@ -1,0 +1,10 @@
+{
+  "titulo": "Valor da variável do para depois do laço",
+  "objetivo": "Confirmar a pegadinha: Python termina com o último valor (3); as outras linguagens com um a mais (4).",
+  "divergenciasEsperadas": [
+    {
+      "linhaComeca": "i depois do laco:",
+      "motivo": "Python: o for termina com i = 3; Java/C/C++/PHP: o laço para quando i = 4"
+    }
+  ]
+}

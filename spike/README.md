@@ -30,6 +30,14 @@ spike/
 | `p4-vetor-funcao` | vetor por referência (PHP `&`), protótipos em C, `passo -1`, `escreva` sem quebra |
 | `p5-fatorial` | recursão e overflow de 32 bits |
 | `p6-arredondamento` | decisão D1: Java com `BigDecimal` + `HALF_EVEN` contra as outras 4 linguagens |
+| `p7-logico-e-se` | `e`/`ou`/`nao`, curto-circuito (`b <> 0 e a div b > 1` com b = 0), `logico` impresso, `se` aninhado |
+| `p8-globais` | procedimento e função com global (`global` em Python e PHP, `static` em Java) |
+| `p9-para-apos-laco` | valor da variável do `para` depois do laço |
+| `p10-texto-acentos` | `José` na entrada, na saída e no `compr()` |
+| `p11-divisao-zero-inteira` 📝 | `a div 0` |
+| `p12-divisao-zero-real` 📝 | `a / 0` em real e impresso com 2 casas |
+| `p13-recursao-profunda` 📝 | recursão com profundidade 400, 1000 e 50000 |
+| `p14-entrada-virgula` 📝 | `7,5` digitado num `leia` de real |
 | `fx-*` | as 5 fixtures didáticas (geradas por `pnpm fixtures`, não editar aqui; ver `fixtures/README.md`) |
 
 ## Como rodar
@@ -81,8 +89,21 @@ C, C++, Python e PHP e `0.00` em Java (zero negativo) → pegadinha no interpret
 
 CI no GitHub: os jobs `qualidade` e `equivalencia` passaram na primeira execução (PR #2).
 
-## Próximos casos a adicionar (ver docs/PROGRESSO.md §6.2)
+### `p7`–`p14` (16/11/2026)
 
-`p7-logico-e-se`, `p8-globais` (`global` em Python e
-PHP), `p9-para-variavel-apos-laco`, `p10-texto-acentos` (UTF-8), `p11-divisao-por-zero`,
-`p12-recursao-profunda`, `p13-entrada-com-virgula`.
+📝 = modo **documentar** (`"modo": "documentar"` no `meta.json`): o executor não compara com uma
+saída esperada; registra o que cada linguagem fez. Serve para as pegadinhas que o interpretador
+de referência deve interromper.
+
+- `p7`, `p8`: **iguais nas 5** (lógicos, curto-circuito, globais).
+- `p9`: Python termina o `para` com `i = 3`; as outras com `4` → pegadinha confirmada.
+- `p10`: com `José`, o Java 17 (sem locale UTF-8) imprime `Jos??`; C, C++ e PHP contam 5
+  caracteres → **`caractere` só ASCII no v1** (decisão 012).
+
+| Caso | Python | Java | C / C++ | PHP |
+|---|---|---|---|---|
+| `a div 0` | `ZeroDivisionError` | `ArithmeticException` | morre com SIGFPE | `DivisionByZeroError` |
+| `a / 0` em real | `ZeroDivisionError` | `BigDecimal` falha com `Infinity` | imprime `inf` | `DivisionByZeroError` |
+| recursão 1000 | `RecursionError` | ok | ok | ok |
+| recursão 50000 | `RecursionError` | `StackOverflowError` | ok | ok |
+| `7,5` na entrada | `ValueError` | `NumberFormatException` | **lê 7.00 calado** | **lê 7.00 calado** |

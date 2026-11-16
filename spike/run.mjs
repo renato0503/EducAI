@@ -6,6 +6,9 @@
 //   e compara a saída (normalizando \r\n) com esperado/<entrada>.txt.
 // Linhas listadas em meta.json → divergenciasEsperadas são excluídas da comparação e relatadas
 // à parte com o valor de cada linguagem.
+// Programas com meta.json → "modo": "documentar" não são comparados: o executor só registra o que
+// cada linguagem fez (status, saída, erro). Servem para documentar as pegadinhas que o
+// interpretador de referência deve interromper (divisão por zero, recursão profunda...).
 //
 // Uso:
 //   node spike/run.mjs                 roda o que estiver instalado; pula linguagens ausentes
@@ -89,7 +92,7 @@ function executar(cmd, cwd, entrada) {
   });
   return {
     ok: !r.error && r.status === 0,
-    status: r.status,
+    status: r.signal ? `sinal ${r.signal}` : r.status,
     stdout: (r.stdout ?? "").replace(/\r\n/g, "\n"),
     stderr: (r.stderr ?? "") + (r.error ? String(r.error) : ""),
   };
@@ -146,6 +149,18 @@ let falhas = 0;
 const linhasTabela = [];
 const divergencias = [];
 const problemas = [];
+const documentados = [];
+
+/** Resumo de uma execução no modo documentar: status, última linha da saída e 1ª linha do erro. */
+function comportamento(r) {
+  const ultimas = r.stdout.trimEnd().split("\n").slice(-2).join(" ⏎ ");
+  // A linha mais útil do erro: a que cita a exceção (no Python é a última do traceback)
+  const linhasErro = r.stderr.trim().split("\n").map((l) => l.trim()).filter(Boolean);
+  const erro =
+    linhasErro.find((l) => /(Error|Exception)\b/.test(l) && !l.startsWith("Traceback")) ?? linhasErro[0] ?? "";
+  const status = r.ok ? "ok" : `falhou (${r.status})`;
+  return `${status}${ultimas ? ` — saída: \`${ultimas}\`` : ""}${!r.ok && erro ? ` — erro: \`${erro.slice(0, 120)}\`` : ""}`;
+}
 
 for (const id of programas) {
   const dir = join(PROGRAMAS, id);
@@ -173,6 +188,27 @@ for (const id of programas) {
 
   for (const entrada of entradas) {
     const textoEntrada = normalizar(readFileSync(join(dir, "entradas", entrada), "utf8"));
+
+    if (meta.modo === "documentar") {
+      const celulas = {};
+      const porLing = {};
+      for (const lid of ativas) {
+        const { trabalho, erro } = builds[lid];
+        if (erro) {
+          celulas[lid] = "❌ compilação";
+          problemas.push(`${id} [${LINGUAGENS[lid].nome}] erro de compilação:\n${erro}`);
+          falhas++;
+          continue;
+        }
+        const r = executar(LINGUAGENS[lid].run, trabalho, textoEntrada);
+        celulas[lid] = r.ok ? "📝 ok" : "📝 falhou";
+        porLing[lid] = comportamento(r);
+      }
+      documentados.push({ local: `${id}/${entrada}`, objetivo: meta.objetivo, porLing });
+      linhasTabela.push({ local: `${id}/${entrada}`, celulas });
+      continue;
+    }
+
     const caminhoEsperado = join(dir, "esperado", entrada);
     if (!existsSync(caminhoEsperado)) {
       problemas.push(`${id}/${entrada}: falta esperado/${entrada}`);
@@ -254,6 +290,14 @@ if (divergencias.length) {
     out.push(`  - motivo: ${d.motivo}`);
     out.push(`  - spec/esperado: \`${d.esperadoSpec}\``);
     for (const [lid, v] of Object.entries(d.valores)) out.push(`  - ${LINGUAGENS[lid].nome}: \`${v}\``);
+  }
+  out.push("");
+}
+if (documentados.length) {
+  out.push(MARKDOWN ? "### Comportamentos documentados (📝, sem comparação)\n" : "Comportamentos documentados:");
+  for (const d of documentados) {
+    out.push(`- **${d.local}**`);
+    for (const [lid, v] of Object.entries(d.porLing)) out.push(`  - ${LINGUAGENS[lid].nome}: ${v}`);
   }
   out.push("");
 }
