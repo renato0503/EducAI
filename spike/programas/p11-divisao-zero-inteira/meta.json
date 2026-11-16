@@ -1,0 +1,5 @@
+{
+  "titulo": "Divisão inteira por zero",
+  "objetivo": "Documentar o que cada linguagem faz com `a div 0`. O interpretador deve interromper com a pegadinha.",
+  "modo": "documentar"
+}

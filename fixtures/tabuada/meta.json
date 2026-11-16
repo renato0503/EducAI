@@ -1,0 +1,5 @@
+{
+  "titulo": "Tabuada",
+  "descricao": "Lê um número e mostra a tabuada de 1 a 10. Laço para e conta dentro do escreva.",
+  "ordem": 2
+}

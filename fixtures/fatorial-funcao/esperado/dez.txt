@@ -1,0 +1,2 @@
+Calcular o fatorial de:
+10! = 3628800

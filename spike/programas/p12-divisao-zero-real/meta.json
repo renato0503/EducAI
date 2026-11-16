@@ -1,0 +1,5 @@
+{
+  "titulo": "Divisão real por zero",
+  "objetivo": "Documentar o que cada linguagem faz com `a / 0` em real e ao imprimir com 2 casas. O interpretador deve interromper com a pegadinha.",
+  "modo": "documentar"
+}

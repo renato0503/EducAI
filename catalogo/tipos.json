@@ -1,0 +1,410 @@
+{
+  "cabecalho": {
+    "nome": "Nome do algoritmo",
+    "basico": "Dá um nome ao programa. Serve só para identificá-lo.",
+    "aprofundar": "Nas linguagens de programação o programa normalmente não declara o próprio nome: quem o identifica é o nome do arquivo.",
+    "linguagens": {},
+    "semEquivalente": {
+      "python": "Python não tem essa linha: o nome do programa é o nome do arquivo (main.py).",
+      "java": "Java não tem essa linha. O mais parecido é a classe Main, e o arquivo precisa se chamar Main.java.",
+      "c": "C não tem essa linha: o nome do programa é o nome do arquivo (main.c).",
+      "cpp": "C++ não tem essa linha: o nome do programa é o nome do arquivo (main.cpp).",
+      "php": "PHP não tem essa linha: o nome do programa é o nome do arquivo (main.php)."
+    }
+  },
+  "secao_var": {
+    "nome": "Seção de variáveis",
+    "basico": "Marca o lugar onde as variáveis são declaradas, antes do programa começar.",
+    "aprofundar": "Separar as declarações ajuda a ver de uma vez quais dados o programa usa. As linguagens reais não têm essa seção: as variáveis são declaradas no próprio bloco onde são usadas.",
+    "linguagens": {},
+    "semEquivalente": {
+      "python": "Python não declara variáveis: elas passam a existir na primeira vez que recebem um valor.",
+      "java": "Java não tem uma seção separada: as variáveis são declaradas dentro do main (ou da função).",
+      "c": "C não tem uma seção separada: as variáveis são declaradas dentro do main (ou da função).",
+      "cpp": "C++ não tem uma seção separada: as variáveis são declaradas dentro do main (ou da função).",
+      "php": "PHP não declara variáveis: elas passam a existir na primeira vez que recebem um valor."
+    }
+  },
+  "declaracao": {
+    "nome": "Declaração de variáveis",
+    "basico": "Cria variáveis e diz que tipo de valor cada uma guarda: inteiro, real, caractere (texto) ou lógico.",
+    "aprofundar": "O tipo define quais operações valem e quanta memória é reservada. Um vetor (vetor[0..4] de inteiro) reserva várias posições do mesmo tipo de uma vez. O EducAI dá um valor inicial (0, 0.0, \"\" ou falso) em todas as linguagens para que o programa se comporte igual em todas.",
+    "linguagens": {
+      "python": {
+        "como": "Python não escreve o tipo: `n = 0` cria a variável, e o tipo vem do valor (0 é inteiro, 0.0 é real).",
+        "pegadinha": "A mesma variável pode receber depois um valor de outro tipo e o Python não reclama. Isso costuma ser um erro."
+      },
+      "java": {
+        "como": "O tipo vem antes do nome: `int` para inteiro, `double` para real, `String` para texto, `boolean` para lógico. Vetor: `int[] v = new int[5];`.",
+        "pegadinha": "Java não deixa usar uma variável que ainda não recebeu valor. Por isso o código já começa com `= 0`."
+      },
+      "c": {
+        "como": "Como no Java para números: `int` e `double`. Texto é um vetor de caracteres (`char nome[256]`). Vetor: `int v[5] = {0};`.",
+        "pegadinha": "Sem o `= 0`, a variável em C começa com o que estiver na memória (lixo)."
+      },
+      "cpp": {
+        "como": "Igual ao C para números e vetores; texto usa `std::string`.",
+        "pegadinha": "Como em C, uma variável sem valor inicial começa com lixo de memória."
+      },
+      "php": {
+        "como": "Toda variável começa com `$` e não tem tipo declarado: `$n = 0;`. Vetor: `array_fill(0, 5, 0)`.",
+        "pegadinha": "Usar uma variável que nunca recebeu valor gera um aviso (Warning)."
+      }
+    }
+  },
+  "bloco_principal": {
+    "nome": "Início do programa",
+    "basico": "`inicio` e `fimalgoritmo` marcam onde o programa começa e termina de executar.",
+    "aprofundar": "Em C, C++ e Java esse ponto de partida tem um nome fixo: `main`. O computador sempre começa a execução por ele.",
+    "linguagens": {
+      "java": {
+        "como": "`public static void main(String[] args)` é o ponto de partida, e as chaves `{` `}` marcam o começo e o fim. Ele precisa estar dentro de uma classe.",
+        "pegadinha": "Se o nome ou a forma do main estiverem diferentes, o Java compila mas não sabe por onde começar."
+      },
+      "c": {
+        "como": "`int main(void)` é o ponto de partida, e as chaves `{` `}` marcam o começo e o fim.",
+        "pegadinha": "O `int` indica que o main devolve um número ao sistema: 0 quer dizer que deu tudo certo."
+      },
+      "cpp": {
+        "como": "`int main()` funciona como em C, com as chaves marcando o começo e o fim.",
+        "pegadinha": "Como em C, o main devolve 0 quando dá tudo certo."
+      }
+    },
+    "semEquivalente": {
+      "python": "Python executa o arquivo de cima para baixo: o código que não está dentro de uma função é o programa principal.",
+      "php": "PHP executa o arquivo de cima para baixo: o código que não está dentro de uma função é o programa principal."
+    }
+  },
+  "bloco_funcao": {
+    "nome": "Corpo da função",
+    "basico": "`inicio` e `fimfuncao` marcam onde ficam os comandos da função.",
+    "aprofundar": "As linguagens reais marcam o corpo da função com chaves `{ }` (Java, C, C++, PHP) ou com a indentação (Python).",
+    "linguagens": {},
+    "semEquivalente": {
+      "python": "Em Python o corpo da função é marcado pela indentação: as linhas com recuo depois do `def`.",
+      "java": "Em Java o corpo da função fica entre as chaves `{` e `}`.",
+      "c": "Em C o corpo da função fica entre as chaves `{` e `}`.",
+      "cpp": "Em C++ o corpo da função fica entre as chaves `{` e `}`.",
+      "php": "Em PHP o corpo da função fica entre as chaves `{` e `}`."
+    }
+  },
+  "escreva": {
+    "nome": "Escrever na tela",
+    "basico": "Mostra textos e valores na tela. `escreval` pula para a linha de baixo no final.",
+    "aprofundar": "Cada item é transformado em texto e colado no anterior, sem espaço. Números reais aparecem com 2 casas decimais, a não ser que você peça outra quantidade com `x:0:n`.",
+    "linguagens": {
+      "python": {
+        "como": "`print(...)` mostra e já pula a linha. A f-string `f\"...{x}...\"` coloca valores dentro do texto; `{x:.2f}` mostra o real com 2 casas.",
+        "pegadinha": "O print sempre pula a linha, a não ser que você escreva `end=\"\"`."
+      },
+      "java": {
+        "como": "`System.out.println(...)` mostra e pula a linha. O `+` junta texto com valores.",
+        "pegadinha": "`\"a\" + 1 + 2` dá `a12`, e não `a3`: depois de um texto, o `+` passa a juntar em vez de somar."
+      },
+      "c": {
+        "como": "`printf` usa um texto-modelo com marcadores: `%d` (inteiro), `%.2f` (real com 2 casas), `%s` (texto). Os valores vêm depois, na mesma ordem dos marcadores.",
+        "pegadinha": "Quem pula a linha é o `\\n` no fim do texto. Usar o marcador errado (por exemplo `%d` para um real) mostra um valor sem sentido."
+      },
+      "cpp": {
+        "como": "`std::cout << a << b` manda cada pedaço para a tela, na ordem. `\"\\n\"` pula a linha.",
+        "pegadinha": "`std::fixed << std::setprecision(2)` continua valendo para os próximos números reais, não só para o primeiro."
+      },
+      "php": {
+        "como": "`echo` mostra texto, e o ponto `.` junta os pedaços. Para real com casas decimais usa-se `printf`, como em C.",
+        "pegadinha": "Em PHP o `+` só soma números; para juntar textos é o `.`."
+      }
+    }
+  },
+  "literal": {
+    "nome": "Valor fixo",
+    "basico": "Um valor escrito direto no código: um número (`10`) ou um texto entre aspas (`\"Fogo!\"`).",
+    "aprofundar": "Textos entre aspas duplas funcionam quase igual nas 5 linguagens. Dentro de aspas, `\\n` representa a quebra de linha.",
+    "linguagens": {
+      "python": { "como": "Igual ao português estruturado." },
+      "java": { "como": "Igual; um texto entre aspas é do tipo `String`." },
+      "c": { "como": "Igual; em `printf`, o texto também funciona como modelo da saída (com `\\n` no fim para pular a linha)." },
+      "cpp": { "como": "Igual ao português estruturado." },
+      "php": {
+        "como": "Igual.",
+        "pegadinha": "Dentro de aspas duplas, `$nome` seria trocado pelo valor da variável."
+      }
+    }
+  },
+  "leia": {
+    "nome": "Ler do teclado",
+    "basico": "Espera o usuário digitar um valor e guarda esse valor na variável.",
+    "aprofundar": "O EducAI lê uma linha inteira a cada `leia` e converte para o tipo da variável. Números usam ponto: `7.5`, e não `7,5`.",
+    "linguagens": {
+      "python": {
+        "como": "`input()` lê a linha digitada como texto; `int(...)` ou `float(...)` converte para número.",
+        "pegadinha": "Sem a conversão, `input()` devolve texto: \"2\" + \"3\" dá \"23\"."
+      },
+      "java": {
+        "como": "O `Scanner` lê a linha (`sc.nextLine()`), `trim()` tira os espaços e `Integer.parseInt` / `Double.parseDouble` converte para número.",
+        "pegadinha": "Misturar `nextInt()` com `nextLine()` é uma armadilha clássica. Ler sempre a linha inteira evita o problema."
+      },
+      "c": {
+        "como": "`fgets` lê a linha para o vetor `linha`, e `sscanf` tira o número de dentro dela. O `&` antes da variável entrega o endereço dela, para o `sscanf` poder alterá-la.",
+        "pegadinha": "Esquecer o `&` é um erro comum e pode travar o programa."
+      },
+      "cpp": {
+        "como": "`std::getline` lê a linha, e `std::stoi` (inteiro) ou `std::stod` (real) converte para número.",
+        "pegadinha": "Se a linha não for um número, `stoi` gera uma exceção e o programa para."
+      },
+      "php": {
+        "como": "`fgets(STDIN)` lê a linha, `trim` tira o Enter do fim e `(int)` ou `(float)` converte para número.",
+        "pegadinha": "Se o texto não for um número, `(int)` vira 0 sem avisar."
+      }
+    }
+  },
+  "variavel": {
+    "nome": "Variável",
+    "basico": "O nome de uma variável. Aqui o programa usa (ou altera) o valor guardado nela.",
+    "aprofundar": "Os nomes seguem quase as mesmas regras nas 5 linguagens: letras, números e `_`, começando por letra, sem acento e sem espaço.",
+    "linguagens": {
+      "python": { "como": "Igual ao português estruturado." },
+      "java": { "como": "Igual ao português estruturado." },
+      "c": { "como": "Igual ao português estruturado." },
+      "cpp": { "como": "Igual ao português estruturado." },
+      "php": { "como": "Em PHP toda variável começa com `$`: `$n`." }
+    }
+  },
+  "atribuicao": {
+    "nome": "Atribuição",
+    "basico": "Guarda um valor numa variável. O `<-` se lê \"recebe\".",
+    "aprofundar": "Primeiro o lado direito é calculado; depois o resultado vai para a variável da esquerda. Por isso `n <- n - 1` funciona: usa o valor antigo de n e guarda o novo.",
+    "linguagens": {
+      "python": {
+        "como": "`=` faz o papel do `<-`.",
+        "pegadinha": "`=` guarda e `==` compara. Confundir os dois é um erro comum."
+      },
+      "java": { "como": "`=` faz o papel do `<-`, e o comando termina com `;`." },
+      "c": {
+        "como": "`=` faz o papel do `<-`, e o comando termina com `;`.",
+        "pegadinha": "Em C, `if (x = 1)` compila e é um bug clássico: o certo era `==`."
+      },
+      "cpp": {
+        "como": "`=` faz o papel do `<-`, e o comando termina com `;`.",
+        "pegadinha": "Como em C, `if (x = 1)` compila e é um bug: o certo era `==`."
+      },
+      "php": { "como": "`=` faz o papel do `<-`, com `$` nas variáveis e `;` no fim." }
+    }
+  },
+  "operacao": {
+    "nome": "Conta ou comparação",
+    "basico": "Calcula um valor (`+ - * /`) ou compara dois valores (`> < >= <=`, `=` igual, `<>` diferente).",
+    "aprofundar": "A ordem é a da matemática: `*` e `/` antes de `+` e `-`, e os parênteses mudam a ordem. No EducAI, `/` sempre dá um real; `div` é a divisão inteira e `mod` é o resto.",
+    "linguagens": {
+      "python": {
+        "como": "Os mesmos operadores. Igual é `==` e diferente é `!=`.",
+        "pegadinha": "`//` é a divisão inteira e arredonda para baixo: `-7 // 2` dá -4, enquanto em C e Java dá -3."
+      },
+      "java": {
+        "como": "Os mesmos operadores. Igual é `==` e diferente é `!=`.",
+        "pegadinha": "Entre dois inteiros, `/` corta a parte decimal: `7 / 2` dá 3."
+      },
+      "c": {
+        "como": "Os mesmos operadores. Igual é `==` e diferente é `!=`.",
+        "pegadinha": "Entre dois inteiros, `/` corta a parte decimal: `7 / 2` dá 3."
+      },
+      "cpp": {
+        "como": "Os mesmos operadores. Igual é `==` e diferente é `!=`.",
+        "pegadinha": "Entre dois inteiros, `/` corta a parte decimal: `7 / 2` dá 3."
+      },
+      "php": {
+        "como": "Os mesmos operadores. Igual é `==` (ou `===`, que também confere o tipo) e diferente é `!=`.",
+        "pegadinha": "Em PHP, `7 / 2` dá 3.5 mesmo com dois inteiros. A divisão inteira é `intdiv(7, 2)`."
+      }
+    }
+  },
+  "se": {
+    "nome": "Decisão (se / senão)",
+    "basico": "Executa um bloco só se a condição for verdadeira. O `senao` é executado quando ela é falsa.",
+    "aprofundar": "A condição é uma comparação que vale verdadeiro ou falso. Cada bloco pode ter vários comandos, e o `senao` é opcional.",
+    "linguagens": {
+      "python": {
+        "como": "`if condição:` e `else:`. O bloco é marcado pela indentação (o recuo no começo das linhas).",
+        "pegadinha": "Em Python a indentação não é só estética: um recuo errado muda o programa ou dá erro."
+      },
+      "java": {
+        "como": "`if (condição) { ... } else { ... }`: a condição fica entre parênteses e as chaves marcam cada bloco.",
+        "pegadinha": "Sem as chaves, só o primeiro comando fica dentro do if."
+      },
+      "c": {
+        "como": "`if (condição) { ... } else { ... }`, igual ao Java.",
+        "pegadinha": "Sem as chaves, só o primeiro comando fica dentro do if."
+      },
+      "cpp": {
+        "como": "`if (condição) { ... } else { ... }`, igual ao Java e ao C.",
+        "pegadinha": "Sem as chaves, só o primeiro comando fica dentro do if."
+      },
+      "php": {
+        "como": "`if (condição) { ... } else { ... }`, igual ao Java e ao C.",
+        "pegadinha": "Sem as chaves, só o primeiro comando fica dentro do if."
+      }
+    }
+  },
+  "para": {
+    "nome": "Repetição com contador (para)",
+    "basico": "Repete um bloco contando de um valor inicial até um valor final. A cada volta, a variável de controle aumenta 1.",
+    "aprofundar": "O `ate` inclui o último valor: `para i de 1 ate 10` roda 10 vezes. Use o `para` quando você sabe quantas vezes vai repetir.",
+    "linguagens": {
+      "python": {
+        "como": "`for i in range(início, fim + 1)`. O `range` não inclui o valor final, por isso aparece um a mais. Quando o início é 0, escreve-se só `range(fim + 1)`.",
+        "pegadinha": "Depois do laço, em Python a variável fica com o último valor (10); nas outras linguagens fica com um a mais (11)."
+      },
+      "java": {
+        "como": "`for (i = início; i <= fim; i++)`: três partes separadas por `;` — começo, condição para continuar e o passo. `i++` soma 1.",
+        "pegadinha": "Escrever `<` em vez de `<=` faz o laço rodar uma vez a menos."
+      },
+      "c": {
+        "como": "`for (i = início; i <= fim; i++)`, igual ao Java.",
+        "pegadinha": "Escrever `<` em vez de `<=` faz o laço rodar uma vez a menos."
+      },
+      "cpp": {
+        "como": "`for (i = início; i <= fim; i++)`, igual ao Java e ao C.",
+        "pegadinha": "Escrever `<` em vez de `<=` faz o laço rodar uma vez a menos."
+      },
+      "php": {
+        "como": "`for ($i = início; $i <= fim; $i++)`, igual ao Java, com `$` nas variáveis.",
+        "pegadinha": "Escrever `<` em vez de `<=` faz o laço rodar uma vez a menos."
+      }
+    }
+  },
+  "enquanto": {
+    "nome": "Repetição com condição (enquanto)",
+    "basico": "Repete um bloco enquanto a condição for verdadeira. A condição é testada antes de cada volta.",
+    "aprofundar": "Se a condição já começa falsa, o bloco não roda nenhuma vez. Algo dentro do bloco precisa mudar a condição; senão, o laço nunca termina.",
+    "linguagens": {
+      "python": {
+        "como": "`while condição:` com o bloco indentado.",
+        "pegadinha": "Python não tem a repetição que testa no fim (`repita ... ate`); usa-se `while True` com `break`."
+      },
+      "java": {
+        "como": "`while (condição) { ... }`.",
+        "pegadinha": "Um laço que nunca termina trava o programa."
+      },
+      "c": {
+        "como": "`while (condição) { ... }`, igual ao Java.",
+        "pegadinha": "Um laço que nunca termina trava o programa."
+      },
+      "cpp": {
+        "como": "`while (condição) { ... }`, igual ao Java e ao C.",
+        "pegadinha": "Um laço que nunca termina trava o programa."
+      },
+      "php": {
+        "como": "`while (condição) { ... }`, com `$` nas variáveis.",
+        "pegadinha": "Um laço que nunca termina trava o programa."
+      }
+    }
+  },
+  "indice": {
+    "nome": "Posição do vetor",
+    "basico": "Acessa uma posição do vetor: `v[i]` é o valor guardado na posição i.",
+    "aprofundar": "No EducAI o índice começa em 0, como em Python, Java, C, C++ e PHP. Um vetor de 5 posições vai de 0 a 4.",
+    "linguagens": {
+      "python": {
+        "como": "Igual: `v[i]`. O vetor é uma lista criada com `[0] * 5`.",
+        "pegadinha": "Uma posição que não existe (como `v[5]`) dá erro `IndexError`."
+      },
+      "java": {
+        "como": "Igual: `v[i]`. O vetor é criado com `new int[5]`.",
+        "pegadinha": "Uma posição que não existe dá erro `ArrayIndexOutOfBoundsException`."
+      },
+      "c": {
+        "como": "Igual: `v[i]`. `int v[5] = {0}` reserva 5 inteiros valendo 0.",
+        "pegadinha": "C não confere a posição: `v[5]` lê ou estraga outra parte da memória sem avisar."
+      },
+      "cpp": {
+        "como": "Igual ao C: `v[i]`.",
+        "pegadinha": "Como em C, uma posição que não existe não é conferida e pode estragar a memória."
+      },
+      "php": {
+        "como": "Igual, com `$`: `$v[$i]`. O vetor é criado com `array_fill(0, 5, 0)`.",
+        "pegadinha": "Uma posição que não existe gera um aviso e devolve vazio (null)."
+      }
+    }
+  },
+  "funcao": {
+    "nome": "Função",
+    "basico": "Um bloco com nome que recebe valores (parâmetros), faz um cálculo e devolve um resultado com `retorne`.",
+    "aprofundar": "Funções evitam repetir código e deixam o programa organizado. As variáveis declaradas dentro dela só existem ali (são locais).",
+    "linguagens": {
+      "python": {
+        "como": "`def nome(parâmetros):` e o corpo indentado.",
+        "pegadinha": "A função precisa estar escrita antes da linha que a chama."
+      },
+      "java": {
+        "como": "`static int nome(int k) { ... }` dentro da classe: o tipo do resultado vem antes do nome.",
+        "pegadinha": "O `static` permite chamar a função direto do main, sem criar um objeto."
+      },
+      "c": {
+        "como": "`int nome(int k) { ... }`. Como ela foi escrita depois do main, a assinatura aparece também antes do main (o protótipo), para o compilador já conhecê-la.",
+        "pegadinha": "Sem o protótipo, o compilador reclama que não conhece a função."
+      },
+      "cpp": {
+        "como": "Igual ao C. Aqui a função foi escrita antes do main, então não precisa de protótipo."
+      },
+      "php": {
+        "como": "`function nome(int $k): int { ... }`. Os tipos são opcionais em PHP, mas ajudam a evitar erros."
+      }
+    }
+  },
+  "assinatura": {
+    "nome": "Assinatura da função",
+    "basico": "A primeira linha da função: o nome, os parâmetros com seus tipos e o tipo do resultado.",
+    "aprofundar": "A assinatura é o \"contrato\" da função: diz o que ela recebe e o que devolve, sem mostrar como faz.",
+    "linguagens": {
+      "python": { "como": "`def fatorial(k):` — sem tipos." },
+      "java": { "como": "`static int fatorial(int k)` — o `int` antes do nome é o tipo do resultado." },
+      "c": {
+        "como": "`int fatorial(int k)` — aparece duas vezes: no protótipo (terminado em `;`) e na definição.",
+        "pegadinha": "As duas versões precisam ser iguais; se não forem, o compilador acusa erro."
+      },
+      "cpp": { "como": "`int fatorial(int k)` — o tipo do resultado vem antes do nome." },
+      "php": { "como": "`function fatorial(int $k): int` — o tipo do resultado vem no fim, depois de `:`." }
+    }
+  },
+  "parametro": {
+    "nome": "Parâmetro",
+    "basico": "O valor que a função recebe quando é chamada. Dentro dela, funciona como uma variável.",
+    "aprofundar": "Parâmetros simples são copiados: mudar `k` dentro da função não muda a variável usada na chamada. Vetores são a exceção: a função mexe no vetor original.",
+    "linguagens": {
+      "python": { "como": "Só o nome, sem tipo: `k`." },
+      "java": { "como": "Tipo e nome: `int k`." },
+      "c": { "como": "Tipo e nome: `int k`." },
+      "cpp": { "como": "Tipo e nome: `int k`." },
+      "php": { "como": "Tipo e nome com `$`: `int $k`." }
+    }
+  },
+  "retorno": {
+    "nome": "Retorno",
+    "basico": "Encerra a função e devolve o valor para quem a chamou.",
+    "aprofundar": "O valor devolvido aparece no lugar da chamada. Em `escreval(fatorial(5))`, o que é escrito é o 120 devolvido pela função.",
+    "linguagens": {
+      "python": {
+        "como": "`return valor`.",
+        "pegadinha": "Uma função que termina sem `return` devolve `None`."
+      },
+      "java": { "como": "`return valor;`" },
+      "c": {
+        "como": "`return valor;`",
+        "pegadinha": "Se uma função com tipo de resultado terminar sem `return`, o valor devolvido é imprevisível."
+      },
+      "cpp": { "como": "`return valor;`" },
+      "php": { "como": "`return $valor;`" }
+    }
+  },
+  "chamada": {
+    "nome": "Chamada de função",
+    "basico": "Executa a função passando valores. O resultado aparece no lugar da chamada.",
+    "aprofundar": "Aqui o valor de n é copiado para o parâmetro k, a função executa, e o `retorne` entrega o resultado de volta para este ponto.",
+    "linguagens": {
+      "python": { "como": "Igual: `nome(argumentos)`." },
+      "java": { "como": "Igual: `nome(argumentos)`." },
+      "c": { "como": "Igual: `nome(argumentos)`. No `printf`, o resultado ocupa o lugar do `%d`." },
+      "cpp": { "como": "Igual: `nome(argumentos)`." },
+      "php": { "como": "Igual, com `$` nos argumentos: `fatorial($n)`." }
+    }
+  }
+}

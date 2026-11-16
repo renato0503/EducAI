@@ -1,0 +1,5 @@
+{
+  "titulo": "Procedimento e função que leem e alteram variável global",
+  "objetivo": "Testar globais: `global` em Python (só quem atribui) e PHP (sempre), campos static em Java, globais em C/C++.",
+  "divergenciasEsperadas": []
+}

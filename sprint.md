@@ -1,607 +1,481 @@
-# EducAI — Plano de Sprints (Ideação → MVP concluído)
+# EducAI — Plano de Sprints v2 (Validação → MVP com 5 linguagens → piloto)
 
-> Plano de execução detalhado do MVP do EducAI, derivado do `context.md`.
-> Cobre fases, sprints, tarefas, entregáveis, critérios de aceite, riscos e cronograma.
+> Plano de execução revisado, derivado do `context.md` v2. Cada sprint tem orçamento em horas,
+> dono por tarefa, entregáveis e critérios de aceite verificáveis.
+>
+> **Premissa mantida:** IDE com ou sem IA que, conforme o código surge, mostra cada elemento e o
+> replica nas principais linguagens — **5 no MVP** (Python, Java, C, C++, PHP) e **8 na v1.1**
+> (+ JavaScript, C#, Go).
 
 ---
 
-## 1. Premissas do plano
+## 0. Atualização de 16/11/2026 — equipe: Renato + Claude (v2.1)
 
-- **Equipe:** 2 pessoas (Renato + Vitório), com afinidades complementares.
-- **Dedicação:** parcial — ~12–16 h/semana por pessoa (ajustar se houver dedicação integral).
-- **Cadência:** sprints de **2 semanas** (10 úteis), com demo/review no fim de cada uma.
-- **Total estimado:** **~20 semanas** em dedicação parcial; **~10–12 semanas** se dedicação integral.
-- **Sugestão de divisão (ajustar por afinidade):**
-  - **Renato:** compilador (gramática, AST, semântica), geradores, execução, IA (explicador/copiloto).
-  - **Vitório:** frontend (Monaco, abas, highlight), produto (contas, projetos), piloto, QA.
-  - Ambos: definição de escopo, testes de equivalência, revisão de código.
-- **Fora do plano:** decisões de negócio (preço, marca) não bloqueiam a engenharia; são tratadas na Fase A.
+**Decisão 006:** o Vitório saiu da divisão de tarefas. O trabalho passa a ser do **Renato**, com o
+**Claude** escrevendo código, testes e documentação sob a direção e a revisão dele. As datas dos
+gates **não mudam** (o piloto depende do semestre letivo).
+
+### Como ler as tabelas das seções seguintes
+
+As tabelas por sprint (§4–§9) mantêm a divisão original "R" / "V" porque descrevem o **trabalho**.
+A partir de agora:
+
+| Na tabela | Quem faz | Horas do Renato |
+|---|---|---|
+| Código e testes (qualquer dono) | **Claude** escreve; Renato revisa, roda e aprova o PR | ~25–30% das horas da tarefa |
+| Pesquisa, entrevistas, sessões, piloto, ensaio | **Renato** | 100% |
+| Conteúdo pedagógico (cartões, notas, programas do corpus) | Claude rascunha; **Renato revisa e decide** | ~50% |
+| Decisões (gates, cortes, D1–D7) | **Renato** | 100% |
+
+### Novo orçamento (horas do Renato)
+
+Capacidade do Renato: 14 h/semana × 25 semanas + ~4 h/semana × 3 semanas de recesso ≈ **362 h**.
+Planejando a 80% (folga de 20%): **~290 h**.
+
+| Bloco | Período | Horas do Renato (estimativa) | O que pesa |
+|---|---|---|---|
+| Fase 0 (restante) | 16/11 – 06/12 | 30 h | entrevistas e sessões (20 h), revisão do catálogo (6 h), ensaio e publicação (4 h) |
+| S1 | 07/12 – 20/12 | 12 h | revisar parser e mensagens de erro |
+| S2 (recesso) | 21/12 – 10/01 | 8 h | revisar semântica |
+| S3 | 11/01 – 24/01 | 14 h | revisar semântica e editor ao vivo, testar com 1 aluno |
+| S4 | 25/01 – 07/02 | 14 h | revisar interpretador e pegadinhas; gate G1 |
+| S5 | 08/02 – 21/02 | 14 h | revisar emissor e gerador Python |
+| S6 | 22/02 – 07/03 | 16 h | revisar Java, PHP; cartões |
+| S7 | 08/03 – 21/03 | 16 h | revisar C, C++, fuzzer; cartões; gate G2 |
+| S8 | 22/03 – 04/04 | 16 h | testar modo construção e atividades com alunos; gate G3 |
+| S9 (IA, cortável) | 05/04 – 18/04 | 12 h | prompts, avaliação dos 20 pedidos |
+| S10 | 19/04 – 02/05 | 24 h | LGPD com a instituição, ensaio, material do professor; gate G4 |
+| S11 | 03/05 – 16/05 | 30 h | 2 sessões do piloto, observação, correções urgentes |
+| S12 | 17/05 – 30/05 | 24 h | análise, relatório, decisão |
+| **Total** | **28 semanas** | **~230 h** | **folga ≈ 60 h sobre os 290 h** |
+
+**Leitura:** o plano cabe, **se** o Renato tiver de fato ~14 h/semana. A maior concentração de horas
+está no que não dá para delegar: Fase 0 (pesquisa) e piloto (S10–S12).
+
+### O que muda no cronograma
+
+- **A Fase 0 adiantou:** 0.1 (protótipo), 0.2 (fixtures), 0.5 (spike), 0.6 (semântica) e 0.7
+  (monorepo + CI) já estão feitos em 16/11. O que resta é o que depende de pessoas: 0.3, 0.4 e
+  a revisão do catálogo.
+- **Folga do código:** como o código deixa de ser o gargalo, sprints de implementação podem
+  terminar antes. Regra: **não puxar a data do piloto**; a folga vai, nesta ordem, para
+  (1) qualidade e testes com alunos reais, (2) a IA opcional (S9), (3) **antecipar a v1.1**
+  (JavaScript, C#, Go) para antes do piloto, se o G3 for cumprido com pelo menos 2 semanas de
+  sobra.
+- **Revisão de PR:** sem segunda pessoa, a revisão é do Renato sobre o código do Claude. O CI
+  (lint, tipos, testes, fixtures, equivalência nas 5 linguagens) é obrigatório e não pode ser
+  contornado.
+- **Riscos novos:** (a) uma pessoa só para pesquisa e piloto — sem substituto se ficar doente na
+  semana do piloto → combinar com o professor uma data alternativa; (b) revisão superficial do
+  código gerado → o Renato deve rodar o protótipo/IDE a cada sprint, não só ler o diff.
+
+---
+
+## 1. Premissas (plano original, 12/11/2026)
+
+> Mantido como registro. Onde houver conflito, vale a §0.
+
+- **Equipe:** Renato (R) e Vitório (V), **~14 h/semana cada** (28 h/semana a dupla).
+- **Início:** segunda, 16/11/2026. **Fim do MVP + piloto:** 30/05/2027 (28 semanas).
+- **Recesso:** 21/12/2026 – 10/01/2027 com ~30% da capacidade (considerado no orçamento).
+- **Cadência:** sprints de 2 semanas (Fase 0 tem 3; Sprint 2 cobre o recesso com 3).
+- **Sincronização:** 30 min por semana + review/demo de 45 min no fim de cada sprint.
+- **Controle de horas:** cada um anota horas reais por tarefa. Se uma sprint estourar mais de 20%,
+  aplica-se a **ordem de corte** (§13) na review — sem "recuperar no fim de semana".
+
+### Divisão de responsabilidades
+
+| Renato (caminho crítico do compilador) | Vitório (experiência + metade dos geradores) |
+|---|---|
+| Parser, semântica, interpretador | App, Monaco, highlight cruzado, modo construção |
+| Emissor + geradores Python, Java, C | Geradores **PHP** e **C++** (derivados de Python e C) |
+| Testes diferenciais, fuzzer | Catálogo de explicações (formato + metade dos cartões) |
+| Copiloto (IA) | API pequena, turma, telemetria, deploy |
+| Ambos: corpus, cartões, piloto, revisão de todo PR | |
+
+O que desacopla os dois desde o primeiro dia: os **arquivos de fixture** da Fase 0 (5 programas
+com AST, código nas 5 linguagens e mapa de tokens escritos à mão). O Vitório constrói a UI sobre
+eles enquanto o compilador ainda não existe.
 
 ### Convenções
 
-- **DoD (Definition of Done)** de qualquer tarefa: código revisado por outra pessoa, testes
-  automatizados passando, documentação mínima atualizada, deploy em *staging* funcionando.
-- **Gate de fase:** nenhuma fase começa sem os critérios de saída da anterior.
-- **Toda feature nova no compilador** entra acompanhada de um programa de exemplo no *corpus*.
+- **DoD de tarefa:** PR revisado pelo Renato (antes: "pelo outro"), testes passando, CI verde, doc mínima atualizada.
+  (Deploy em staging contínuo a partir da Sprint 5.)
+- **Gate de fase:** a fase seguinte só começa com os critérios do gate cumpridos ou com corte
+  explícito registrado em `docs/decisoes.md`.
+- **Toda construção nova da linguagem** entra com: programa no corpus + regra em
+  `docs/semantica.md` + teste diferencial + cartão no catálogo.
 
 ---
 
-## 2. Visão geral das fases
+## 2. Orçamento de horas
 
-| Fase | Sprints | Foco | Resultado |
+| Bloco | Período | Capacidade | Planejado | R | V |
+|---|---|---|---|---|---|
+| Fase 0 — Validação | 16/11 – 06/12 | 84 h | 70 h | 32 | 38 |
+| S1 — Parser + casca da IDE | 07/12 – 20/12 | 56 h | 46 h | 24 | 22 |
+| S2 — Semântica I + catálogo (recesso) | 21/12 – 10/01 | ~25 h | 20 h | 10 | 10 |
+| S3 — Semântica II + editor ao vivo | 11/01 – 24/01 | 56 h | 46 h | 23 | 23 |
+| S4 — Interpretador + console | 25/01 – 07/02 | 56 h | 46 h | 23 | 23 |
+| S5 — Emissor + Python + CI diferencial | 08/02 – 21/02 | 56 h | 46 h | 23 | 23 |
+| S6 — Java + PHP + C (início) | 22/02 – 07/03 | 56 h | 46 h | 23 | 23 |
+| S7 — C + C++ + fuzzer | 08/03 – 21/03 | 56 h | 46 h | 23 | 23 |
+| S8 — Modo construção + atividades | 22/03 – 04/04 | 56 h | 46 h | 23 | 23 |
+| S9 — IA opcional + API de turma | 05/04 – 18/04 | 56 h | 46 h | 23 | 23 |
+| S10 — Preparação do piloto + segurança | 19/04 – 02/05 | 56 h | 40 h | 18 | 22 |
+| S11 — Piloto | 03/05 – 16/05 | 56 h | 36 h | 16 | 20 |
+| S12 — Análise e decisão | 17/05 – 30/05 | 56 h | 36 h | 22 | 14 |
+| **Total** | **28 semanas** | **~725 h** | **~570 h** | **283** | **287** |
+
+**Folga: ~155 h (~21%).** É ela que absorve doença, provas, trabalho e as estimativas erradas (elas
+vão estar erradas). As estimativas são de ordem de grandeza e devem ser recalibradas na review da
+S3 com as horas reais das primeiras sprints.
+
+---
+
+## 3. Visão geral e gates
+
+| Fase | Sprints | Gate | Data | Critério de saída |
+|---|---|---|---|---|
+| **0 — Validação** | F0 | **G0** | 06/12 | Tese com sinal positivo, piloto confirmado, spike de equivalência verde, decisões fechadas |
+| **1 — Núcleo** | S1–S4 | **G1** | 07/02 | "VisualG no navegador": escreve, vê erros em PT-BR, executa com `leia` interativo |
+| **2 — 5 linguagens** | S5–S7 | **G2** | 21/03 | Python, Java, C, C++ e PHP gerados, mapeados e **idênticos no CI** |
+| **3 — Pedagogia** | S8 | **G3** | 04/04 | MVP **sem IA** completo: modo construção, catálogo 100%, atividades. Congelamento do núcleo |
+| **4 — IA opcional** | S9 | — | 18/04 | Copiloto passo a passo (cortável sem afetar G3) |
+| **5 — Piloto** | S10–S12 | **G4** | 02/05 | Segurança, LGPD, ensaio e material prontos antes do primeiro aluno |
+
+**Caminho crítico:** spec de semântica → parser → semântica → interpretador → emissor/mapa →
+geradores → modo construção → piloto.
+A UI **não** está no caminho crítico até a S5, graças às fixtures.
+
+---
+
+## 4. Fase 0 — Validação (16/11 – 06/12, 3 semanas)
+
+**Objetivo:** descobrir em 3 semanas, sem compilador, se a tese se sustenta e onde a equivalência
+entre linguagens quebra.
+
+| # | Tarefa | Dono | h |
 |---|---|---|---|
-| **A — Ideação e Discovery** | Sprint 0 | Escopo, arquitetura, protótipo | Decisões fechadas e protótipo navegável |
-| **B — Fundação do compilador** | Sprints 1–2 | Gramática, AST, semântica, geradores Python/C | PT-BR → AST → código válido |
-| **C — Experiência multi-linguagem** | Sprints 3–4 | Editor com abas, mapa de tokens, execução | Abas sincronizadas e código rodando |
-| **D — IA pedagógica** | Sprints 5–6 | Explicador por nó, copiloto NL→PT-BR | O diferencial do produto funcionando |
-| **E — Produto e piloto** | Sprints 7–8 | Contas, projetos, instrumentação, turma piloto | Uso real por alunos |
-| **F — Hardening e release** | Sprint 9 | Segurança, performance, documentação, release | MVP concluído e estável |
+| 0.1 | **Protótipo estático** (HTML/React simples): 5 programas, editor PT-BR somente leitura, 5 abas, modos grade/foco, highlight cruzado com mapa manual, cartões escritos à mão, "modo construção" simulado (os comandos aparecem um a um e acendem em todas as abas) | V | 24 |
+| 0.2 | Escrever os 5 programas em PT-BR + nas 5 linguagens + **fixtures JSON** (AST, código, mapa nó → ranges, nós sintéticos) | R | 12 |
+| 0.3 | **Think-aloud com 6–10 alunos** (30 min cada): usar o protótipo e depois prever a saída de um trecho Java/C inédito. Metade faz a mesma tarefa com ChatGPT ("traduza e explique") como baseline | R+V | 12 |
+| 0.4 | **Entrevistas com 3–5 professores:** sintaxe que usam, índice de vetor, cola com IA, o que precisam para usar em sala. **Fechar turma e data do piloto** | R+V | 8 |
+| 0.5 | **Spike de equivalência:** 5 programas difíceis (texto em C, `leia` misto, real com 2 casas, divisão, vetor em função, fatorial grande) rodando nos 5 runtimes via Docker; registrar todas as divergências | R | 8 |
+| 0.6 | Fechar `docs/semantica.md` v1 com o resultado do spike | R | 2 |
+| 0.7 | Monorepo TS (pnpm), lint, testes, CI esqueleto, template de PR, `docs/decisoes.md` | V | 4 |
 
-> **Caminho crítico:** gramática → AST → geradores → mapa de tokens → highlight → execução.
-> Se o mapa de tokens atrasar, adiar o highlight cruzado (Fase C) e não a execução.
+**Entregáveis:** protótipo publicado; `fixtures/` com 5 programas; relatório curto de validação
+(`docs/validacao-f0.md`); `docs/semantica.md` v1; imagem Docker com os 5 runtimes; repo com CI.
 
----
+**Gate G0 (06/12) — seguir se:**
+- [ ] ≥ 60% dos alunos preveem corretamente a saída do trecho inédito **e** o grupo do protótipo
+      não fica atrás do baseline ChatGPT (ou os think-alouds mostram vantagem qualitativa clara).
+- [ ] ≥ 1 professor com turma e datas do piloto confirmadas por escrito.
+- [ ] Os 5 programas do spike produzem saída idêntica nos 5 runtimes seguindo as regras escritas.
+- [ ] Decisões de context.md §10 fechadas (índice de vetor, sintaxe, licença).
 
-## 3. Definition of Done global do MVP
-
-O MVP está concluído quando:
-
-- [ ] Um programa de 30–50 linhas em PT-BR (variáveis, IO, `se`, `enquanto`, `para`, funções, vetores)
-      é parseado, validado e gerado em **3 linguagens** sem intervenção manual.
-- [ ] Código gerado **compila e executa** no sandbox, com saída idêntica nas 3 linguagens.
-- [ ] Clicar/hover em qualquer elemento destaca o equivalente nas outras abas.
-- [ ] Painel lateral explica o elemento em cada linguagem, com 3 níveis.
-- [ ] Copiloto converte pedido em linguagem natural em PT-BR válido, com loop de reparo e preview.
-- [ ] Erros de sintaxe/semântica são explicados em PT-BR com span e sugestão.
-- [ ] Contas, projetos salvos e histórico funcionam.
-- [ ] Piloto com 10–30 alunos executado, métricas coletadas e relatório gerado.
-- [ ] Deploy em produção com HTTPS, backups, monitoramento de erros e limites de uso.
+**Se o G0 falhar:** não descartar o projeto — ajustar a forma. Exemplos: modo foco como padrão (1–2
+linguagens + "ver nas outras"), mais atividades e menos abas, ou outro público. Registrar a decisão
+e refazer só a parte afetada do plano.
 
 ---
 
-## 4. Fase A — Ideação e Discovery
+## 5. Fase 1 — Núcleo do compilador + casca da IDE
 
-### Sprint 0 — Alinhamento, escopo e protótipo (2 semanas)
+### Sprint 1 (07/12 – 20/12) — Parser e IDE sobre fixtures
 
-**Objetivo:** sair da ideia para um plano técnico fechado e um protótipo que permita validar a
-experiência antes de escrever o compilador.
+| # | Tarefa | Dono | h |
+|---|---|---|---|
+| 1.1 | Lexer com posições (linha/coluna), palavras-chave do subconjunto | R | 5 |
+| 1.2 | Parser por descida recursiva + Pratt para expressões; AST tipada com spans | R | 11 |
+| 1.3 | **Recuperação por comando:** um comando com erro vira nó `erro` e o resto do programa continua parseado (necessário para gerar enquanto o aluno digita) | R | 4 |
+| 1.4 | IDs por caminho estrutural; serialização JSON; corpus com 15 programas + snapshots | R | 4 |
+| 1.5 | App Vite + React; layout editor PT-BR + 5 abas Monaco read-only; modos grade/foco | V | 10 |
+| 1.6 | Highlight cruzado **multi-range** bidirecional sobre as fixtures (decorations só do nó ativo) | V | 8 |
+| 1.7 | Testes de componente do highlight (Vitest + Playwright) | V | 4 |
 
-**Tarefas**
+**Aceite:** 15/15 programas do corpus parseiam; erro de sintaxe aponta linha/coluna; um programa com
+1 comando quebrado ainda produz AST para os outros; clicar num elemento de qualquer aba das
+fixtures acende todos os seus ranges nas outras 5.
 
-1. **Fechar escopo do subconjunto PT-BR v1** (formalizar o que entra e o que fica para v2).
-   - Entram: variáveis (`inteiro`, `real`, `texto`, `logico`), atribuição, `escreva`/`leia`,
-     operadores aritméticos/relacionais/lógicos, `se`/`senao`, `enquanto`, `para`, funções com
-     retorno, procedimentos, vetor 1D, comentários.
-   - Ficam para v2: matrizes, `escolha`, `repita`, arquivos, ponteiros, classes/OO, strings avançadas.
-2. **Escrever a gramática em EBNF/Lark de rascunho** e validar em papel com 5 programas.
-3. **Definir o schema da AST** (tipos de nó, campos, IDs estáveis, spans).
-4. **Decidir a stack** (gate): Python (Lark/FastAPI) + Next.js **ou** 100% TypeScript (Chevrotain).
-   - Critérios: velocidade de iteração na gramática, familiaridade da dupla, facilidade de deploy.
-5. **Definir contrato da API** (parse, generate, run, explain, copilot) — OpenAPI rascunho.
-6. **Protótipo de UI navegável** (Figma ou HTML estático): editor PT-BR + abas + painel de
-   explicação + console.
-7. **Escolher linguagens do MVP** (proposta: **Python, C e Java**) e justificar a ordem.
-8. **Definir política de execução:** Piston self-hosted vs Judge0 vs docker local.
-9. **Criar o repositório**, estrutura de pastas, CI básico (lint + testes) e template de PR.
-10. **Definir o corpus inicial de 20 programas** representativos do curso.
+### Sprint 2 (21/12 – 10/01, recesso) — Semântica I + formato do catálogo
 
-**Entregáveis**
-- `docs/escopo-v1.md` — subconjunto formal da linguagem.
-- `grammar/portugol.lark` (rascunho) + 5 programas de teste.
-- `docs/ast-schema.md` — tipos de nó e campos.
-- `docs/api-contract.md` — endpoints e payloads.
-- Protótipo de UI (Figma/link) + decisão de stack registrada.
-- Repositório com CI verde e README de setup.
+| # | Tarefa | Dono | h |
+|---|---|---|---|
+| 2.1 | Tabela de símbolos, escopos (global/função), tipos, declaração/redeclaração | R | 10 |
+| 2.2 | **Schema do catálogo** (`conceito.basico`, `conceito.aprofundar`, por linguagem: `como`, `por_que`, `pegadinha`; slots `{{nome}}`, `{{tipo}}`, `{{valor}}`) + painel de explicação lendo o catálogo | V | 6 |
+| 2.3 | Primeiros 10 cartões de conceito (rascunho com LLM offline + revisão humana) | V | 4 |
 
-**Critérios de aceite**
-- Escopo v1 escrito e aprovado pelos dois.
-- Stack decidida com justificativa (sem "vamos ver depois").
-- Protótipo mostra o fluxo completo: escrever → abas preenchidas → clicar → explicação.
-- Os 5 programas de papel são parseáveis "na cabeça" pela gramática rascunho.
+**Aceite:** erros "variável não declarada" e "tipo incompatível" em PT-BR com span; painel mostra o
+cartão de qualquer nó das fixtures com slots preenchidos.
 
-**Riscos / atenção**
-- **Escopo inflado** é o maior risco desta fase. Regra: qualquer ideia nova vai para o backlog
-  pós-MVP, não para a v1.
-- Não escolher stack por moda; escolher por velocidade de iteração da dupla.
+### Sprint 3 (11/01 – 24/01) — Semântica II + editor ao vivo
 
----
+| # | Tarefa | Dono | h |
+|---|---|---|---|
+| 3.1 | Aridade, retorno, `para` (passo literal, variável de controle não atribuível), vetores (tamanho constante), identificadores (reservados de todas as 8 linguagens, transliteração) | R | 14 |
+| 3.2 | Catálogo de erros com código + texto didático + sugestão (≥ 30 erros) | R | 7 |
+| 3.3 | Tokenizador Monarch do PT-BR; parse + semântica **a cada tecla** (debounce 150 ms) no navegador; squiggles + tooltip | V | 14 |
+| 3.4 | Corpus +15 programas (total 30), incluindo os do professor da Fase 0 | V | 7 |
+| 3.5 | Recalibrar o orçamento com as horas reais de F0–S3 | R+V | 4 |
 
-## 5. Fase B — Fundação do compilador
+**Aceite:** os 30 programas passam na semântica; 10 mensagens de erro revisadas por um aluno
+iniciante são entendidas; editar o PT-BR mostra erros em < 200 ms.
 
-### Sprint 1 — Gramática, AST e spans (2 semanas)
+### Sprint 4 (25/01 – 07/02) — Interpretador de referência + console
 
-**Objetivo:** transformar texto PT-BR em uma AST tipada, com spans corretos e erros de sintaxe
-apontando linha/coluna.
+| # | Tarefa | Dono | h |
+|---|---|---|---|
+| 4.1 | Interpretador da IR com a semântica de `docs/semantica.md` | R | 14 |
+| 4.2 | **Pegadinhas estritas:** overflow, `div`/`mod` com negativo, divisão por zero, índice fora, texto > 255, recursão > 500, variável de `para` após o laço, real com vírgula na entrada; cada uma com mensagem e "como cada linguagem se comportaria" | R | 9 |
+| 4.3 | Console com `leia` **interativo**, limite de passos (anti-laço infinito) e botão parar | V | 10 |
+| 4.4 | Cartões de conceito restantes (todos os tipos de nó) | V | 9 |
+| 4.5 | Salvar rascunho no `localStorage` | V | 4 |
 
-**Tarefas**
-
-1. Implementar a gramática completa do subconjunto v1 (Lark/Chevrotain).
-   - Expressões com precedência correta; `se`/`senao`; `enquanto`; `para`; funções/procedimentos.
-   - Comentários (`//` e `/* */`) ignorados no parser, mas preservados para o editor.
-2. Construir a AST canônica:
-   - Nós: `programa`, `declaracao`, `atribuicao`, `escreva`, `leia`, `se`, `enquanto`, `para`,
-     `funcao`, `procedimento`, `chamada`, `retorno`, `vetor`, `operacao`, `literal`, `variavel`.
-   - IDs estáveis (ex.: `n1`, `n2`, ... por ordem de visita) + `span` (linha/coluna início/fim).
-3. Testes unitários do parser:
-   - 20 programas válidos do corpus → AST esperada (snapshot).
-   - 10 programas inválidos → erro com linha, coluna e mensagem em PT-BR.
-4. Implementar `GET /parse` (ou função equivalente) devolvendo `{ ast, erros }`.
-5. Catalogar erros de sintaxe com código + texto didático ("esperava `fimse`, encontrei ...").
-6. Documentar a AST com exemplos reais (JSON) no `docs/ast-schema.md`.
-
-**Entregáveis**
-- Gramática versionada + parser funcional.
-- AST serializável em JSON + spans.
-- Suíte de testes do parser (válidos + inválidos) verde no CI.
-- Página/harness de debug que mostra o JSON da AST de um texto colado.
-
-**Critérios de aceite**
-- 100% dos 20 programas do corpus parseiam sem erro.
-- Cada erro de sintaxe aponta o token e traz mensagem em português.
-- AST é determinística: mesmo texto → mesma AST (incluindo IDs).
-- Cobertura de testes do parser ≥ 80% das regras da gramática.
-
-**Riscos / atenção**
-- Ambiguidade na gramática (ex.: `para` vs. atribuição) → resolver cedo com testes.
-- Spans errados quebram highlight e erro na UI → testar spans desde já.
+**Gate G1 (07/02):** um aluno consegue escrever, ver erros em PT-BR e executar os 30 programas do
+corpus no navegador; cada pegadinha tem programa de teste que a dispara.
 
 ---
 
-### Sprint 2 — Análise semântica + geradores Python e C (2 semanas)
+## 6. Fase 2 — As 5 linguagens
 
-**Objetivo:** validar tipos/escopos e gerar código executável em 2 linguagens, com testes de
-equivalência de saída.
+**Regra:** uma linguagem só entra nas abas reais quando passa em 100% dos testes diferenciais do
+corpus. Até lá, a aba mostra a fixture ou "em breve".
 
-**Tarefas**
+### Sprint 5 (08/02 – 21/02) — Emissor, mapa e Python
 
-1. **Análise semântica:**
-   - Tabela de símbolos, escopos (global/função/bloco), tipos e compatibilidade.
-   - Checagens: variável não declarada, redeclaração, tipo incompatível, aridade de função,
-     retorno ausente/errado, vetor fora do índice estático, uso antes de atribuição (best effort).
-   - Erros semânticos em PT-BR com span e sugestão de correção.
-2. **IR canônica anotada:** AST + `tipo` resolvido em cada expressão + tabela de símbolos.
-3. **Gerador Python:**
-   - Templates por nó (Jinja2 ou funções puras).
-   - Convenções: `escreva` → `print`, `leia` → `input` com cast, vetores → listas, funções → `def`.
-   - Emitir **mapa `nodeId → range`** junto com o código.
-4. **Gerador C:**
-   - `#include <stdio.h>`, `int main`, protótipos, `printf`/`scanf` com formato por tipo.
-   - Vetores como arrays; funções com tipo de retorno explícito.
-   - Emitir mapa `nodeId → range`.
-5. **Testes de equivalência (golden tests):**
-   - Para cada programa do corpus: rodar Python e C no sandbox (ou localmente no CI) e comparar
-     stdout normalizado (trim, `\r\n` → `\n`).
-6. **Normalização de saída documentada** (quebras de linha, formatação de real, fim de arquivo).
-7. **Endpoint `POST /generate`** devolvendo código + mapas.
+| # | Tarefa | Dono | h |
+|---|---|---|---|
+| 5.1 | **Emissor** `emit(texto, nodeId)` com indentação, mapa `nodeId → [ranges]` e nós sintéticos | R | 7 |
+| 5.2 | Gerador **Python** (idiomático: `range`, f-strings, `def`) | R | 8 |
+| 5.3 | **CI diferencial:** imagem Docker fixa; para cada programa × entrada, compara interpretador × runtime real | R | 8 |
+| 5.4 | Trocar fixtures por geração real nas abas; staging contínuo | V | 8 |
+| 5.5 | Teste de **cobertura do mapa** (todo caractere não-branco pertence a um nó) | V | 5 |
+| 5.6 | **Diff de AST** por lista de comandos (tipo + hash) → conjunto de nós novos/alterados | V | 10 |
 
-**Entregáveis**
-- Análise semântica com catálogo de erros.
-- Geradores Python e C funcionais + mapas de tokens.
-- Golden tests de equivalência rodando no CI.
-- `docs/geracao.md` com as convenções por linguagem.
+**Aceite:** 30/30 programas idênticos em Python; cobertura do mapa 100%; inserir um comando marca
+só ele (e seus filhos) como novo.
 
-**Critérios de aceite**
-- ≥ 95% do corpus gera Python e C que executam com a mesma saída.
-- Todo nó visível no código gerado tem range válido no mapa.
-- Erros semânticos são compreensíveis para um iniciante (revisão manual de 10 mensagens).
-- Nenhum gerador emite código "quebrado" silenciosamente: falha explícita com erro interno.
+### Sprint 6 (22/02 – 07/03) — Java, PHP e início do C
 
-**Riscos / atenção**
-- **Mapa de tokens** é a parte mais delicada: instrumentar os templates desde o início, não depois.
-- Diferenças de saída (`print` de real, `scanf` com espaços) → padronizar entrada/saída no corpus.
-- Não otimizar prematuramente geração; priorizar legibilidade didática.
+| # | Tarefa | Dono | h |
+|---|---|---|---|
+| 6.1 | Gerador **Java** (`class Main`, `static`, `Scanner` + `nextLine`, `Locale.ROOT`) + sintéticos | R | 13 |
+| 6.2 | Gerador **C** — parte 1: `main`, tipos numéricos, `printf`/`fgets`+`sscanf`, protótipos | R | 10 |
+| 6.3 | Gerador **PHP** (derivado do Python: `$`, `echo`/`printf("%.2F")`, `fgets(STDIN)`, `array &$v`, `global`) | V | 12 |
+| 6.4 | Cartões por linguagem: Python e PHP (incluindo sintéticos) | V | 11 |
 
----
+**Aceite:** 30/30 idênticos em Java e PHP; C compila sem aviso nos programas só numéricos.
 
-## 6. Fase C — Experiência multi-linguagem
+### Sprint 7 (08/03 – 21/03) — C completo, C++ e fuzzer
 
-### Sprint 3 — Editor com abas, sync e highlight cruzado (2 semanas)
+| # | Tarefa | Dono | h |
+|---|---|---|---|
+| 7.1 | Gerador **C** — parte 2: `caractere` como `char[256]` (`snprintf`, `strcmp`, `fgets` sem `\n`), vetores, `stdbool.h` | R | 13 |
+| 7.2 | **Fuzzer:** gera programas aleatórios bem tipados a partir da gramática + entradas; roda o diferencial nas 5 linguagens no CI (lote noturno) | R | 10 |
+| 7.3 | Gerador **C++** (derivado do C: `iostream`, `std::string`, `getline`, `fixed`/`setprecision`) | V | 10 |
+| 7.4 | Cartões por linguagem: Java, C e C++ (incluindo sintéticos) | V | 13 |
 
-**Objetivo:** a experiência visual que materializa a tese: escrever uma vez, ver em várias
-linguagens, clicar e acender o equivalente.
-
-**Tarefas**
-
-1. **Editor Monaco** com a aba de PT-BR:
-   - Syntax highlighting básico (tokenizer customizado ou Monarch).
-   - Marcação de erros do parser/semântica (squiggles + tooltip em PT-BR).
-   - Parse em tempo real com debounce (300–500 ms).
-2. **Abas de linguagens** (Python, C, Java) geradas a partir do código atual:
-   - Abas read-only no MVP; atualização automática ao editar o PT-BR.
-   - Estado de carregamento e indicação de erro de geração.
-3. **Mapa de tokens no frontend:**
-   - Converter `nodeId → range` em *decorations* do Monaco.
-   - Hover/clique em um token → identificar `nodeId` → destacar em todas as abas.
-   - Navegação por teclado (Tab/Shift+Tab entre ocorrências do mesmo nó).
-4. **Painel lateral de estrutura** (opcional, mas útil): árvore resumida do programa por nós.
-5. **Layout responsivo básico**: editor à esquerda, abas à direita, console abaixo (ou abas
-   empilhadas no mobile web).
-6. **Salvar rascunho local** (`localStorage`) para não perder texto ao recarregar.
-7. Testes de componente (renderização de abas, seleção de nó, decorations) com Playwright/Vitest.
-
-**Entregáveis**
-- Editor funcional com 4 abas (PT-BR + 3 linguagens).
-- Highlight cruzado bidirecional.
-- Erros visíveis no editor.
-- Protótipo usável de ponta a ponta (sem execução ainda).
-
-**Critérios de aceite**
-- Editar uma linha em PT-BR atualiza as 3 abas em < 1s (programas do corpus).
-- Clicar em `enquanto` em Python acende o nó correspondente em C e Java e vice-versa.
-- Erro de sintaxe aparece sublinhado na posição certa.
-- Nenhuma aba fica "dessincronizada" após 20 edições consecutivas (teste manual roteirizado).
-
-**Riscos / atenção**
-- Performance do Monaco com muitas decorations → destacar só o nó ativo, não o programa inteiro.
-- IDs instáveis entre parses → garantir determinismo (Sprint 1) ou remapear no diff.
+**Gate G2 (21/03):**
+- [ ] 30/30 programas do corpus com saída idêntica nas 5 linguagens e no interpretador.
+- [ ] Fuzzer: ≥ 1.000 programas sem divergência (toda divergência encontrada vira regra ou correção).
+- [ ] Compilação sem avisos (`-Wall -Wextra -Werror`, `javac -Xlint`, `php -l`).
+- [ ] Todo nó e todo sintético das 5 linguagens tem cartão revisado.
 
 ---
 
-### Sprint 4 — Execução real e console comparativo (2 semanas)
+## 7. Fase 3 — Experiência pedagógica
 
-**Objetivo:** provar que o código gerado roda de verdade e que todas as linguagens produzem a
-mesma saída.
+### Sprint 8 (22/03 – 04/04) — Modo construção + atividades
 
-**Tarefas**
+| # | Tarefa | Dono | h |
+|---|---|---|---|
+| 8.1 | **Modo construção:** a cada comando completo, os nós novos acendem nas 5 abas por ~2 s e geram um cartão no **fio de elementos** (clicável, com histórico da sessão) | V | 10 |
+| 8.2 | **"Reproduzir construção":** reexecuta o programa inteiro comando a comando, acendendo e explicando cada elemento (para o professor apresentar) | V | 5 |
+| 8.3 | Atividade **"preveja a saída"** (aluno digita, interpretador confere) | R | 5 |
+| 8.4 | Atividade **"complete a lacuna"**: esconde os ranges de um nó numa linguagem; resposta conferida pela comparação normalizada com o código gerado | R | 8 |
+| 8.5 | Atividade **"qual linha corresponde?"**: clicar na linha equivalente em outra linguagem (conferida pelo mapa) | R | 4 |
+| 8.6 | Tela inicial com 10 programas curados (crescentes) + tour de 3 passos | V | 6 |
+| 8.7 | Endurecimento dos geradores: escape de literais (`"`, `\`, `%`), nomes reservados, casos do fuzzer | R | 6 |
+| 8.8 | Acessibilidade mínima (contraste, foco, teclado), atalhos (Ctrl+Enter executar) | V | 2 |
 
-1. **Subir o sandbox de execução** (Piston self-hosted via Docker Compose ou Judge0).
-   - Imagens/runtimes: Python 3, GCC (C), JDK (Java).
-   - Limites: tempo (ex.: 5s), memória (ex.: 128 MB), sem rede, sem escrita fora do temp.
-2. **Cliente de execução** com contrato único: `{ linguagem, codigo, stdin } → { stdout, stderr,
-   status, duracao_ms }`.
-3. **Console de execução na UI:**
-   - Botão "Executar", campo de entrada (stdin) quando o programa usa `leia`.
-   - Aba de saída por linguagem + aba "comparar" com diff lado a lado.
-   - Selo "saídas idênticas" / destaque das diferenças.
-4. **Timeout e tratamento de erro didático:** erro de compilação vira mensagem em PT-BR (com
-   tradução básica do erro do compilador para o aluno).
-5. **Cache de execução** (hash do código + entrada) para não reexecutar o mesmo programa.
-6. **Testes de integração** do fluxo completo: PT-BR → AST → 3 códigos → execução → comparação.
-7. **Métricas de latência** expostas (tempo de parse, geração e execução).
-
-**Entregáveis**
-- Execução real em 3 linguagens.
-- Console comparativo com selo de equivalência.
-- Testes de integração do pipeline ponta a ponta.
-- `docs/execucao.md` (limites, formatos, normalização, segurança).
-
-**Critérios de aceite**
-- Programa com `leia` recebe entrada e produz a mesma saída nas 3 linguagens.
-- Programa com laço e vetor roda dentro do limite de 5s.
-- Código malicioso óbvio (loop infinito, escrita em disco) é contido pelo timeout/sandbox.
-- O aluno vê erro de compilação em português, não stack trace cru.
-
-**Riscos / atenção**
-- Segurança do sandbox é **crítica**: sem rede, sem privilégios, limites agressivos.
-- Diferenças de runtime (versões) → fixar versões das imagens no `docker-compose.yml`.
-- Se Piston for complexo demais, fallback: executar localmente em containers dedicados.
+**Gate G3 (04/04) — MVP sem IA completo:** um aluno, sem ajuda, escreve um programa de 30 linhas,
+vê cada elemento surgir nas 5 linguagens, abre cartões, executa com `leia` e faz as 3 atividades.
+O núcleo é **congelado**: daqui em diante, só correção de bug.
 
 ---
 
-## 7. Fase D — IA pedagógica
+## 8. Fase 4 — IA opcional
 
-### Sprint 5 — Explicador por elemento e por linguagem (2 semanas)
+### Sprint 9 (05/04 – 18/04) — Copiloto passo a passo + API de turma
 
-**Objetivo:** o diferencial pedagógico: cada nó explicado em cada linguagem, em níveis, com cache.
+| # | Tarefa | Dono | h |
+|---|---|---|---|
+| 9.1 | Copiloto: pedido em linguagem natural → **plano de passos**, cada passo = comando em **AST JSON** (saída estruturada por schema) | R | 9 |
+| 9.2 | Validação semântica de cada passo; até 2 reparos com o erro do validador; mensagem honesta se falhar; pedidos fora do subconjunto recusados com alternativa | R | 5 |
+| 9.3 | Integração com o **modo construção**: cada passo entra no editor, acende nas 5 abas e gera cartão; aluno avança, edita ou descarta | R | 5 |
+| 9.4 | Checagem de intenção: o programa roda no interpretador com 2–3 entradas de exemplo geradas junto; suíte de 20 pedidos (meta ≥ 90% válidos e corretos) | R | 4 |
+| 9.5 | **API pequena:** turma (código de acesso, `ia_habilitada`, grupo do experimento), aluno por apelido, projetos, eventos | V | 12 |
+| 9.6 | Proxy de LLM com teto mensal, rate limit por turma/aluno e corte automático | V | 6 |
+| 9.7 | Telemetria: `parse_ok`, `elemento_novo`, `cartao_aberto`, `aba_aberta`, `modo`, `executar`, `pegadinha`, `atividade_ok/erro`, `copiloto_passo` | V | 5 |
 
-**Tarefas**
+**Aceite:** "faça um programa que calcule a média de 4 notas" é construído em passos, cada um
+replicado e explicado nas 5 abas; com a IA desligada na turma, o botão some e nada mais muda.
 
-1. **Taxonomia de explicação por nó** (schema):
-   - `o_que_e`, `por_que_existe`, `como_aparece_em_cada_linguagem`, `pegadinhas`, `exemplo`.
-2. **Prompt ancorado no nó:**
-   - Entrada: subárvore do nó (JSON), código real gerado em cada linguagem, nível, contexto do
-     programa (resumido).
-   - Saída estruturada (JSON) validada por schema.
-   - Instruções: não inventar sintaxe; citar o trecho real; adaptar ao nível.
-3. **Integração na UI:** painel lateral ao clicar no elemento; seletor de nível
-   (iniciante/intermediário/avançado); estado de carregamento.
-4. **Cache versionado:**
-   - Chave: `hash(tipo_no + subárvore_normalizada + linguagens + nivel + prompt_versao)`.
-   - Redis com TTL + tabela `Explicacao` para auditoria.
-5. **Fallback determinístico:** templates por tipo de nó e linguagem, usados se a LLM falhar,
-   estourar orçamento ou demorar > 3s.
-6. **Orçamento e limites:** máximo de tokens por explicação, rate limit por usuário, telemetria de
-   custo.
-7. **Revisão de qualidade:** amostra de 20 explicações revisadas manualmente; checklist de
-   correção (sem alucinação, nível adequado, referência ao código real).
-
-**Entregáveis**
-- Serviço de explicação com nó + linguagem + nível.
-- Painel lateral integrado.
-- Cache e fallback funcionando.
-- Relatório de revisão de qualidade da amostra.
-
-**Critérios de aceite**
-- Explicação de 10 nós distintos (em 3 linguagens) considerada correta e didática na revisão manual.
-- Explicação responde em < 2s com cache e < 5s sem cache (p95).
-- Fallback produz texto útil quando a LLM é desligada (teste com flag).
-- Custo por explicação medido e dentro do orçamento definido.
-
-**Riscos / atenção**
-- Explicação genérica ("isso é um laço") → exija referência ao trecho real e ao programa concreto.
-- Custo explosivo → sob demanda + cache + modelo pequeno.
-- Tom didático inconsistente → guia de estilo/prompt versionado.
+**Se cortada:** a 9.5–9.7 continua (necessária para o piloto); as horas de R da S9 viram folga.
 
 ---
 
-### Sprint 6 — Copiloto NL → PT-BR + tutoria de erros (2 semanas)
+## 9. Fase 5 — Piloto
 
-**Objetivo:** o aluno pede em linguagem natural e recebe programa válido em PT-BR, com preview e
-reparo automático.
+### Sprint 10 (19/04 – 02/05) — Preparação + segurança
 
-**Tarefas**
+| # | Tarefa | Dono | h |
+|---|---|---|---|
+| 10.1 | Deploy de produção (estático + API), HTTPS, monitoramento de erros (Sentry ou equivalente), backup do banco testado | V | 8 |
+| 10.2 | Segurança: segredos fora do repo, CORS, rate limit global, revisão de XSS (o PT-BR do aluno é renderizado em cartões), limites de tamanho de programa e entrada | R | 6 |
+| 10.3 | LGPD: sem nome real/e-mail; termo de consentimento acordado com a instituição (atenção a alunos de 16–17 anos); aviso claro de quando o programa vai para o provedor de LLM | R+V | 4 |
+| 10.4 | Instrumentos: pré-teste, pós-teste de **transferência** (prever saída + achar linha equivalente em linguagem não estudada), rubrica de explicação 0–3, questionário curto | R | 6 |
+| 10.5 | Material do professor (1 página) + roteiro das 2 sessões + divisão aleatória dos grupos (5 abas × PT-BR + Python) | V | 4 |
+| 10.6 | **Ensaio** com 3 alunos de fora da turma; corrigir o que travar | R+V | 8 |
+| 10.7 | Teste de carga: 30 sessões simultâneas no staging | V | 4 |
 
-1. **Prompt do copiloto:**
-   - System prompt com gramática resumida + 5 exemplos few-shot + regras de estilo.
-   - Saída: apenas código PT-BR (sem markdown, sem explicação).
-2. **Pipeline de validação:**
-   - Parse obrigatório; em caso de erro, **loop de reparo** com o erro do parser como feedback
-     (máx. 3 tentativas).
-   - Se falhar, mensagem honesta + sugestão de reformular.
-3. **Preview e aplicação:**
-   - Mostrar o programa gerado em diff antes de aplicar no editor.
-   - Aluno aceita, edita ou descarta (nada é aplicado sem confirmação).
-4. **Escopo respeitado:** pedidos fora do subconjunto são recusados com explicação educativa
-   ("ainda não suporto arquivos; posso fazer com vetor").
-5. **Tutoria de erro (compilação/execução):**
-   - Traduzir mensagens de erro do Python/C/Java para explicação didática em PT-BR, com o conceito
-     em destaque e o trecho culpado.
-6. **Histórico de gerações** (prompt, versão, resultado) para auditoria e melhoria dos prompts.
-7. **Testes do copiloto:** 20 pedidos típicos → ≥ 90% geram PT-BR válido em ≤ 3 tentativas.
+**Gate G4 (02/05):** nenhum bug bloqueador aberto; termo aprovado pela instituição; ensaio
+concluído; plano B (programas pré-carregados, funcionamento sem IA) testado.
 
-**Entregáveis**
-- Copiloto integrado ao editor com preview.
-- Loop de reparo com logs.
-- Tutor de erros em PT-BR.
-- Suíte de avaliação do copiloto (20 casos).
+### Sprint 11 (03/05 – 16/05) — Piloto
 
-**Critérios de aceite**
-- "Faça um programa que calcule a média de 4 notas" gera programa válido e executável.
-- Pedido fora do escopo é recusado sem quebrar o fluxo.
-- Nenhuma saída do copiloto entra no editor sem validação do parser.
-- Taxa de sucesso ≥ 90% nos 20 casos de avaliação.
+| # | Tarefa | Dono | h |
+|---|---|---|---|
+| 11.1 | **Sessão 1** (60–90 min): pré-teste → uso guiado → atividades → pós-teste | R+V | 8 |
+| 11.2 | Observação (notas) e triagem de bugs; correção só de bloqueadores | R+V | 12 |
+| 11.3 | **Sessão 2** (uma semana depois): uso livre + pós-teste atrasado (retenção) | R+V | 8 |
+| 11.4 | Exportar programas dos alunos (com consentimento) e eventos | V | 4 |
+| 11.5 | Conversa de 20 min com o professor | R+V | 4 |
 
-**Riscos / atenção**
-- LLM tende a "inventar" sintaxe → validação + reparo são obrigatórios, nunca opcionais.
-- Latência alta → modelo rápido para o copiloto, streaming na UI se possível.
+### Sprint 12 (17/05 – 30/05) — Análise e decisão
+
+| # | Tarefa | Dono | h |
+|---|---|---|---|
+| 12.1 | Re-executar **todos os programas dos alunos** nos 5 runtimes reais e comparar com o interpretador; cada divergência vira bug e regra | R | 8 |
+| 12.2 | Análise das métricas (context.md §4.3) por grupo | R+V | 12 |
+| 12.3 | Relatório do piloto (`docs/piloto-relatorio.md`) | R+V | 8 |
+| 12.4 | Decisão registrada: v1.1 (8 linguagens + sandbox), ajustar a forma ou parar; backlog priorizado | R+V | 8 |
+
+**Aceite:** métricas das 7 linhas da §4.3 calculadas; decisão de próximo passo registrada.
 
 ---
 
-## 8. Fase E — Produto e piloto
+## 10. Definition of Done global do MVP
 
-### Sprint 7 — Contas, projetos, persistência e polish (2 semanas)
-
-**Objetivo:** transformar o protótipo em produto usável por uma turma.
-
-**Tarefas**
-
-1. **Autenticação** (e-mail/senha ou magic link) + sessão.
-2. **CRUD de projetos:** criar, renomear, duplicar, excluir, autosave.
-3. **Histórico/versões:** snapshots por execução ou por período; restaurar versão.
-4. **Persistência de execuções e explicações** (modelo de dados do `context.md`).
-5. **Onboarding:** programa de exemplo pré-carregado + tour de 3 passos.
-6. **Polish de UI/UX:**
-   - Layout, tipografia, tema claro/escuro, estados vazios e de erro.
-   - Atalhos (Ctrl+Enter executar, Ctrl+S salvar).
-   - Acessibilidade mínima (contraste, foco, navegação por teclado).
-7. **Instrumentação de eventos:** `parse_ok`, `run`, `run_equal`, `explain_click`, `level_switch`,
-   `copilot_request`, `copilot_success` (tabela de eventos + dashboard simples).
-8. **Mensagens de erro globais** e tela de status.
-9. **Testes E2E** do fluxo completo (Playwright).
-
-**Entregáveis**
-- Produto com login, projetos salvos e histórico.
-- Onboarding e tour.
-- Telemetria de uso e painel básico.
-- Testes E2E verdes.
-
-**Critérios de aceite**
-- Um aluno cria conta, escreve, executa, explica e volta depois com o projeto salvo.
-- Nenhuma perda de dados em recarregar/deslogar.
-- Fluxo completo coberto por teste E2E.
-- Eventos essenciais chegando ao banco.
-
-**Riscos / atenção**
-- Autenticação pode inflar escopo → usar solução pronta (Auth.js/Supabase/Clerk).
-- Privacidade/LGPD: consentimento e política de dados desde o piloto.
+- [ ] Programa de 30–50 linhas é parseado com erros em PT-BR durante a digitação.
+- [ ] Código gerado em **Python, Java, C, C++ e PHP**, atualizado a cada comando.
+- [ ] Modo construção: cada elemento novo acende nas 5 abas e gera cartão.
+- [ ] Highlight cruzado multi-range, inclusive para nós sintéticos.
+- [ ] Catálogo cobre 100% dos nós e sintéticos das 5 linguagens, em 2 níveis.
+- [ ] Execução no navegador com `leia` interativo e pegadinhas explicadas.
+- [ ] CI: corpus + fuzz com saída idêntica nas 5 linguagens e compilação sem avisos.
+- [ ] 3 atividades ativas funcionando.
+- [ ] IA opcional, desligável por turma (ou cortada com decisão registrada).
+- [ ] Produção com HTTPS, monitoramento, backup, rate limit e termo LGPD.
+- [ ] Piloto com 2 sessões, grupo de comparação e relatório.
 
 ---
 
-### Sprint 8 — Piloto com turma real (2 semanas)
+## 11. Expansão para 8 linguagens (v1.1, jun – jul/2027)
 
-**Objetivo:** validar o loop de aprendizado com 10–30 alunos e coletar as métricas da seção 4.3 do
-`context.md`.
+Só começa se o G0 e o piloto confirmarem a tese. Com o emissor, a semântica e o CI diferencial
+prontos, cada linguagem nova custa **~15–25 h** (gerador + cartões + regras), contra ~25–35 h das
+primeiras.
 
-**Tarefas**
-
-1. **Preparar o piloto:**
-   - Roteiro de 1 sessão de 60–90 min (ou 2 de 45 min).
-   - Conta de professor + turma.
-   - Guia rápido de 1 página para o aluno (sem treinamento prévio).
-2. **Instrumentação pedagógica:**
-   - Pré-teste: "você sabe explicar o que é um laço/variável/função?"
-   - Pós-teste: aluno explica 3 conceitos com as próprias palavras (rubrica de 0–3).
-   - Questionário de percepção (comparação entre linguagens, utilidade, dificuldade).
-3. **Executar o piloto** com observação (screen recording/notas) e coleta de bugs.
-4. **Triagem de bugs:** classificar (bloqueador, importante, cosmético) e corrigir bloqueadores na
-   hora.
-5. **Análise:** tempo até primeiro programa rodando, taxa de erro de parse, uso do copiloto,
-   uso do explicador, cliques por sessão.
-6. **Relatório do piloto** com as métricas e os aprendizados.
-7. **Iteração rápida:** ajustes de UX/prompt com base no observado.
-
-**Entregáveis**
-- Piloto executado, dados coletados.
-- Relatório com métricas vs. metas.
-- Lista priorizada de correções e melhorias.
-
-**Critérios de aceite**
-- ≥ 80% dos alunos concluem um programa de exemplo sem ajuda.
-- Métricas coletadas para as 5 metas da seção 4.3.
-- Nenhum bug bloqueador em aberto ao fim do sprint.
-- Relatório revisado pelos dois e decisões de próximo passo registradas.
-
-**Riscos / atenção**
-- Turma com níveis muito distintos → preparar 3 programas de dificuldade crescente.
-- Wi-Fi/latência → ter plano B (programa pré-carregado, execução em lote).
-- Coleta de dados exige consentimento (LGPD).
-
----
-
-## 9. Fase F — Hardening e release do MVP
-
-### Sprint 9 — Segurança, performance, documentação e release (2 semanas)
-
-**Objetivo:** deixar o MVP estável, seguro e apresentável para continuar o piloto.
-
-**Tarefas**
-
-1. **Segurança:**
-   - Revisão do sandbox (rede, filesystem, CPU/memória/tempo, processos).
-   - Rate limiting por IP/usuário; limites de tamanho de código e de entrada.
-   - Gestão de segredos (variáveis de ambiente, nunca no repositório).
-   - Checklist OWASP básico (XSS no editor, injeção, autenticação de sessão).
-2. **Performance:**
-   - Medir p50/p95 de parse, geração, execução e explicação.
-   - Otimizar gargalos (debounce, cache, geração incremental se necessário).
-3. **Confiabilidade:**
-   - Monitoramento de erros (Sentry ou equivalente), logs estruturados, alertas.
-   - Backups do banco e teste de restauração.
-   - Health checks e página de status.
-4. **Documentação:**
-   - `README.md` com setup local em < 10 min.
-   - `docs/arquitetura.md`, `docs/gramatica.md`, `docs/contribuindo.md`.
-   - Guia do professor (como usar em sala).
-5. **Deploy de produção:**
-   - Ambiente de staging + produção, domínio, HTTPS, CI/CD.
-   - Runbook de incidentes (o que fazer se o sandbox cair).
-6. **Congelamento de escopo** e checklist final do MVP (seção 3).
-7. **Demo final** e retrospectiva do projeto.
-
-**Entregáveis**
-- Produção no ar, estável e monitorada.
-- Documentação completa.
-- Relatório final de métricas técnicas e pedagógicas.
-- Backlog priorizado do pós-MVP.
-
-**Critérios de aceite**
-- Uptime do piloto sem incidentes bloqueadores no período de teste.
-- p95 de execução < 5s; explicação com cache < 2s.
-- Setup local documentado reproduzível por uma pessoa de fora.
-- Checklist global do MVP 100% marcado.
-
-**Riscos / atenção**
-- Custo de infraestrutura (sandbox + LLM) → orçamento e alertas de gasto.
-- Dependência de LLM → fallback já implementado e testado.
-
----
-
-## 10. Expansão de linguagens (C++ e PHP)
-
-Executar **em paralelo** a partir da Sprint 5, ou como sprint extra após a Sprint 8, sem bloquear o
-MVP de 3 linguagens:
-
-| Etapa | Tarefa | Critério |
+| Sprint | Entrega | Critério |
 |---|---|---|
-| C++ | Gerador com `#include <iostream>`, `std::cin/cout`, `std::vector` ou arrays | Passa nos golden tests |
-| PHP | Gerador com `<?php`, `echo`, `readline`/`fgets(STDIN)`, arrays | Passa nos golden tests |
-| Docs | Convenções e pegadinhas de cada linguagem no explicador | Revisão manual OK |
+| S13 | **JavaScript** (`Math.trunc`, Node `readline` no CI) + **C#** (`Console.ReadLine`, `InvariantCulture`) | Diferencial 100% + fuzz |
+| S14 | **Go** (aviso de variável não usada na semântica, só imports necessários, `for` como `while`) | Diferencial 100% + fuzz |
+| S15 | **Execução real no servidor** (Piston/Judge0 self-hosted, **aceitando só AST/PT-BR, nunca código cru**, sem rede, limites de CPU/memória/tempo, fila) como botão "rodar de verdade" | Teste de abuso + 30 execuções simultâneas |
 
-Regra: uma linguagem só entra nas abas quando **executa com saída idêntica** ao corpus.
-
----
-
-## 11. Estratégia de testes e qualidade
-
-| Camada | O que testar | Ferramenta |
-|---|---|---|
-| Parser | Programas válidos/inválidos, spans, IDs | pytest/Vitest + snapshots |
-| Semântica | Tipos, escopos, aridade, erros | pytest/Vitest |
-| Geradores | Código gerado + mapa de tokens | golden files |
-| Equivalência | Saída idêntica entre linguagens | CI com runtimes |
-| Frontend | Abas, highlight, painel, execução | Playwright + Vitest |
-| IA | Explicações e copiloto (amostra + casos fixos) | suite de avaliação |
-| E2E | Fluxo completo do aluno | Playwright |
-| Segurança | Sandbox, limites, rate limit | testes manuais + scripts |
-
-**Regras de qualidade**
-- Nenhum PR sem revisão do outro.
-- CI obrigatório: lint + testes + golden tests antes do merge.
-- Bug de produção vira teste de regressão.
-- Toda mudança na gramática exige atualização do corpus.
+A grade de abas passa a ter 8 linguagens; o modo foco continua sendo o padrão para iniciantes.
+Depois disso: `repita`, `escolha`, matrizes, registros; painel do professor; exercícios gerados.
 
 ---
 
-## 12. Riscos transversais e contingência
+## 12. Estratégia de testes
+
+| Camada | O que testar | Como | Quando |
+|---|---|---|---|
+| Parser | Válidos, inválidos, spans, recuperação | Snapshots (Vitest) | S1+ |
+| Semântica | Cada erro do catálogo dispara com span certo | Casos unitários | S2+ |
+| Interpretador | Corpus + 1 programa por pegadinha | Saídas esperadas | S4+ |
+| **Diferencial** | Interpretador × 5 runtimes reais | Docker no CI, a cada PR | S5+ |
+| **Fuzz** | Programas aleatórios bem tipados | Lote noturno no CI | S7+ |
+| Mapa de tokens | Cobertura 100% de caracteres; sintéticos com cartão | Teste automático | S5+ |
+| Catálogo | Todo nó/sintético × linguagem × nível tem cartão; slots válidos | Teste de schema | S2+ |
+| Frontend | Highlight, modo construção, atividades | Vitest + Playwright | S1+ |
+| IA | 20 pedidos fixos; % válidos e corretos | Suíte de avaliação | S9 |
+| Segurança | Rate limit, XSS, limites de tamanho | Scripts + revisão | S10 |
+
+**Antes de qualquer UI real (S1–S4):** parser, semântica, interpretador e as pegadinhas precisam
+estar cobertos. A UI dessas sprints roda sobre fixtures.
+
+**Regras:** nenhum PR sem revisão do outro; CI obrigatório; bug vira teste de regressão;
+divergência encontrada pelo fuzzer vira regra em `docs/semantica.md` ou correção no gerador.
+
+---
+
+## 13. Riscos e contingência
 
 | Risco | Quando aparece | Contingência |
 |---|---|---|
-| Gramática ambígua trava o parser | Sprint 1 | Simplificar construtos; adiar recursos para v2 |
-| Mapa de tokens não sai limpo | Sprint 2–3 | Highlight só no nó ativo e por linha; refinar depois |
-| Sandbox instável/complexo | Sprint 4 | Começar com execução local em containers; Piston depois |
-| Custo de LLM estoura | Sprint 5–6 | Modelo menor, cache agressivo, fallback por template |
-| Explicação alucina | Sprint 5 | Prompt ancorado + revisão amostral + validação de schema |
-| Piloto não fecha com turma | Sprint 8 | Usar colegas/colegas de curso como piloto interno |
-| Prazo aperta | Qualquer | Cortar C++/PHP, níveis de explicação e histórico (não cortar execução nem highlight) |
+| Tese não confirmada | G0 | Ajustar a forma (modo foco padrão, mais atividades) antes de seguir |
+| Professor/turma não fecha | G0 | Sem turma confirmada não se passa do G0; alternativa: turma de colegas, com ressalva no relatório |
+| Gramática ambígua | S1 | Simplificar a construção; descida recursiva facilita ver o conflito |
+| Divergência entre linguagens | S5–S7 | Nova regra estrita no interpretador (pegadinha) em vez de gerar código não idiomático |
+| `caractere` em C se arrasta | S7 | Restringir mais (sem concatenação em C no v1, com pegadinha explicando) |
+| Mapa de tokens incorreto | S5 | Teste de cobertura quebra o build; corrigir no emissor, não na UI |
+| Sobrecarga com 5 abas | Piloto | Modo foco padrão; grade sob demanda |
+| Custo de LLM | S9+ | Teto + corte automático; produto funciona sem IA |
+| Atraso geral | Qualquer | Ordem de corte abaixo |
 
-**Ordem de corte em caso de atraso (do primeiro ao último):**
-1. C++ e PHP → 2. Histórico de versões → 3. Nível avançado de explicação → 4. Tutor de erros
-detalhado → 5. Dark mode/polish.
+**Ordem de corte (primeiro ao último):**
+1. IA (S9: copiloto e frase contextual).
+2. Atividade "qual linha corresponde?" e "reproduzir construção".
+3. Projetos no servidor (fica só `localStorage` + código de turma para telemetria).
+4. Nível "aprofundar" dos cartões (fica só o básico).
+5. Fuzzer noturno (fica só o diferencial do corpus).
+6. C++ (último corte: é o gerador mais barato, derivado do C).
 
-**Nunca cortar:** IR única, execução real, explicação por elemento, highlight cruzado, validação do
-copiloto.
-
----
-
-## 13. Backlog pós-MVP
-
-- Exercícios gerados e correção assistida.
-- Turmas, atribuições e painel do professor.
-- Integração com LMS (Moodle) e exportação.
-- Mais linguagens (C#, JS/TS, Go, Rust, Kotlin).
-- Colaboração em tempo real e comentários.
-- Offline/PWA e versão desktop.
-- Gamificação e trilhas de aprendizagem.
-- Suporte a matrizes, `escolha`, `repita`, arquivos, OO.
-- Marketplace de exemplos e planos de aula.
+**Nunca cortar:** IR única, interpretador estrito, Python + Java + C + PHP, highlight cruzado,
+modo construção, catálogo do nível básico, diferencial no CI, segurança/LGPD do piloto, grupo de
+comparação no piloto.
 
 ---
 
-## 14. Cronograma resumido
+## 14. Cronograma
 
 ```
-Semana        1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20
-Sprint 0     ██
-Sprint 1        ██ ██
-Sprint 2              ██ ██
-Sprint 3                    ██ ██
-Sprint 4                          ██ ██
-Sprint 5                                ██ ██
-Sprint 6                                      ██ ██
-Sprint 7                                            ██ ██
-Sprint 8                                                  ██ ██
-Sprint 9                                                        ██ ██
-C++/PHP (paralelo)                    ░░ ░░ ░░ ░░ ░░ ░░
+Semana (seg)     16/11 07/12 21/12 11/01 25/01 08/02 22/02 08/03 22/03 05/04 19/04 03/05 17/05
+                 └─F0──┘└S1─┘└S2 recesso┘└S3─┘└S4─┘└S5─┘└S6─┘└S7─┘└S8─┘└S9─┘└S10┘└S11┘└S12┘
+Gates                  G0                     G1                G2    G3          G4
+Renato           spike  parser semânt. semânt. interp. emissor Java  C+fuzz ativid. IA   seg.  piloto análise
+                 fixtures                            Python  C(1)
+Vitório          protót. IDE   catálogo editor  console abas   PHP   C++   constr. API   deploy piloto análise
+                 CI      fixt.          ao vivo cartões diff   cartões cartões      telem. ensaio
 ```
-
-> Em dedicação integral, comprimir para ~1 semana por sprint (≈ 10–12 semanas), mantendo os gates.
 
 ---
 
 ## 15. Checklist de encerramento do MVP
 
-- [ ] Escopo v1 congelado e documentado.
-- [ ] Parser + AST + spans + erros em PT-BR.
-- [ ] Semântica com erros didáticos.
-- [ ] Geradores Python, C e Java com mapas de tokens.
-- [ ] Código executa no sandbox com saída idêntica.
-- [ ] Editor com abas e highlight cruzado.
-- [ ] Explicador por nó/linguagem/nível com cache e fallback.
-- [ ] Copiloto NL→PT-BR com validação e loop de reparo.
-- [ ] Contas, projetos, autosave e histórico.
-- [ ] Telemetria e dashboard de uso.
-- [ ] Piloto com 10–30 alunos + relatório.
-- [ ] Segurança do sandbox revisada.
-- [ ] Produção monitorada com backups.
-- [ ] Documentação e runbook.
-- [ ] Backlog pós-MVP priorizado.
+- [ ] `docs/validacao-f0.md` e decisões do G0 registradas.
+- [ ] `docs/semantica.md` v1 fechado e coberto por testes.
+- [ ] Parser com recuperação + semântica + erros em PT-BR.
+- [ ] Interpretador estrito com todas as pegadinhas.
+- [ ] Geradores Python, Java, C, C++ e PHP com mapa multi-range e sintéticos.
+- [ ] CI diferencial + fuzz verdes.
+- [ ] Catálogo 100% revisado.
+- [ ] Modo construção, highlight cruzado e 3 atividades.
+- [ ] IA opcional (ou corte registrado).
+- [ ] Produção monitorada, termo LGPD, ensaio.
+- [ ] Piloto com 2 sessões e grupo de comparação.
+- [ ] Relatório do piloto e decisão sobre a v1.1.

@@ -1,0 +1,5 @@
+{
+  "titulo": "Recursão profunda",
+  "objetivo": "Documentar a partir de que profundidade cada linguagem quebra (Python tem limite padrão de 1000 chamadas). Justifica o limite de 500 no interpretador.",
+  "modo": "documentar"
+}

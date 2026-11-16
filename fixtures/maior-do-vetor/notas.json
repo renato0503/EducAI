@@ -1,0 +1,11 @@
+{
+  "main/1/de": {
+    "python": "Quando o laço começa em 0, o Python escreve só `range(5)`: o 0 fica subentendido."
+  },
+  "main/1/ate": {
+    "python": "O `ate 4` vira `5` porque o `range` não inclui o valor final."
+  },
+  "main/2": {
+    "geral": "O primeiro elemento serve de ponto de partida. Por isso o segundo laço começa na posição 1."
+  }
+}

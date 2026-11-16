@@ -1,0 +1,5 @@
+{
+  "titulo": "Texto: leitura de linha, concatenação, comparação e tamanho",
+  "objetivo": "Testar caractere em C (char[256], strcpy/strcat, strcmp, fgets sem \n) e o escape de % em printf.",
+  "divergenciasEsperadas": []
+}

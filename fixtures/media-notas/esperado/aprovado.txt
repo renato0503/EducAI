@@ -1,0 +1,3 @@
+Digite as 4 notas:
+Media: 7.71
+Aprovado

@@ -1,91 +1,92 @@
 # EducAI
 
-> Uma IDE educacional com copiloto de IA: o aluno escreve em **português estruturado** (estilo
-> VisualG/Portugol) e vê o mesmo programa, **simultaneamente**, em **C, C++, Java, Python e PHP** —
-> com **cada elemento explicado em contexto, em cada linguagem**.
+> Uma IDE educacional, **com ou sem IA**: o aluno escreve em **português estruturado** (estilo
+> VisualG/Portugol) e, **conforme o código vai surgindo**, vê cada elemento **replicado e explicado
+> ao mesmo tempo** em **Python, Java, C, C++ e PHP** — e, na v1.1, também em **JavaScript, C# e Go**.
 
-O código gerado é **código de produção**: o aluno não precisa reescrevê-lo depois em outra linguagem.
+O código gerado é **real**: idiomático, compila e roda em cada linguagem. Não é pseudocódigo.
 
 ---
 
 ## O problema
 
-O aluno de tecnologia hoje enfrenta dois males opostos:
+1. O aluno **aprende uma linguagem isolada** e não separa "conceito" de "sintaxe daquela linguagem".
+2. O aluno **usa IA para gerar código pronto** e não sabe explicar uma linha.
 
-1. **Aprende uma linguagem isolada** e não enxerga o que é "conceito" e o que é "sintaxe daquela
-   linguagem". Migrar de Python para C ou de Java para PHP parece começar do zero.
-2. **Usa IA para gerar código pronto** e vira analfabeto funcional: o programa funciona, mas ele não
-   sabe explicar uma linha.
+O EducAI ataca a pergunta: **como produzir código real — com ou sem IA — sem terceirizar o
+entendimento do aluno?**
 
-O EducAI ataca a pergunta: **como usar IA para produzir código real sem terceirizar o entendimento
-do aluno?**
+## A tese (hipótese a validar)
 
-## A tese
+> Se o aluno escreve **uma vez** em português estruturado e vê **cada elemento** materializado nas
+> várias linguagens, no momento em que ele surge, com explicação ancorada nele, ele aprende o
+> conceito e passa a **ler e transferir** esse conceito para as outras linguagens.
 
-> Se o aluno escreve **uma vez** em português estruturado e vê o **mesmo conceito** materializado
-> em várias linguagens, com explicação ancorada em cada elemento, ele aprende **o conceito** e, por
-> tabela, aprende **todas as linguagens ao mesmo tempo** — sem reescrever código.
+A Fase 0 testa a tese com um protótipo antes do compilador, e o piloto mede **transferência** com
+grupo de comparação.
 
 ---
 
 ## Como funciona
 
 ```
- Português estruturado
+ Português estruturado (digitado ou construído passo a passo pelo copiloto)
         │
-        ▼
- ┌─────────────┐     ┌──────────────────┐     ┌─────────────────────────┐
- │   Parser    │ ──▶ │  AST / IR única   │ ──▶ │  Geradores (1 por lang.) │
- │  + semântica│     │  (IDs + spans)    │     │  Python · C · C++ · Java │
- └─────────────┘     └──────────────────┘     │  · PHP + mapa de tokens  │
-                                               └───────────┬─────────────┘
-                                                           │
-                        ┌──────────────────────────────────┼───────────────┐
-                        ▼                                  ▼               ▼
-                 ┌─────────────┐                  ┌─────────────┐  ┌─────────────┐
-                 │  Execução   │                  │  Explicador │  │  Copiloto   │
-                 │  (sandbox)  │                  │  por nó +   │  │  NL → PT-BR │
-                 │  compara    │                  │  linguagem  │  │  + reparo   │
-                 │  saídas     │                  │  + nível    │  │             │
-                 └─────────────┘                  └─────────────┘  └─────────────┘
+        ▼                              ── tudo no navegador ──
+ ┌──────────────┐   ┌──────────────┐   ┌───────────────────────────────────────┐
+ │ Parser +     │──▶│  AST / IR    │──▶│ Geradores: Python · Java · C · C++ · PHP│
+ │ semântica    │   │  única (IDs) │   │ + mapa nó → [ranges] + nós sintéticos  │
+ └──────────────┘   └──────┬───────┘   └───────────────────────────────────────┘
+                           │
+        ┌──────────────────┼────────────────────┬────────────────────────────┐
+        ▼                  ▼                    ▼                            ▼
+ ┌──────────────┐  ┌──────────────────┐  ┌─────────────────┐   ┌──────────────────────┐
+ │ Interpretador│  │ Modo construção  │  │ Catálogo de     │   │ IA (opcional):        │
+ │ de referência│  │ elemento novo    │  │ explicações por │   │ copiloto passo a passo│
+ │ (leia        │  │ acende nas 5 abas│  │ nó × linguagem  │   │ + frase contextual    │
+ │ interativo)  │  │ + cartão         │  │ × nível         │   │                       │
+ └──────────────┘  └──────────────────┘  └─────────────────┘   └──────────────────────┘
+
+ CI: cada programa roda no interpretador e em python3, java, gcc, g++ e php reais → saídas idênticas
 ```
 
-**Decisão-chave:** todas as linguagens nascem de uma **única AST/IR**. Nunca traduzimos "texto de
-linguagem A → texto de linguagem B". Cada gerador também emite um mapa `nodeId → range`, o que torna
-o *highlight cruzado* entre abas e a *explicação por elemento* sempre coerentes.
+**Decisões-chave**
+- **Uma única AST/IR.** Nunca traduzimos texto de linguagem A → B.
+- **O interpretador de referência é o juiz.** Ele é mais estrito que todas as linguagens: o que ele
+  executa roda igual em todas; o que divergiria (overflow, divisão de negativos, índice fora…) ele
+  interrompe e explica a "pegadinha". Regras em [`docs/semantica.md`](./docs/semantica.md).
+- **Todo trecho gerado é explicável**, inclusive o boilerplate (`#include`, `public class Main`,
+  `Scanner`, `<?php`).
+- **A IA é opcional** e nunca escreve na linguagem-alvo; o professor pode desligá-la por turma.
 
-## Funcionalidades (MVP)
+## Funcionalidades do MVP
 
-- **Editor multi-linguagem:** escreva em PT-BR e veja o programa em abas sincronizadas.
-- **Highlight cruzado:** clique em `enquanto` em Python e acenda o equivalente em C, Java etc.
-- **Explicação por elemento e por linguagem:** o que é, por que existe, como aparece em cada
-  linguagem, pegadinhas — em níveis iniciante/intermediário/avançado.
-- **Execução real:** o código é compilado/executado em sandbox e as saídas são comparadas.
-- **Erros em português:** sintaxe e semântica apontam o elemento e o conceito, sem stack trace.
-- **Copiloto NL → PT-BR:** "faça um programa que calcule a média de 4 notas" vira português
-  estruturado válido, com validação no parser e loop de reparo.
+- **Abas sincronizadas em 5 linguagens**, com modo grade (todas) e modo foco (1–2).
+- **Modo construção:** cada comando novo acende em todas as abas e gera um cartão de explicação.
+- **Highlight cruzado:** clique em `enquanto` no Python e acenda o `while` em Java, C, C++ e PHP.
+- **Explicação por elemento e por linguagem**, em 2 níveis, sem depender de IA.
+- **Execução no navegador** com `leia` interativo; equivalência garantida no CI com runtimes reais.
+- **Erros em português** durante a digitação, apontando o elemento e o conceito.
+- **Atividades:** preveja a saída, complete a lacuna em C/Java, ache a linha equivalente.
+- **Copiloto opcional:** "faça um programa que calcule a média de 4 notas" é construído
+  **passo a passo**, e cada passo aparece explicado nas 5 linguagens.
 
 ### Fora do escopo do MVP
 
-Debugger, autocomplete/LSP completo, colaboração em tempo real, mobile nativo, gamificação,
-integração com LMS, bibliotecas externas arbitrárias e todo o PHP "do mundo". O MVP cobre um
-**subconjunto canônico** de algoritmos.
+Execução no servidor (v1.1), debugger, LSP completo, colaboração em tempo real, mobile nativo,
+contas com e-mail, gamificação, LMS, matrizes/`escolha`/`repita`/arquivos/OO.
 
 ---
 
 ## Subconjunto da linguagem (v1)
 
-- Variáveis: `inteiro`, `real`, `texto`, `logico`
-- Atribuição, operadores aritméticos, relacionais e lógicos
-- `escreva` / `leia`
-- `se` / `senao`
-- `enquanto`, `para`
-- Funções e procedimentos com parâmetros e retorno
-- Vetores de uma dimensão (índice a partir de `0`)
-- Comentários
-
-Se o conceito não cabe no subconjunto, o sistema **rejeita com mensagem educativa** em vez de gerar
-código duvidoso.
+- Tipos: `inteiro`, `real`, `caractere` (até 255), `logico`
+- `algoritmo` / `var` / `inicio` / `fimalgoritmo`, atribuição `<-`
+- `escreva` / `escreval` / `leia`
+- `se` / `senao`, `enquanto`, `para … passo`
+- Funções e procedimentos
+- Vetores de uma dimensão com tamanho constante (índice a partir de `0`, a confirmar com professores)
+- Comentários `//`
 
 ---
 
@@ -93,15 +94,13 @@ código duvidoso.
 
 | Camada | Escolha |
 |---|---|
-| Frontend | Next.js + React + Monaco Editor |
-| API/BFF | Node (NestJS) ou Python (FastAPI) |
-| Parser / IR / geradores | Python + Lark (ou ANTLR), templates Jinja2 |
-| LLM | API de modelo (OpenAI/Anthropic) com camada de abstração |
-| Execução | Piston (self-hosted) ou Judge0 |
-| Banco / Cache | PostgreSQL / Redis |
-
-> A stack ainda está em decisão na fase de fundação — o importante é a arquitetura, não a
-> ferramenta. Detalhes em [`context.md`](./context.md).
+| Linguagem | TypeScript (monorepo pnpm) |
+| Compilador | Parser por descida recursiva, semântica, interpretador e geradores — rodam no navegador e no CI |
+| Frontend | Vite + React + Monaco |
+| API | Node (Hono/Fastify): turma, projetos, telemetria, proxy de LLM |
+| Banco | Postgres gerenciado (plano gratuito) |
+| Testes diferenciais | GitHub Actions + Docker com python3, OpenJDK, gcc, g++, php |
+| LLM (opcional) | API de modelo com camada de abstração, teto de gasto |
 
 ---
 
@@ -109,36 +108,47 @@ código duvidoso.
 
 | Documento | Conteúdo |
 |---|---|
-| [`dor.md`](./dor.md) | A dor original que deu origem ao projeto |
-| [`context.md`](./context.md) | Visão, público-alvo, objetivo do MVP, arquitetura, riscos e decisões abertas |
-| [`sprint.md`](./sprint.md) | Plano de execução: fases, sprints, tarefas, critérios de aceite e cronograma |
+| [`dor.md`](./dor.md) | A dor original |
+| [`context.md`](./context.md) | Visão, público, MVP, arquitetura, papel da IA, riscos, decisões |
+| [`sprint.md`](./sprint.md) | Plano: orçamento de horas, sprints, gates, cortes, cronograma |
+| [`docs/semantica.md`](./docs/semantica.md) | Semântica do PT-BR e como cada linguagem a implementa |
+| [`docs/PROGRESSO.md`](./docs/PROGRESSO.md) | **Estado atual, o que foi feito e o que falta (leia ao retomar)** |
+| [`docs/decisoes.md`](./docs/decisoes.md) | Decisões tomadas e pendentes |
+| [`docs/fase0-roteiros.md`](./docs/fase0-roteiros.md) | Roteiros de entrevista com professores e think-aloud com alunos |
+| [`spike/README.md`](./spike/README.md) | Spike de equivalência nas 5 linguagens e resultados |
 
 ---
 
 ## Roadmap
 
-| Fase | Sprints | Foco |
+| Fase | Período | Foco |
 |---|---|---|
-| **A — Ideação e Discovery** | Sprint 0 | Escopo, arquitetura, protótipo |
-| **B — Fundação do compilador** | Sprints 1–2 | Gramática, AST, semântica, geradores Python/C |
-| **C — Experiência multi-linguagem** | Sprints 3–4 | Editor com abas, highlight, execução |
-| **D — IA pedagógica** | Sprints 5–6 | Explicador por nó, copiloto NL→PT-BR |
-| **E — Produto e piloto** | Sprints 7–8 | Contas, projetos, telemetria, turma piloto |
-| **F — Hardening e release** | Sprint 9 | Segurança, performance, deploy e documentação |
-
-Detalhes completos em [`sprint.md`](./sprint.md).
+| **0 — Validação** | 16/11 – 06/12/2026 | Protótipo estático, think-aloud, professores, spike de equivalência |
+| **1 — Núcleo** | 07/12/2026 – 07/02/2027 | Parser, semântica, interpretador, IDE sobre fixtures |
+| **2 — 5 linguagens** | 08/02 – 21/03/2027 | Python, Java, C, C++, PHP + CI diferencial + fuzz |
+| **3 — Pedagogia** | 22/03 – 04/04/2027 | Modo construção, catálogo, atividades |
+| **4 — IA opcional** | 05/04 – 18/04/2027 | Copiloto passo a passo |
+| **5 — Piloto** | 19/04 – 30/05/2027 | Preparação, 2 sessões com turma real, relatório |
+| **v1.1** | jun – jul/2027 | JavaScript, C#, Go (8 linguagens) + execução real no servidor |
 
 ---
 
 ## Status
 
-Projeto em fase de **ideação e fundação** — nesta etapa o repositório contém a documentação de
-contexto e o plano de sprints. O código do compilador, da IDE e dos serviços começa na Fase B.
+Fase 0 (validação). Prontos: monorepo TypeScript com CI, spike de equivalência nas 5 linguagens
+(14 programas), 5 programas didáticos com mapa elemento → trecho, protótipo da IDE em `apps/web` e,
+adiantados da Sprint 1, o lexer e o parser do português estruturado. Detalhes e próximos passos em
+[`docs/PROGRESSO.md`](./docs/PROGRESSO.md).
+
+```bash
+pnpm install && pnpm test        # monorepo
+pnpm dev                         # protótipo em http://localhost:5173
+pnpm spike                       # spike com os runtimes instalados
+```
 
 ## Contribuindo
 
-O projeto é desenvolvido por **Renato Rosa** e **Vitório**. Para propor mudanças, abra uma issue
-descrevendo o problema ou a ideia antes de enviar um pull request.
+Desenvolvido por **Renato Rosa** (com Claude). Abra uma issue antes de enviar um pull request.
 
 ## Licença
 

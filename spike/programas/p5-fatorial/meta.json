@@ -1,0 +1,7 @@
+{
+  "titulo": "Fatorial recursivo até estourar 32 bits",
+  "objetivo": "Testar recursão e documentar o overflow: até 12! cabe em 32 bits; 13! estoura. O interpretador de referência deve interromper com a pegadinha de overflow.",
+  "divergenciasEsperadas": [
+    { "linhaComeca": "13! = ", "motivo": "Overflow: Python e PHP (inteiro de 64 bits) dão 6227020800; Java dá a volta (1932053504); em C/C++ é comportamento indefinido" }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "titulo": "Texto com acento: leitura, escrita e tamanho",
+  "objetivo": "Descobrir se acentos (UTF-8) passam intactos pela leitura e escrita e como cada linguagem conta o tamanho de 'José'. Resultado: não passam (Java 17 sem locale UTF-8 troca os bytes por '?') e só o Python conta 4 → caractere é só ASCII no v1 (decisão 012).",
+  "divergenciasEsperadas": [
+    {
+      "linhaComeca": "Ola, ",
+      "motivo": "Java 17 num ambiente sem locale UTF-8 lê e escreve os bytes de 'é' como '??'; as outras repassam os bytes intactos"
+    },
+    {
+      "linhaComeca": "tamanho:",
+      "motivo": "Python conta caracteres (4); C, C++ e PHP contam bytes UTF-8 (5); Java conta os 2 '?' (5)"
+    }
+  ]
+}

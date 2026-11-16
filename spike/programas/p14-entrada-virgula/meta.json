@@ -1,0 +1,5 @@
+{
+  "titulo": "Número real digitado com vírgula",
+  "objetivo": "Documentar o que acontece quando o aluno digita 7,5 em vez de 7.5. O interpretador deve rejeitar com mensagem educativa.",
+  "modo": "documentar"
+}

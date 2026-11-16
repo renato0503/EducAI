@@ -1,0 +1,8 @@
+{
+  "f0/1/ate": {
+    "python": "`k + 1` porque o `range` não inclui o valor final."
+  },
+  "main/2/2": {
+    "c": "O resultado de `fatorial(n)` ocupa o lugar do segundo `%d`."
+  }
+}

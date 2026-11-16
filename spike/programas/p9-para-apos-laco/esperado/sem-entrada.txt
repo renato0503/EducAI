@@ -1,0 +1,2 @@
+soma: 6
+i depois do laco: 4

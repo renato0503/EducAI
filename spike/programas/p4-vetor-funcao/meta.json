@@ -1,0 +1,5 @@
+{
+  "titulo": "Vetor passado por referência para procedimento e função",
+  "objetivo": "Testar vetor de tamanho constante, passagem por referência (PHP precisa de &), protótipos em C, para com passo negativo e escreva sem quebra de linha.",
+  "divergenciasEsperadas": []
+}

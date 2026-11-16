@@ -1,0 +1,999 @@
+{
+  "id": "tabuada",
+  "titulo": "Tabuada",
+  "descricao": "Lê um número e mostra a tabuada de 1 a 10. Laço para e conta dentro do escreva.",
+  "ordem": 2,
+  "ptbr": {
+    "codigo": "algoritmo \"tabuada\"\nvar\n   n, i: inteiro\ninicio\n   escreval(\"Tabuada de qual numero?\")\n   leia(n)\n   para i de 1 ate 10 faca\n      escreval(n, \" x \", i, \" = \", n * i)\n   fimpara\nfimalgoritmo\n",
+    "mapa": {
+      "prog:cabecalho": [
+        [
+          1,
+          1,
+          1,
+          20
+        ]
+      ],
+      "prog:var": [
+        [
+          2,
+          1,
+          2,
+          4
+        ]
+      ],
+      "var/0": [
+        [
+          3,
+          4,
+          3,
+          17
+        ]
+      ],
+      "prog:inicio": [
+        [
+          4,
+          1,
+          4,
+          7
+        ],
+        [
+          10,
+          1,
+          10,
+          13
+        ]
+      ],
+      "main/0/0": [
+        [
+          5,
+          13,
+          5,
+          38
+        ]
+      ],
+      "main/0": [
+        [
+          5,
+          4,
+          5,
+          39
+        ]
+      ],
+      "main/1/alvo": [
+        [
+          6,
+          9,
+          6,
+          10
+        ]
+      ],
+      "main/1": [
+        [
+          6,
+          4,
+          6,
+          11
+        ]
+      ],
+      "main/2/var": [
+        [
+          7,
+          9,
+          7,
+          10
+        ]
+      ],
+      "main/2/de": [
+        [
+          7,
+          14,
+          7,
+          15
+        ]
+      ],
+      "main/2/ate": [
+        [
+          7,
+          20,
+          7,
+          22
+        ]
+      ],
+      "main/2/corpo/0/0": [
+        [
+          8,
+          16,
+          8,
+          17
+        ]
+      ],
+      "main/2/corpo/0/2": [
+        [
+          8,
+          26,
+          8,
+          27
+        ]
+      ],
+      "main/2/corpo/0/4": [
+        [
+          8,
+          36,
+          8,
+          41
+        ]
+      ],
+      "main/2/corpo/0": [
+        [
+          8,
+          7,
+          8,
+          42
+        ]
+      ],
+      "main/2": [
+        [
+          7,
+          4,
+          9,
+          11
+        ]
+      ]
+    }
+  },
+  "linguagens": {
+    "python": {
+      "codigo": "n = 0\ni = 0\n\nprint(\"Tabuada de qual numero?\")\nn = int(input())\nfor i in range(1, 11):\n    print(f\"{n} x {i} = {n * i}\")\n",
+      "mapa": {
+        "var/0": [
+          [
+            1,
+            1,
+            2,
+            6
+          ]
+        ],
+        "main/0/0": [
+          [
+            4,
+            7,
+            4,
+            32
+          ]
+        ],
+        "main/0": [
+          [
+            4,
+            1,
+            4,
+            33
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            5,
+            1,
+            5,
+            2
+          ]
+        ],
+        "syn:python.conversao_input": [
+          [
+            5,
+            5,
+            5,
+            17
+          ]
+        ],
+        "main/1": [
+          [
+            5,
+            1,
+            5,
+            17
+          ]
+        ],
+        "main/2/var": [
+          [
+            6,
+            5,
+            6,
+            6
+          ]
+        ],
+        "main/2/de": [
+          [
+            6,
+            16,
+            6,
+            17
+          ]
+        ],
+        "main/2/ate": [
+          [
+            6,
+            19,
+            6,
+            21
+          ]
+        ],
+        "main/2/corpo/0/0": [
+          [
+            7,
+            14,
+            7,
+            15
+          ]
+        ],
+        "main/2/corpo/0/2": [
+          [
+            7,
+            20,
+            7,
+            21
+          ]
+        ],
+        "main/2/corpo/0/4": [
+          [
+            7,
+            26,
+            7,
+            31
+          ]
+        ],
+        "main/2/corpo/0": [
+          [
+            7,
+            5,
+            7,
+            34
+          ]
+        ],
+        "main/2": [
+          [
+            6,
+            1,
+            7,
+            34
+          ]
+        ]
+      }
+    },
+    "java": {
+      "codigo": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = 0;\n        int i = 0;\n\n        System.out.println(\"Tabuada de qual numero?\");\n        n = Integer.parseInt(sc.nextLine().trim());\n        for (i = 1; i <= 10; i++) {\n            System.out.println(n + \" x \" + i + \" = \" + (n * i));\n        }\n    }\n}\n",
+      "mapa": {
+        "syn:java.imports": [
+          [
+            1,
+            1,
+            1,
+            26
+          ]
+        ],
+        "syn:java.class_main": [
+          [
+            3,
+            1,
+            3,
+            20
+          ],
+          [
+            15,
+            1,
+            15,
+            2
+          ]
+        ],
+        "prog:inicio": [
+          [
+            4,
+            5,
+            4,
+            45
+          ],
+          [
+            14,
+            5,
+            14,
+            6
+          ]
+        ],
+        "syn:java.scanner": [
+          [
+            5,
+            9,
+            5,
+            45
+          ]
+        ],
+        "var/0": [
+          [
+            6,
+            9,
+            7,
+            19
+          ]
+        ],
+        "main/0/0": [
+          [
+            9,
+            28,
+            9,
+            53
+          ]
+        ],
+        "main/0": [
+          [
+            9,
+            9,
+            9,
+            55
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            10,
+            9,
+            10,
+            10
+          ]
+        ],
+        "main/1": [
+          [
+            10,
+            9,
+            10,
+            52
+          ]
+        ],
+        "main/2/var": [
+          [
+            11,
+            14,
+            11,
+            15
+          ]
+        ],
+        "main/2/de": [
+          [
+            11,
+            18,
+            11,
+            19
+          ]
+        ],
+        "main/2/ate": [
+          [
+            11,
+            26,
+            11,
+            28
+          ]
+        ],
+        "main/2/corpo/0/0": [
+          [
+            12,
+            32,
+            12,
+            33
+          ]
+        ],
+        "main/2/corpo/0/2": [
+          [
+            12,
+            44,
+            12,
+            45
+          ]
+        ],
+        "main/2/corpo/0/4": [
+          [
+            12,
+            57,
+            12,
+            62
+          ]
+        ],
+        "main/2/corpo/0": [
+          [
+            12,
+            13,
+            12,
+            65
+          ]
+        ],
+        "main/2": [
+          [
+            11,
+            9,
+            13,
+            10
+          ]
+        ]
+      }
+    },
+    "c": {
+      "codigo": "#include <stdio.h>\n\nint main(void) {\n    char linha[256];\n    int n = 0;\n    int i = 0;\n\n    printf(\"Tabuada de qual numero?\\n\");\n    if (fgets(linha, sizeof linha, stdin) != NULL) {\n        sscanf(linha, \"%d\", &n);\n    }\n    for (i = 1; i <= 10; i++) {\n        printf(\"%d x %d = %d\\n\", n, i, n * i);\n    }\n    return 0;\n}\n",
+      "mapa": {
+        "syn:c.include_stdio": [
+          [
+            1,
+            1,
+            1,
+            19
+          ]
+        ],
+        "prog:inicio": [
+          [
+            3,
+            1,
+            3,
+            17
+          ],
+          [
+            16,
+            1,
+            16,
+            2
+          ]
+        ],
+        "syn:c.buffer_linha": [
+          [
+            4,
+            5,
+            4,
+            21
+          ]
+        ],
+        "var/0": [
+          [
+            5,
+            5,
+            6,
+            15
+          ]
+        ],
+        "main/0/0": [
+          [
+            8,
+            12,
+            8,
+            39
+          ]
+        ],
+        "main/0": [
+          [
+            8,
+            5,
+            8,
+            41
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            10,
+            30,
+            10,
+            31
+          ]
+        ],
+        "main/1": [
+          [
+            9,
+            5,
+            11,
+            6
+          ]
+        ],
+        "main/2/var": [
+          [
+            12,
+            10,
+            12,
+            11
+          ]
+        ],
+        "main/2/de": [
+          [
+            12,
+            14,
+            12,
+            15
+          ]
+        ],
+        "main/2/ate": [
+          [
+            12,
+            22,
+            12,
+            24
+          ]
+        ],
+        "main/2/corpo/0/0": [
+          [
+            13,
+            17,
+            13,
+            19
+          ],
+          [
+            13,
+            34,
+            13,
+            35
+          ]
+        ],
+        "main/2/corpo/0/2": [
+          [
+            13,
+            22,
+            13,
+            24
+          ],
+          [
+            13,
+            37,
+            13,
+            38
+          ]
+        ],
+        "main/2/corpo/0/4": [
+          [
+            13,
+            27,
+            13,
+            29
+          ],
+          [
+            13,
+            40,
+            13,
+            45
+          ]
+        ],
+        "main/2/corpo/0": [
+          [
+            13,
+            9,
+            13,
+            47
+          ]
+        ],
+        "main/2": [
+          [
+            12,
+            5,
+            14,
+            6
+          ]
+        ],
+        "syn:c.return0": [
+          [
+            15,
+            5,
+            15,
+            14
+          ]
+        ]
+      }
+    },
+    "cpp": {
+      "codigo": "#include <iostream>\n#include <string>\n\nint main() {\n    std::string linha;\n    int n = 0;\n    int i = 0;\n\n    std::cout << \"Tabuada de qual numero?\\n\";\n    std::getline(std::cin, linha);\n    n = std::stoi(linha);\n    for (i = 1; i <= 10; i++) {\n        std::cout << n << \" x \" << i << \" = \" << n * i << \"\\n\";\n    }\n    return 0;\n}\n",
+      "mapa": {
+        "syn:cpp.includes": [
+          [
+            1,
+            1,
+            2,
+            18
+          ]
+        ],
+        "prog:inicio": [
+          [
+            4,
+            1,
+            4,
+            13
+          ],
+          [
+            16,
+            1,
+            16,
+            2
+          ]
+        ],
+        "syn:cpp.buffer_linha": [
+          [
+            5,
+            5,
+            5,
+            23
+          ]
+        ],
+        "var/0": [
+          [
+            6,
+            5,
+            7,
+            15
+          ]
+        ],
+        "main/0/0": [
+          [
+            9,
+            18,
+            9,
+            45
+          ]
+        ],
+        "main/0": [
+          [
+            9,
+            5,
+            9,
+            46
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            11,
+            5,
+            11,
+            6
+          ]
+        ],
+        "main/1": [
+          [
+            10,
+            5,
+            11,
+            26
+          ]
+        ],
+        "main/2/var": [
+          [
+            12,
+            10,
+            12,
+            11
+          ]
+        ],
+        "main/2/de": [
+          [
+            12,
+            14,
+            12,
+            15
+          ]
+        ],
+        "main/2/ate": [
+          [
+            12,
+            22,
+            12,
+            24
+          ]
+        ],
+        "main/2/corpo/0/0": [
+          [
+            13,
+            22,
+            13,
+            23
+          ]
+        ],
+        "main/2/corpo/0/2": [
+          [
+            13,
+            36,
+            13,
+            37
+          ]
+        ],
+        "main/2/corpo/0/4": [
+          [
+            13,
+            50,
+            13,
+            55
+          ]
+        ],
+        "main/2/corpo/0": [
+          [
+            13,
+            9,
+            13,
+            64
+          ]
+        ],
+        "main/2": [
+          [
+            12,
+            5,
+            14,
+            6
+          ]
+        ],
+        "syn:cpp.return0": [
+          [
+            15,
+            5,
+            15,
+            14
+          ]
+        ]
+      }
+    },
+    "php": {
+      "codigo": "<?php\n\n$n = 0;\n$i = 0;\n\necho \"Tabuada de qual numero?\\n\";\n$n = (int) trim(fgets(STDIN));\nfor ($i = 1; $i <= 10; $i++) {\n    echo $n . \" x \" . $i . \" = \" . $n * $i . \"\\n\";\n}\n",
+      "mapa": {
+        "syn:php.open_tag": [
+          [
+            1,
+            1,
+            1,
+            6
+          ]
+        ],
+        "var/0": [
+          [
+            3,
+            1,
+            4,
+            8
+          ]
+        ],
+        "main/0/0": [
+          [
+            6,
+            6,
+            6,
+            33
+          ]
+        ],
+        "main/0": [
+          [
+            6,
+            1,
+            6,
+            34
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            7,
+            1,
+            7,
+            3
+          ]
+        ],
+        "main/1": [
+          [
+            7,
+            1,
+            7,
+            31
+          ]
+        ],
+        "main/2/var": [
+          [
+            8,
+            6,
+            8,
+            8
+          ]
+        ],
+        "main/2/de": [
+          [
+            8,
+            11,
+            8,
+            12
+          ]
+        ],
+        "main/2/ate": [
+          [
+            8,
+            20,
+            8,
+            22
+          ]
+        ],
+        "main/2/corpo/0/0": [
+          [
+            9,
+            10,
+            9,
+            12
+          ]
+        ],
+        "main/2/corpo/0/2": [
+          [
+            9,
+            23,
+            9,
+            25
+          ]
+        ],
+        "main/2/corpo/0/4": [
+          [
+            9,
+            36,
+            9,
+            43
+          ]
+        ],
+        "main/2/corpo/0": [
+          [
+            9,
+            5,
+            9,
+            51
+          ]
+        ],
+        "main/2": [
+          [
+            8,
+            1,
+            10,
+            2
+          ]
+        ]
+      }
+    }
+  },
+  "nos": {
+    "prog:cabecalho": {
+      "tipo": "cabecalho",
+      "rotulo": "algoritmo \"tabuada\""
+    },
+    "prog:var": {
+      "tipo": "secao_var",
+      "rotulo": "var"
+    },
+    "var/0": {
+      "tipo": "declaracao",
+      "rotulo": "n, i: inteiro"
+    },
+    "prog:inicio": {
+      "tipo": "bloco_principal",
+      "rotulo": "inicio"
+    },
+    "main/0/0": {
+      "tipo": "literal",
+      "rotulo": "\"Tabuada de qual numero?\""
+    },
+    "main/0": {
+      "tipo": "escreva",
+      "rotulo": "escreval(\"Tabuada de qual numero?\")"
+    },
+    "main/1/alvo": {
+      "tipo": "variavel",
+      "rotulo": "n"
+    },
+    "main/1": {
+      "tipo": "leia",
+      "rotulo": "leia(n)"
+    },
+    "main/2/var": {
+      "tipo": "variavel",
+      "rotulo": "i"
+    },
+    "main/2/de": {
+      "tipo": "literal",
+      "rotulo": "1"
+    },
+    "main/2/ate": {
+      "tipo": "literal",
+      "rotulo": "10"
+    },
+    "main/2/corpo/0/0": {
+      "tipo": "variavel",
+      "rotulo": "n"
+    },
+    "main/2/corpo/0/2": {
+      "tipo": "variavel",
+      "rotulo": "i"
+    },
+    "main/2/corpo/0/4": {
+      "tipo": "operacao",
+      "rotulo": "n * i"
+    },
+    "main/2/corpo/0": {
+      "tipo": "escreva",
+      "rotulo": "escreval(n, \" x \", i, \" = \", n * i)"
+    },
+    "main/2": {
+      "tipo": "para",
+      "rotulo": "para i de 1 ate 10 faca"
+    },
+    "syn:python.conversao_input": {
+      "tipo": "sintetico",
+      "linguagem": "python",
+      "rotulo": "int(input())"
+    },
+    "syn:java.imports": {
+      "tipo": "sintetico",
+      "linguagem": "java",
+      "rotulo": "import java.util.Scanner;"
+    },
+    "syn:java.class_main": {
+      "tipo": "sintetico",
+      "linguagem": "java",
+      "rotulo": "public class Main {"
+    },
+    "syn:java.scanner": {
+      "tipo": "sintetico",
+      "linguagem": "java",
+      "rotulo": "Scanner sc = new Scanner(System.in);"
+    },
+    "syn:c.include_stdio": {
+      "tipo": "sintetico",
+      "linguagem": "c",
+      "rotulo": "#include <stdio.h>"
+    },
+    "syn:c.buffer_linha": {
+      "tipo": "sintetico",
+      "linguagem": "c",
+      "rotulo": "char linha[256];"
+    },
+    "syn:c.return0": {
+      "tipo": "sintetico",
+      "linguagem": "c",
+      "rotulo": "return 0;"
+    },
+    "syn:cpp.includes": {
+      "tipo": "sintetico",
+      "linguagem": "cpp",
+      "rotulo": "#include <iostream>"
+    },
+    "syn:cpp.buffer_linha": {
+      "tipo": "sintetico",
+      "linguagem": "cpp",
+      "rotulo": "std::string linha;"
+    },
+    "syn:cpp.return0": {
+      "tipo": "sintetico",
+      "linguagem": "cpp",
+      "rotulo": "return 0;"
+    },
+    "syn:php.open_tag": {
+      "tipo": "sintetico",
+      "linguagem": "php",
+      "rotulo": "<?php"
+    }
+  },
+  "semEquivalente": {
+    "python": [
+      "prog:cabecalho",
+      "prog:var",
+      "prog:inicio"
+    ],
+    "java": [
+      "prog:cabecalho",
+      "prog:var"
+    ],
+    "c": [
+      "prog:cabecalho",
+      "prog:var"
+    ],
+    "cpp": [
+      "prog:cabecalho",
+      "prog:var"
+    ],
+    "php": [
+      "prog:cabecalho",
+      "prog:var",
+      "prog:inicio"
+    ]
+  },
+  "notas": {
+    "main/2/ate": {
+      "python": "O `range` não inclui o valor final, então o `ate 10` vira `11`."
+    },
+    "main/2/corpo/0/4": {
+      "c": "A conta `n * i` aparece em dois lugares: o terceiro `%d` marca onde o resultado entra, e a conta vem depois da vírgula."
+    }
+  }
+}

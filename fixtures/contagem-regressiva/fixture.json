@@ -1,0 +1,1036 @@
+{
+  "id": "contagem-regressiva",
+  "titulo": "Contagem regressiva",
+  "descricao": "Conta de n até 1 e mostra Fogo!. Laço enquanto, condição e atualização da variável.",
+  "ordem": 3,
+  "ptbr": {
+    "codigo": "algoritmo \"contagem\"\nvar\n   n: inteiro\ninicio\n   escreval(\"Contar a partir de:\")\n   leia(n)\n   enquanto n > 0 faca\n      escreval(n)\n      n <- n - 1\n   fimenquanto\n   escreval(\"Fogo!\")\nfimalgoritmo\n",
+    "mapa": {
+      "prog:cabecalho": [
+        [
+          1,
+          1,
+          1,
+          21
+        ]
+      ],
+      "prog:var": [
+        [
+          2,
+          1,
+          2,
+          4
+        ]
+      ],
+      "var/0": [
+        [
+          3,
+          4,
+          3,
+          14
+        ]
+      ],
+      "prog:inicio": [
+        [
+          4,
+          1,
+          4,
+          7
+        ],
+        [
+          12,
+          1,
+          12,
+          13
+        ]
+      ],
+      "main/0/0": [
+        [
+          5,
+          13,
+          5,
+          34
+        ]
+      ],
+      "main/0": [
+        [
+          5,
+          4,
+          5,
+          35
+        ]
+      ],
+      "main/1/alvo": [
+        [
+          6,
+          9,
+          6,
+          10
+        ]
+      ],
+      "main/1": [
+        [
+          6,
+          4,
+          6,
+          11
+        ]
+      ],
+      "main/2/cond": [
+        [
+          7,
+          13,
+          7,
+          18
+        ]
+      ],
+      "main/2/corpo/0/0": [
+        [
+          8,
+          16,
+          8,
+          17
+        ]
+      ],
+      "main/2/corpo/0": [
+        [
+          8,
+          7,
+          8,
+          18
+        ]
+      ],
+      "main/2/corpo/1/alvo": [
+        [
+          9,
+          7,
+          9,
+          8
+        ]
+      ],
+      "main/2/corpo/1/valor": [
+        [
+          9,
+          12,
+          9,
+          17
+        ]
+      ],
+      "main/2/corpo/1": [
+        [
+          9,
+          7,
+          9,
+          17
+        ]
+      ],
+      "main/2": [
+        [
+          7,
+          4,
+          10,
+          15
+        ]
+      ],
+      "main/3/0": [
+        [
+          11,
+          13,
+          11,
+          20
+        ]
+      ],
+      "main/3": [
+        [
+          11,
+          4,
+          11,
+          21
+        ]
+      ]
+    }
+  },
+  "linguagens": {
+    "python": {
+      "codigo": "n = 0\n\nprint(\"Contar a partir de:\")\nn = int(input())\nwhile n > 0:\n    print(n)\n    n = n - 1\nprint(\"Fogo!\")\n",
+      "mapa": {
+        "var/0": [
+          [
+            1,
+            1,
+            1,
+            6
+          ]
+        ],
+        "main/0/0": [
+          [
+            3,
+            7,
+            3,
+            28
+          ]
+        ],
+        "main/0": [
+          [
+            3,
+            1,
+            3,
+            29
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            4,
+            1,
+            4,
+            2
+          ]
+        ],
+        "syn:python.conversao_input": [
+          [
+            4,
+            5,
+            4,
+            17
+          ]
+        ],
+        "main/1": [
+          [
+            4,
+            1,
+            4,
+            17
+          ]
+        ],
+        "main/2/cond": [
+          [
+            5,
+            7,
+            5,
+            12
+          ]
+        ],
+        "main/2/corpo/0/0": [
+          [
+            6,
+            11,
+            6,
+            12
+          ]
+        ],
+        "main/2/corpo/0": [
+          [
+            6,
+            5,
+            6,
+            13
+          ]
+        ],
+        "main/2/corpo/1/alvo": [
+          [
+            7,
+            5,
+            7,
+            6
+          ]
+        ],
+        "main/2/corpo/1/valor": [
+          [
+            7,
+            9,
+            7,
+            14
+          ]
+        ],
+        "main/2/corpo/1": [
+          [
+            7,
+            5,
+            7,
+            14
+          ]
+        ],
+        "main/2": [
+          [
+            5,
+            1,
+            7,
+            14
+          ]
+        ],
+        "main/3/0": [
+          [
+            8,
+            7,
+            8,
+            14
+          ]
+        ],
+        "main/3": [
+          [
+            8,
+            1,
+            8,
+            15
+          ]
+        ]
+      }
+    },
+    "java": {
+      "codigo": "import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int n = 0;\n\n        System.out.println(\"Contar a partir de:\");\n        n = Integer.parseInt(sc.nextLine().trim());\n        while (n > 0) {\n            System.out.println(n);\n            n = n - 1;\n        }\n        System.out.println(\"Fogo!\");\n    }\n}\n",
+      "mapa": {
+        "syn:java.imports": [
+          [
+            1,
+            1,
+            1,
+            26
+          ]
+        ],
+        "syn:java.class_main": [
+          [
+            3,
+            1,
+            3,
+            20
+          ],
+          [
+            16,
+            1,
+            16,
+            2
+          ]
+        ],
+        "prog:inicio": [
+          [
+            4,
+            5,
+            4,
+            45
+          ],
+          [
+            15,
+            5,
+            15,
+            6
+          ]
+        ],
+        "syn:java.scanner": [
+          [
+            5,
+            9,
+            5,
+            45
+          ]
+        ],
+        "var/0": [
+          [
+            6,
+            9,
+            6,
+            19
+          ]
+        ],
+        "main/0/0": [
+          [
+            8,
+            28,
+            8,
+            49
+          ]
+        ],
+        "main/0": [
+          [
+            8,
+            9,
+            8,
+            51
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            9,
+            9,
+            9,
+            10
+          ]
+        ],
+        "main/1": [
+          [
+            9,
+            9,
+            9,
+            52
+          ]
+        ],
+        "main/2/cond": [
+          [
+            10,
+            16,
+            10,
+            21
+          ]
+        ],
+        "main/2/corpo/0/0": [
+          [
+            11,
+            32,
+            11,
+            33
+          ]
+        ],
+        "main/2/corpo/0": [
+          [
+            11,
+            13,
+            11,
+            35
+          ]
+        ],
+        "main/2/corpo/1/alvo": [
+          [
+            12,
+            13,
+            12,
+            14
+          ]
+        ],
+        "main/2/corpo/1/valor": [
+          [
+            12,
+            17,
+            12,
+            22
+          ]
+        ],
+        "main/2/corpo/1": [
+          [
+            12,
+            13,
+            12,
+            23
+          ]
+        ],
+        "main/2": [
+          [
+            10,
+            9,
+            13,
+            10
+          ]
+        ],
+        "main/3/0": [
+          [
+            14,
+            28,
+            14,
+            35
+          ]
+        ],
+        "main/3": [
+          [
+            14,
+            9,
+            14,
+            37
+          ]
+        ]
+      }
+    },
+    "c": {
+      "codigo": "#include <stdio.h>\n\nint main(void) {\n    char linha[256];\n    int n = 0;\n\n    printf(\"Contar a partir de:\\n\");\n    if (fgets(linha, sizeof linha, stdin) != NULL) {\n        sscanf(linha, \"%d\", &n);\n    }\n    while (n > 0) {\n        printf(\"%d\\n\", n);\n        n = n - 1;\n    }\n    printf(\"Fogo!\\n\");\n    return 0;\n}\n",
+      "mapa": {
+        "syn:c.include_stdio": [
+          [
+            1,
+            1,
+            1,
+            19
+          ]
+        ],
+        "prog:inicio": [
+          [
+            3,
+            1,
+            3,
+            17
+          ],
+          [
+            17,
+            1,
+            17,
+            2
+          ]
+        ],
+        "syn:c.buffer_linha": [
+          [
+            4,
+            5,
+            4,
+            21
+          ]
+        ],
+        "var/0": [
+          [
+            5,
+            5,
+            5,
+            15
+          ]
+        ],
+        "main/0/0": [
+          [
+            7,
+            12,
+            7,
+            35
+          ]
+        ],
+        "main/0": [
+          [
+            7,
+            5,
+            7,
+            37
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            9,
+            30,
+            9,
+            31
+          ]
+        ],
+        "main/1": [
+          [
+            8,
+            5,
+            10,
+            6
+          ]
+        ],
+        "main/2/cond": [
+          [
+            11,
+            12,
+            11,
+            17
+          ]
+        ],
+        "main/2/corpo/0/0": [
+          [
+            12,
+            17,
+            12,
+            19
+          ],
+          [
+            12,
+            24,
+            12,
+            25
+          ]
+        ],
+        "main/2/corpo/0": [
+          [
+            12,
+            9,
+            12,
+            27
+          ]
+        ],
+        "main/2/corpo/1/alvo": [
+          [
+            13,
+            9,
+            13,
+            10
+          ]
+        ],
+        "main/2/corpo/1/valor": [
+          [
+            13,
+            13,
+            13,
+            18
+          ]
+        ],
+        "main/2/corpo/1": [
+          [
+            13,
+            9,
+            13,
+            19
+          ]
+        ],
+        "main/2": [
+          [
+            11,
+            5,
+            14,
+            6
+          ]
+        ],
+        "main/3/0": [
+          [
+            15,
+            12,
+            15,
+            21
+          ]
+        ],
+        "main/3": [
+          [
+            15,
+            5,
+            15,
+            23
+          ]
+        ],
+        "syn:c.return0": [
+          [
+            16,
+            5,
+            16,
+            14
+          ]
+        ]
+      }
+    },
+    "cpp": {
+      "codigo": "#include <iostream>\n#include <string>\n\nint main() {\n    std::string linha;\n    int n = 0;\n\n    std::cout << \"Contar a partir de:\\n\";\n    std::getline(std::cin, linha);\n    n = std::stoi(linha);\n    while (n > 0) {\n        std::cout << n << \"\\n\";\n        n = n - 1;\n    }\n    std::cout << \"Fogo!\\n\";\n    return 0;\n}\n",
+      "mapa": {
+        "syn:cpp.includes": [
+          [
+            1,
+            1,
+            2,
+            18
+          ]
+        ],
+        "prog:inicio": [
+          [
+            4,
+            1,
+            4,
+            13
+          ],
+          [
+            17,
+            1,
+            17,
+            2
+          ]
+        ],
+        "syn:cpp.buffer_linha": [
+          [
+            5,
+            5,
+            5,
+            23
+          ]
+        ],
+        "var/0": [
+          [
+            6,
+            5,
+            6,
+            15
+          ]
+        ],
+        "main/0/0": [
+          [
+            8,
+            18,
+            8,
+            41
+          ]
+        ],
+        "main/0": [
+          [
+            8,
+            5,
+            8,
+            42
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            10,
+            5,
+            10,
+            6
+          ]
+        ],
+        "main/1": [
+          [
+            9,
+            5,
+            10,
+            26
+          ]
+        ],
+        "main/2/cond": [
+          [
+            11,
+            12,
+            11,
+            17
+          ]
+        ],
+        "main/2/corpo/0/0": [
+          [
+            12,
+            22,
+            12,
+            23
+          ]
+        ],
+        "main/2/corpo/0": [
+          [
+            12,
+            9,
+            12,
+            32
+          ]
+        ],
+        "main/2/corpo/1/alvo": [
+          [
+            13,
+            9,
+            13,
+            10
+          ]
+        ],
+        "main/2/corpo/1/valor": [
+          [
+            13,
+            13,
+            13,
+            18
+          ]
+        ],
+        "main/2/corpo/1": [
+          [
+            13,
+            9,
+            13,
+            19
+          ]
+        ],
+        "main/2": [
+          [
+            11,
+            5,
+            14,
+            6
+          ]
+        ],
+        "main/3/0": [
+          [
+            15,
+            18,
+            15,
+            27
+          ]
+        ],
+        "main/3": [
+          [
+            15,
+            5,
+            15,
+            28
+          ]
+        ],
+        "syn:cpp.return0": [
+          [
+            16,
+            5,
+            16,
+            14
+          ]
+        ]
+      }
+    },
+    "php": {
+      "codigo": "<?php\n\n$n = 0;\n\necho \"Contar a partir de:\\n\";\n$n = (int) trim(fgets(STDIN));\nwhile ($n > 0) {\n    echo $n . \"\\n\";\n    $n = $n - 1;\n}\necho \"Fogo!\\n\";\n",
+      "mapa": {
+        "syn:php.open_tag": [
+          [
+            1,
+            1,
+            1,
+            6
+          ]
+        ],
+        "var/0": [
+          [
+            3,
+            1,
+            3,
+            8
+          ]
+        ],
+        "main/0/0": [
+          [
+            5,
+            6,
+            5,
+            29
+          ]
+        ],
+        "main/0": [
+          [
+            5,
+            1,
+            5,
+            30
+          ]
+        ],
+        "main/1/alvo": [
+          [
+            6,
+            1,
+            6,
+            3
+          ]
+        ],
+        "main/1": [
+          [
+            6,
+            1,
+            6,
+            31
+          ]
+        ],
+        "main/2/cond": [
+          [
+            7,
+            8,
+            7,
+            14
+          ]
+        ],
+        "main/2/corpo/0/0": [
+          [
+            8,
+            10,
+            8,
+            12
+          ]
+        ],
+        "main/2/corpo/0": [
+          [
+            8,
+            5,
+            8,
+            20
+          ]
+        ],
+        "main/2/corpo/1/alvo": [
+          [
+            9,
+            5,
+            9,
+            7
+          ]
+        ],
+        "main/2/corpo/1/valor": [
+          [
+            9,
+            10,
+            9,
+            16
+          ]
+        ],
+        "main/2/corpo/1": [
+          [
+            9,
+            5,
+            9,
+            17
+          ]
+        ],
+        "main/2": [
+          [
+            7,
+            1,
+            10,
+            2
+          ]
+        ],
+        "main/3/0": [
+          [
+            11,
+            6,
+            11,
+            15
+          ]
+        ],
+        "main/3": [
+          [
+            11,
+            1,
+            11,
+            16
+          ]
+        ]
+      }
+    }
+  },
+  "nos": {
+    "prog:cabecalho": {
+      "tipo": "cabecalho",
+      "rotulo": "algoritmo \"contagem\""
+    },
+    "prog:var": {
+      "tipo": "secao_var",
+      "rotulo": "var"
+    },
+    "var/0": {
+      "tipo": "declaracao",
+      "rotulo": "n: inteiro"
+    },
+    "prog:inicio": {
+      "tipo": "bloco_principal",
+      "rotulo": "inicio"
+    },
+    "main/0/0": {
+      "tipo": "literal",
+      "rotulo": "\"Contar a partir de:\""
+    },
+    "main/0": {
+      "tipo": "escreva",
+      "rotulo": "escreval(\"Contar a partir de:\")"
+    },
+    "main/1/alvo": {
+      "tipo": "variavel",
+      "rotulo": "n"
+    },
+    "main/1": {
+      "tipo": "leia",
+      "rotulo": "leia(n)"
+    },
+    "main/2/cond": {
+      "tipo": "operacao",
+      "rotulo": "n > 0"
+    },
+    "main/2/corpo/0/0": {
+      "tipo": "variavel",
+      "rotulo": "n"
+    },
+    "main/2/corpo/0": {
+      "tipo": "escreva",
+      "rotulo": "escreval(n)"
+    },
+    "main/2/corpo/1/alvo": {
+      "tipo": "variavel",
+      "rotulo": "n"
+    },
+    "main/2/corpo/1/valor": {
+      "tipo": "operacao",
+      "rotulo": "n - 1"
+    },
+    "main/2/corpo/1": {
+      "tipo": "atribuicao",
+      "rotulo": "n <- n - 1"
+    },
+    "main/2": {
+      "tipo": "enquanto",
+      "rotulo": "enquanto n > 0 faca"
+    },
+    "main/3/0": {
+      "tipo": "literal",
+      "rotulo": "\"Fogo!\""
+    },
+    "main/3": {
+      "tipo": "escreva",
+      "rotulo": "escreval(\"Fogo!\")"
+    },
+    "syn:python.conversao_input": {
+      "tipo": "sintetico",
+      "linguagem": "python",
+      "rotulo": "int(input())"
+    },
+    "syn:java.imports": {
+      "tipo": "sintetico",
+      "linguagem": "java",
+      "rotulo": "import java.util.Scanner;"
+    },
+    "syn:java.class_main": {
+      "tipo": "sintetico",
+      "linguagem": "java",
+      "rotulo": "public class Main {"
+    },
+    "syn:java.scanner": {
+      "tipo": "sintetico",
+      "linguagem": "java",
+      "rotulo": "Scanner sc = new Scanner(System.in);"
+    },
+    "syn:c.include_stdio": {
+      "tipo": "sintetico",
+      "linguagem": "c",
+      "rotulo": "#include <stdio.h>"
+    },
+    "syn:c.buffer_linha": {
+      "tipo": "sintetico",
+      "linguagem": "c",
+      "rotulo": "char linha[256];"
+    },
+    "syn:c.return0": {
+      "tipo": "sintetico",
+      "linguagem": "c",
+      "rotulo": "return 0;"
+    },
+    "syn:cpp.includes": {
+      "tipo": "sintetico",
+      "linguagem": "cpp",
+      "rotulo": "#include <iostream>"
+    },
+    "syn:cpp.buffer_linha": {
+      "tipo": "sintetico",
+      "linguagem": "cpp",
+      "rotulo": "std::string linha;"
+    },
+    "syn:cpp.return0": {
+      "tipo": "sintetico",
+      "linguagem": "cpp",
+      "rotulo": "return 0;"
+    },
+    "syn:php.open_tag": {
+      "tipo": "sintetico",
+      "linguagem": "php",
+      "rotulo": "<?php"
+    }
+  },
+  "semEquivalente": {
+    "python": [
+      "prog:cabecalho",
+      "prog:var",
+      "prog:inicio"
+    ],
+    "java": [
+      "prog:cabecalho",
+      "prog:var"
+    ],
+    "c": [
+      "prog:cabecalho",
+      "prog:var"
+    ],
+    "cpp": [
+      "prog:cabecalho",
+      "prog:var"
+    ],
+    "php": [
+      "prog:cabecalho",
+      "prog:var",
+      "prog:inicio"
+    ]
+  },
+  "notas": {
+    "main/2/corpo/1": {
+      "geral": "Sem esta linha o valor de n nunca mudaria, a condição `n > 0` ficaria sempre verdadeira e o laço não terminaria."
+    }
+  }
+}

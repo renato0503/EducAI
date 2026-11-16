@@ -1,0 +1,3 @@
+ambos positivos? falso
+y? verdadeiro
+algum nao positivo
