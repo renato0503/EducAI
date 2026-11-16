@@ -1027,5 +1027,10 @@
       "prog:var",
       "prog:inicio"
     ]
+  },
+  "notas": {
+    "main/2/corpo/1": {
+      "geral": "Sem esta linha o valor de n nunca mudaria, a condição `n > 0` ficaria sempre verdadeira e o laço não terminaria."
+    }
   }
 }

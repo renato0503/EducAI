@@ -9,6 +9,8 @@
  *   programa.por                      PT-BR; cada nó declara o tipo: ⟦main/0|escreva⟧
  *   main.py Main.java main.c main.cpp main.php
  *   entradas/*.txt, esperado/*.txt    para o spike de equivalência
+ *   notas.json (opcional)             { "<nó>": { "geral"?, "python"?, "java"?, ... } } — explicações
+ *                                     específicas deste programa, que complementam o catálogo
  */
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -118,6 +120,20 @@ for (const id of programas) {
     gravar(join(SPIKE, `fx-${id}`, arquivo), r.codigo);
   }
 
+  // Notas específicas do programa
+  let notas: Record<string, Record<string, string>> = {};
+  if (existsSync(join(dir, "notas.json"))) {
+    notas = JSON.parse(ler("notas.json")) as typeof notas;
+    for (const [noId, porChave] of Object.entries(notas)) {
+      if (!nos[noId]) erros.push(`${id}/notas.json: nó "${noId}" não existe`);
+      for (const chave of Object.keys(porChave)) {
+        if (chave !== "geral" && !(chave in ARQUIVOS)) {
+          erros.push(`${id}/notas.json: chave "${chave}" inválida em "${noId}"`);
+        }
+      }
+    }
+  }
+
   const fixture = {
     id,
     titulo: meta.titulo,
@@ -127,6 +143,7 @@ for (const id of programas) {
     linguagens,
     nos,
     semEquivalente,
+    notas,
   };
   gravar(join(dir, "fixture.json"), JSON.stringify(fixture, null, 2) + "\n");
   indice.push({ id, titulo: meta.titulo, ordem: meta.ordem });

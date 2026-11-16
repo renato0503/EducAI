@@ -1467,5 +1467,17 @@
       "prog:var",
       "prog:inicio"
     ]
+  },
+  "notas": {
+    "main/5/valor": {
+      "geral": "Os parênteses fazem a soma acontecer antes da divisão por 4. Sem eles, só o n4 seria dividido."
+    },
+    "main/6/1": {
+      "python": "Dentro da f-string, `{media:.2f}` escreve a variável com 2 casas decimais.",
+      "java": "Para arredondar igual às outras linguagens, o Java usa `new BigDecimal(media).setScale(2, RoundingMode.HALF_EVEN)`. Com o `String.format`, o Java arredondaria 2.675 para 2.68, enquanto as outras dão 2.67.",
+      "c": "A variável aparece em dois lugares: o `%.2f` diz onde e como escrever (real com 2 casas) e o `media` depois da vírgula é o valor.",
+      "cpp": "`std::fixed << std::setprecision(2)` pede 2 casas decimais antes de mandar o valor para a tela.",
+      "php": "Como em C: o `%.2F` diz onde e como escrever e o `$media` é o valor."
+    }
   }
 }

@@ -987,5 +987,13 @@
       "prog:var",
       "prog:inicio"
     ]
+  },
+  "notas": {
+    "main/2/ate": {
+      "python": "O `range` não inclui o valor final, então o `ate 10` vira `11`."
+    },
+    "main/2/corpo/0/4": {
+      "c": "A conta `n * i` aparece em dois lugares: o terceiro `%d` marca onde o resultado entra, e a conta vem depois da vírgula."
+    }
   }
 }

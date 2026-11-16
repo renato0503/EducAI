@@ -1,0 +1,57 @@
+{
+  "syn:c.include_stdio": {
+    "nome": "#include <stdio.h>",
+    "basico": "Traz para o programa as funções de entrada e saída do C, como `printf` e `fgets`.",
+    "aprofundar": "stdio quer dizer \"standard input/output\" (entrada e saída padrão). Sem essa linha, o compilador não conhece o `printf`."
+  },
+  "syn:c.buffer_linha": {
+    "nome": "char linha[256];",
+    "basico": "Um vetor de 256 caracteres usado como área temporária: cada linha digitada é guardada aqui antes de virar número.",
+    "aprofundar": "C não tem um tipo texto pronto. Um texto é um vetor de caracteres com tamanho fixo, por isso é preciso reservar o espaço antes."
+  },
+  "syn:c.return0": {
+    "nome": "return 0;",
+    "basico": "Termina o main e avisa ao sistema operacional que o programa deu certo.",
+    "aprofundar": "Por convenção, 0 quer dizer sucesso; outros números indicam algum erro."
+  },
+  "syn:cpp.includes": {
+    "nome": "#include <...>",
+    "basico": "Traz as bibliotecas do C++ que o programa usa: `iostream` (std::cin e std::cout), `string` (texto) e `iomanip` (casas decimais).",
+    "aprofundar": "O `std::` na frente dos nomes indica que eles vêm da biblioteca padrão do C++."
+  },
+  "syn:cpp.buffer_linha": {
+    "nome": "std::string linha;",
+    "basico": "Guarda cada linha digitada antes de ela ser convertida para número.",
+    "aprofundar": "Diferente do C, o `std::string` do C++ cresce sozinho: não é preciso reservar um tamanho."
+  },
+  "syn:cpp.return0": {
+    "nome": "return 0;",
+    "basico": "Termina o main e avisa ao sistema operacional que o programa deu certo.",
+    "aprofundar": "Por convenção, 0 quer dizer sucesso. Em C++ essa linha pode ser omitida no main, mas o EducAI a escreve para ficar igual ao C."
+  },
+  "syn:java.imports": {
+    "nome": "import ...;",
+    "basico": "Avisa ao Java quais classes de outras bibliotecas o programa usa: `Scanner` para ler do teclado e, quando há números reais, `BigDecimal` e `RoundingMode` para arredondar.",
+    "aprofundar": "O EducAI usa `BigDecimal` para arredondar porque o `String.format` do Java arredonda alguns valores diferente das outras linguagens (2.675 vira 2.68 em vez de 2.67)."
+  },
+  "syn:java.class_main": {
+    "nome": "public class Main",
+    "basico": "Em Java todo código fica dentro de uma classe. O arquivo se chama Main.java porque a classe se chama Main.",
+    "aprofundar": "Classes são a base da orientação a objetos. Neste programa ela só serve de \"caixa\" para o main e as funções."
+  },
+  "syn:java.scanner": {
+    "nome": "Scanner sc = new Scanner(System.in);",
+    "basico": "Cria o leitor do teclado. Todos os `leia` do programa usam esse `sc`.",
+    "aprofundar": "`System.in` é a entrada padrão (o teclado). O `new` cria um objeto Scanner ligado a ela."
+  },
+  "syn:php.open_tag": {
+    "nome": "<?php",
+    "basico": "Marca o começo do código PHP. Sem essa linha, o arquivo seria tratado como texto comum.",
+    "aprofundar": "O PHP nasceu para misturar código com páginas HTML; o `<?php` separa as duas coisas."
+  },
+  "syn:python.conversao_input": {
+    "nome": "int(input()) / float(input())",
+    "basico": "`input()` sempre devolve texto. O `int(...)` ou `float(...)` transforma esse texto em número.",
+    "aprofundar": "No português estruturado a conversão é automática, porque a variável já tem um tipo declarado. Em Python as variáveis não têm tipo declarado, então a conversão aparece no código."
+  }
+}
