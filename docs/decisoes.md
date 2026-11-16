@@ -29,5 +29,7 @@
 | D2 | Índice de vetor | 0 (recomendado) ou limite declarado do VisualG | Ouvir professores (tarefa 0.4) | Renato | G0 |
 | D3 | Repositório público/privado e licença MIT | Manter público + MIT · privado | Decidir antes de publicar o protótipo | Renato | G0 |
 | D4 | Nome/branding | "EducAI" é provisório | — | Renato | pós-G0 |
+| D9 | Nomes diferenciam maiúsculas? | Diferenciar (como C/Java/Python/PHP) · não diferenciar (como VisualG) | Parser diferencia; a semântica avisa grafias diferentes do mesmo nome | Renato | S3 |
+| D10 | Precedência do `nao` | Abaixo das comparações (`nao a > b` = `nao (a > b)`, implementado) · acima (como Pascal/VisualG) | Manter abaixo (mais intuitivo; os geradores põem parênteses) — confirmar com professores | Renato | G0 |
 | D6 | Inicialização padrão + primeira atribuição duplicada (`total = 0` duas vezes) | Gerador funde as duas · manter literal | Fundir quando a 1ª instrução da função for atribuição constante à variável | Renato | S5 |
 | D7 | C++ com `std::` explícito ou `using namespace std` | `std::` (spike usa) · `using` | `std::` (boa prática; cartão explica) | Renato | S7 |

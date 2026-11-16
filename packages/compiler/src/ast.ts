@@ -22,6 +22,8 @@ export type Tipo = "inteiro" | "real" | "caractere" | "logico";
 export interface TipoVetor {
   elemento: Tipo;
   tamanho: number;
+  /** Limite inferior declarado (`vetor[0..4]` → 0). O v1 só aceita 0 (decisão D2, pendente). */
+  limiteInferior: number;
 }
 
 interface Base<K extends string> {
@@ -159,6 +161,8 @@ export interface Funcao extends Base<"funcao"> {
   retorno?: Tipo;
   variaveis: Declaracao[];
   corpo: Comando[];
+  /** Posição das palavras de estrutura (viram os ids `fN:assinatura`, `fN:var`, `fN:inicio`). */
+  estrutura: { assinatura: Span; var?: Span; inicio: Span; fim: Span };
 }
 
 export interface Programa extends Base<"programa"> {
@@ -166,6 +170,8 @@ export interface Programa extends Base<"programa"> {
   variaveis: Declaracao[];
   funcoes: Funcao[];
   corpo: Comando[];
+  /** Posição das palavras de estrutura (viram os ids `prog:cabecalho`, `prog:var`, `prog:inicio`). */
+  estrutura: { cabecalho: Span; var?: Span; inicio: Span; fim: Span };
 }
 
 export type No =

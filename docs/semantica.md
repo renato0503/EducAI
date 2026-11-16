@@ -181,6 +181,11 @@ só o fim de linha é removido; os espaços fazem parte do texto.
 
 ## 9. Identificadores
 
+- **Palavras-chave** não diferenciam maiúsculas nem acentos: `Entao`, `então` e `ENTAO` são iguais,
+  como no VisualG (implementado no lexer).
+- **Nomes** (variáveis, funções) diferenciam maiúsculas no parser. **Pendente (D9):** o VisualG não
+  diferencia; decidir se o EducAI acusa `Media` e `media` como o mesmo nome (recomendado: a
+  semântica avisa "use sempre a mesma grafia", porque C, Java, Python e PHP diferenciam).
 - Letras, dígitos e `_`; acentos permitidos em PT-BR e **transliterados** nas linguagens-alvo
   (`média` → `media`), com erro se a transliteração colidir com outro nome.
 - Nomes reservados em **qualquer** linguagem-alvo (atual ou da v1.1) são rejeitados com sugestão:

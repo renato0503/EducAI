@@ -442,9 +442,33 @@ Critérios do `sprint.md` §4:
 
 Registrar o resultado e a decisão (seguir, ajustar ou parar) em `docs/decisoes.md`.
 
-### 6.8 — Depois do G0 (Sprint 1, a partir de 07/12)
+### 6.8 — Sprint 1 — 🟡 ADIANTADA: lexer e parser feitos em 16/11
 
-Ver `sprint.md` §5. Primeiros passos concretos:
+Adiantado porque o parser é necessário qualquer que seja o resultado do G0. **A revisão do Renato
+pode esperar até depois de 06/12** para não tirar horas da pesquisa.
+
+Feito:
+- `packages/compiler/src/lexer.ts`: palavras-chave sem diferença de maiúsculas e acentos
+  (`então` = `entao`), números com ponto, `0..4`, textos, comentários `//` fora do fluxo, `←`
+  aceito como `<-`, erros L001/L002.
+- `packages/compiler/src/parser.ts`: descida recursiva, precedência
+  `ou < e < nao < comparações < + - < * / div mod < - unário`, ids pelo caminho estrutural,
+  spans que incluem parênteses do operando, formato `x:0:2`, `passo -1`, funções e
+  procedimentos, vetores; **recuperação por comando** (um comando quebrado vira nó `erro`);
+  mensagens em português (S001–S014) com dicas (`=` no lugar de `<-`, palavra reservada como
+  nome, bloco não fechado com a linha onde abriu).
+- `packages/compiler/src/mapa-ptbr.ts`: AST → mapa id → ranges e tipos, no formato das fixtures.
+- Testes (39 novos): **as 5 fixtures batem id a id, posição a posição e tipo a tipo com o que foi
+  marcado à mão**; os 19 `programa.por` do spike passam sem erro; precedência, spans, recuperação
+  e mensagens.
+
+Decisões que o parser tomou e precisam de confirmação: D9 (maiúsculas em nomes) e D10
+(precedência do `nao`) em `docs/decisoes.md`.
+
+Falta da S1: comentários como nós (`comentario`) replicados nas linguagens; harness/página de
+debug da AST; catálogo de erros documentado em `docs/`.
+
+Plano original, mantido como referência:
 1. `packages/compiler/src/lexer.ts` + testes (palavras-chave do subconjunto, posições 1-indexadas).
 2. `parser.ts` por descida recursiva + Pratt para expressões, produzindo os tipos de `ast.ts`.
 3. Recuperação por comando (nó `Erro`), IDs por caminho estrutural.
