@@ -426,7 +426,7 @@ Prazo: **até 24/11**, para as sessões começarem em 25/11.
 Seguir `docs/fase0-roteiros.md`. Registrar cada sessão logo depois (modelo no roteiro).
 Consolidar em `docs/validacao-f0.md`.
 
-### 6.6 — Replanejar `sprint.md` (D5) — ~2 h
+### 6.6 — Replanejar `sprint.md` (D5) — ✅ FEITO em 16/11 (sprint.md §0, decisão 014)
 
 Ver §2. Fazer antes do G0, para o plano pós-G0 já refletir a equipe real.
 
@@ -494,7 +494,6 @@ Todas em [`docs/decisoes.md`](./decisoes.md). Pendentes que bloqueiam o G0:
 |---|---|---|
 | D2 | Índice de vetor | 0, confirmar com professores |
 | D3 | Repo público + MIT | Decidir antes de publicar o protótipo |
-| D5 | Replanejar sem o Vitório | Ver §2 |
 
 ---
 
@@ -524,7 +523,7 @@ Em ordem:
 7. [x] Fixtures + script de marcadores (§6.3).
 8. [x] Protótipo em `apps/web` (§6.4) — construído. **Pendente:** revisar `catalogo/*.json` e decidir onde publicar.
 9. [x] Spike `p7`–`p14` (§6.2.2).
-10. [ ] Replanejar `sprint.md` (§6.6).
+10. [x] Replanejar `sprint.md` (§6.6) — feito como §0 do `sprint.md` (v2.1). **Confirmar se 14 h/semana é realista.**
 
 Para retomar com o Claude, basta pedir: *"leia docs/PROGRESSO.md e continue do item N do
 checklist"*.

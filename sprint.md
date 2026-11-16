@@ -9,7 +9,71 @@
 
 ---
 
-## 1. Premissas
+## 0. Atualização de 16/11/2026 — equipe: Renato + Claude (v2.1)
+
+**Decisão 006:** o Vitório saiu da divisão de tarefas. O trabalho passa a ser do **Renato**, com o
+**Claude** escrevendo código, testes e documentação sob a direção e a revisão dele. As datas dos
+gates **não mudam** (o piloto depende do semestre letivo).
+
+### Como ler as tabelas das seções seguintes
+
+As tabelas por sprint (§4–§9) mantêm a divisão original "R" / "V" porque descrevem o **trabalho**.
+A partir de agora:
+
+| Na tabela | Quem faz | Horas do Renato |
+|---|---|---|
+| Código e testes (qualquer dono) | **Claude** escreve; Renato revisa, roda e aprova o PR | ~25–30% das horas da tarefa |
+| Pesquisa, entrevistas, sessões, piloto, ensaio | **Renato** | 100% |
+| Conteúdo pedagógico (cartões, notas, programas do corpus) | Claude rascunha; **Renato revisa e decide** | ~50% |
+| Decisões (gates, cortes, D1–D7) | **Renato** | 100% |
+
+### Novo orçamento (horas do Renato)
+
+Capacidade do Renato: 14 h/semana × 25 semanas + ~4 h/semana × 3 semanas de recesso ≈ **362 h**.
+Planejando a 80% (folga de 20%): **~290 h**.
+
+| Bloco | Período | Horas do Renato (estimativa) | O que pesa |
+|---|---|---|---|
+| Fase 0 (restante) | 16/11 – 06/12 | 30 h | entrevistas e sessões (20 h), revisão do catálogo (6 h), ensaio e publicação (4 h) |
+| S1 | 07/12 – 20/12 | 12 h | revisar parser e mensagens de erro |
+| S2 (recesso) | 21/12 – 10/01 | 8 h | revisar semântica |
+| S3 | 11/01 – 24/01 | 14 h | revisar semântica e editor ao vivo, testar com 1 aluno |
+| S4 | 25/01 – 07/02 | 14 h | revisar interpretador e pegadinhas; gate G1 |
+| S5 | 08/02 – 21/02 | 14 h | revisar emissor e gerador Python |
+| S6 | 22/02 – 07/03 | 16 h | revisar Java, PHP; cartões |
+| S7 | 08/03 – 21/03 | 16 h | revisar C, C++, fuzzer; cartões; gate G2 |
+| S8 | 22/03 – 04/04 | 16 h | testar modo construção e atividades com alunos; gate G3 |
+| S9 (IA, cortável) | 05/04 – 18/04 | 12 h | prompts, avaliação dos 20 pedidos |
+| S10 | 19/04 – 02/05 | 24 h | LGPD com a instituição, ensaio, material do professor; gate G4 |
+| S11 | 03/05 – 16/05 | 30 h | 2 sessões do piloto, observação, correções urgentes |
+| S12 | 17/05 – 30/05 | 24 h | análise, relatório, decisão |
+| **Total** | **28 semanas** | **~230 h** | **folga ≈ 60 h sobre os 290 h** |
+
+**Leitura:** o plano cabe, **se** o Renato tiver de fato ~14 h/semana. A maior concentração de horas
+está no que não dá para delegar: Fase 0 (pesquisa) e piloto (S10–S12).
+
+### O que muda no cronograma
+
+- **A Fase 0 adiantou:** 0.1 (protótipo), 0.2 (fixtures), 0.5 (spike), 0.6 (semântica) e 0.7
+  (monorepo + CI) já estão feitos em 16/11. O que resta é o que depende de pessoas: 0.3, 0.4 e
+  a revisão do catálogo.
+- **Folga do código:** como o código deixa de ser o gargalo, sprints de implementação podem
+  terminar antes. Regra: **não puxar a data do piloto**; a folga vai, nesta ordem, para
+  (1) qualidade e testes com alunos reais, (2) a IA opcional (S9), (3) **antecipar a v1.1**
+  (JavaScript, C#, Go) para antes do piloto, se o G3 for cumprido com pelo menos 2 semanas de
+  sobra.
+- **Revisão de PR:** sem segunda pessoa, a revisão é do Renato sobre o código do Claude. O CI
+  (lint, tipos, testes, fixtures, equivalência nas 5 linguagens) é obrigatório e não pode ser
+  contornado.
+- **Riscos novos:** (a) uma pessoa só para pesquisa e piloto — sem substituto se ficar doente na
+  semana do piloto → combinar com o professor uma data alternativa; (b) revisão superficial do
+  código gerado → o Renato deve rodar o protótipo/IDE a cada sprint, não só ler o diff.
+
+---
+
+## 1. Premissas (plano original, 12/11/2026)
+
+> Mantido como registro. Onde houver conflito, vale a §0.
 
 - **Equipe:** Renato (R) e Vitório (V), **~14 h/semana cada** (28 h/semana a dupla).
 - **Início:** segunda, 16/11/2026. **Fim do MVP + piloto:** 30/05/2027 (28 semanas).
@@ -35,7 +99,7 @@ eles enquanto o compilador ainda não existe.
 
 ### Convenções
 
-- **DoD de tarefa:** PR revisado pelo outro, testes passando, CI verde, doc mínima atualizada.
+- **DoD de tarefa:** PR revisado pelo Renato (antes: "pelo outro"), testes passando, CI verde, doc mínima atualizada.
   (Deploy em staging contínuo a partir da Sprint 5.)
 - **Gate de fase:** a fase seguinte só começa com os critérios do gate cumpridos ou com corte
   explícito registrado em `docs/decisoes.md`.
